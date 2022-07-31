@@ -1,19 +1,21 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, ReactNode, PropsWithChildren } from "react";
 import axios from "axios";
+import { AuthContextInterface, UserInterface } from "../@types/authContext";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
-const AuthContext = createContext();
 
-function AuthProviderWrapper({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+const AuthContext = createContext<AuthContextInterface | null>(null);
 
-  const storeToken = (token) => {
+function AuthProviderWrapper(props:PropsWithChildren<{}>) {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<UserInterface | null>(null);
+
+  const storeToken = (token:string):void => {
     localStorage.setItem("authToken", token);
   };
 
-  const authenticateUser = () => {
+  const authenticateUser = ():void => {
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
       setIsLoading(true);
@@ -40,11 +42,11 @@ function AuthProviderWrapper({ children }) {
     }
   };
 
-  const removeToken = () => {
+  const removeToken = ():void => {
     localStorage.removeItem("authToken");
   }
 
-  const logOutUser = () => {  
+  const logOutUser = ():void => {  
     removeToken();
     authenticateUser();
   }  
@@ -55,7 +57,7 @@ function AuthProviderWrapper({ children }) {
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   );
 }

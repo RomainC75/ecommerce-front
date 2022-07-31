@@ -1,0 +1,13 @@
+.ProductWidget{
+    width:200px;
+    height:300px;
+    
+    &__picture{
+        width:100%;
+        & img{
+            width:100%;
+            
+            object-fit: cover;
+        }
+    }
+}

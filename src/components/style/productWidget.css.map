@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACV,KAAK,EAAC,KAAK;EACX,MAAM,EAAC,KAAK;CAUf;;AARI,AAAD,uBAAU,CAAA;EACN,KAAK,EAAC,IAAI;CAMb;;AAPA,AAEG,uBAFM,CAEJ,GAAG,CAAA;EACD,KAAK,EAAC,IAAI;EAEV,UAAU,EAAE,KAAK;CACpB",
+    "sources": [
+        "productWidget.scss"
+    ],
+    "names": [],
+    "file": "productWidget.css"
+}

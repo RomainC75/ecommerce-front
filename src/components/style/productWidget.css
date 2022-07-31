@@ -1,0 +1,15 @@
+.ProductWidget {
+  width: 200px;
+  height: 300px;
+}
+
+.ProductWidget__picture {
+  width: 100%;
+}
+
+.ProductWidget__picture img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=productWidget.css.map */
