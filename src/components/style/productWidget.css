@@ -1,10 +1,26 @@
 .ProductWidget {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 200px;
   height: 300px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+}
+
+.ProductWidget h3 {
+  margin: 0;
 }
 
 .ProductWidget__picture {
-  width: 100%;
+  width: 70%;
 }
 
 .ProductWidget__picture img {

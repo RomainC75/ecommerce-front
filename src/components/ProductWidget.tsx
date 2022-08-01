@@ -4,7 +4,7 @@ import { ProductInterface } from '../@types/product'
 import './style/productWidget.css'
 
 interface ProductProps{
-    product:ProductInterface
+    product:ProductInterface;
 }
 
 const fillInPicture = "https://img2.freepng.fr/20180615/fjw/kisspng-royalty-free-clip-art-bio-5b23ee2e74f274.805270871529081390479.jpg"

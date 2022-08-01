@@ -8,7 +8,13 @@ export interface ProductInterface{
     caracteristics?: object,
     categories?: string[],
     subCategory: string,
-    weight?: number
+    weight: number,
+    originCountry: string
+}
+
+export interface ProductToOrderInterface{
+    productId:string;
+    quantity:number;
 }
 
 // export interface MatrixContextState{

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, ReactNode, PropsWithChildren } from "react";
 import axios from "axios";
-import { AuthContextInterface, UserInterface } from "../@types/authContext";
+import { AuthContextInterface, UserInterface } from "../@types/authContext.type";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -34,6 +34,7 @@ function AuthProviderWrapper(props:PropsWithChildren<{}>) {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
+          localStorage.removeItem('authToken')
         });
     } else {
       setIsLoggedIn(false);

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
-import { AuthContextInterface } from "../@types/authContext";
+import { AuthContextInterface } from "../@types/authContext.type";
 
 const base_url = "http://localhost:5005";
 

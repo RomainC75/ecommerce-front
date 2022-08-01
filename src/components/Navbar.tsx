@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, {useState, useEffect, useContext} from 'react'
 import { AuthContext } from '../context/auth.context'
-import { AuthContextInterface } from '../@types/authContext'
+import { AuthContextInterface } from '../@types/authContext.type'
 import { Link } from 'react-router-dom'
 
 import './style/navbar.css'
@@ -9,6 +9,10 @@ import './style/navbar.css'
 const Navbar = ():JSX.Element => {
 
   const { storeToken, authenticateUser, isLoggedIn, user, logOutUser } = useContext(AuthContext) as AuthContextInterface;
+  
+  useEffect(()=>{
+    authenticateUser()
+  },[])
 
   return (
     <div className="Navbar">

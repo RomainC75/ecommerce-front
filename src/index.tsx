@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProviderWrapper } from './context/auth.context';
+import { CartProviderWrapper } from './context/cart.context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProviderWrapper>
-        <App />
+        <CartProviderWrapper>
+          <App />
+        </CartProviderWrapper>
       </AuthProviderWrapper>
     </BrowserRouter>
   </React.StrictMode>
