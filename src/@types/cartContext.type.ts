@@ -21,4 +21,5 @@ export interface cartContextInterface{
     getItemsFromOffLineCart: ()=>ProductToOrderInterface[];
     offlineCartState: ProductToOrderInterface[];
     cartState: PopulatedProductToOrderInterface[];
+    removeFromCartById: (id:string)=>void;
 }

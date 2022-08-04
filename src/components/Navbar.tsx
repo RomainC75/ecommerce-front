@@ -47,13 +47,14 @@ const Navbar = (): JSX.Element => {
       {isLoggedIn ? (
         <div className="Navbar__logPart">
           <p>hello : {user && user.email} ! </p>
-          <p onClick={logOutUser}>LogOut</p>
+          <p onClick={logOutUser} className="logOut">LogOut</p>
         </div>
       ) : (
         <div>
           <Link to="/login">Login</Link>
         </div>
       )}
+
       <div className="Navbar__shopping" onClick={() => goToTheBasket()}>
         {itemsNumberState > 0 ? (
           <>

@@ -36,4 +36,9 @@
   background: white;
   color: red;
 }
+
+.logOut {
+  background: #9c9c9c;
+  cursor: pointer;
+}
 /*# sourceMappingURL=navbar.css.map */

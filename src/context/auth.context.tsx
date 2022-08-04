@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, ReactNode, PropsWithChildren } from "react";
 import axios from "axios";
 import { AuthContextInterface, UserInterface } from "../@types/authContext.type";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -10,7 +11,7 @@ function AuthProviderWrapper(props:PropsWithChildren<{}>) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<UserInterface | null>(null);
-
+  const navigate = useNavigate()
   const storeToken = (token:string):void => {
     localStorage.setItem("authToken", token);
   };
@@ -50,6 +51,7 @@ function AuthProviderWrapper(props:PropsWithChildren<{}>) {
   const logOutUser = ():void => {  
     removeToken();
     authenticateUser();
+    navigate('/')
   }  
 
   useEffect(() => {                                    

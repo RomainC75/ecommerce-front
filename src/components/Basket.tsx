@@ -12,7 +12,7 @@ import { isProductToOrderInterface } from "../tools/typeTests";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 export const Basket = (): JSX.Element => {
-  const { offlineCartState, getItemsFromOffLineCart, cartState } = useContext(
+  const { offlineCartState, getItemsFromOffLineCart, cartState, removeFromCartById } = useContext(
     CartContext
   ) as cartContextInterface;
 
@@ -20,16 +20,7 @@ export const Basket = (): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-    const postTheNewCart = (newProdList:ProductToOrderInterface[]) =>{
 
-      //refresh
-    }
-
-    const removeFromCartById = (id:string):void =>{
-      //get the cart
-      //remove
-      // postTheNewCart(newProdList)
-    }
 
     console.log("cartState", cartState);
 
@@ -40,6 +31,7 @@ export const Basket = (): JSX.Element => {
         {cartState &&
           cartState.map((populatedProdToOrder) => {
             const prod = populatedProdToOrder.productId;
+            console.log('BEFORE in : ', prod)
             const pic =
               "pictures" in prod && Array.isArray(prod.pictures)
                 ? prod.pictures[0]
