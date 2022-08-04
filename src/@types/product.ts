@@ -1,4 +1,5 @@
 export interface ProductInterface{
+    _id:string,
     brand: string,
     name: string,
     price: number,
@@ -9,7 +10,9 @@ export interface ProductInterface{
     categories?: string[],
     subCategory: string,
     weight: number,
-    originCountry: string
+    originCountry: string,
+    createdAt?:string,
+    updatedAt?:string
 }
 
 export interface ProductToOrderInterface{

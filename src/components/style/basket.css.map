@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAA;EACL,KAAK,EAAC,KAAK;CACd",
+    "sources": [
+        "basket.scss"
+    ],
+    "names": [],
+    "file": "basket.css"
+}

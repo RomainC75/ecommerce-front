@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { ProductInterface } from '../@types/product'
 
 import './style/productWidget.css'
+
+import { CartContext } from '../context/cart.context';
+import { cartContextInterface } from "../@types/cartContext.type";
 
 interface ProductProps{
     product:ProductInterface;
@@ -11,6 +14,10 @@ const fillInPicture = "https://img2.freepng.fr/20180615/fjw/kisspng-royalty-free
 
 export const ProductWidget = (props:ProductProps):JSX.Element => {
     const {product} = props
+
+    const { addItemToOfflineCart } = useContext(CartContext) as cartContextInterface;
+
+
   return (
     <div className="ProductWidget">
       <p className="ProductWidget__infos">{product.brand}</p>
@@ -25,6 +32,7 @@ export const ProductWidget = (props:ProductProps):JSX.Element => {
       <div className="ProductWidget__infos">
         <p>{product.price}€</p>
         {product.weight && <p>{product.price/product.weight}</p>}
+        <div onClick={()=>addItemToOfflineCart({productId:product._id,quantity:1})}>ADD</div>
       </div>
     </div>
   )

@@ -12,7 +12,7 @@ export const ProductList = ():JSX.Element => {
 
   useEffect(()=>{
     setIsLoading(true)
-    axios.get(base_url+'/category/epicerieSalee')
+    axios.get(base_url+'/product/category/epicerieSalee')
       .then(ans=>{
         setIsLoaded(true)
         setIsLoading(false)

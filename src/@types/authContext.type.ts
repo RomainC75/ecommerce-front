@@ -10,5 +10,6 @@ export interface AuthContextInterface{
     storeToken: (state:string)=>void;
     authenticateUser:()=>void;
     logOutUser:()=>void;
+ 
 }
 

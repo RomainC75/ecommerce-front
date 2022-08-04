@@ -28,4 +28,8 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
+
+.ProductWidget p {
+  margin: 0;
+}
 /*# sourceMappingURL=productWidget.css.map */
