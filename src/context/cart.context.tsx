@@ -3,7 +3,7 @@ import axios from "axios";
 import { cartContextInterface, cartInterface } from '../@types/cartContext.type' 
 import { AuthContext } from "./auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
-import { ProductToOrderInterface } from "../@types/product";
+import { ProductToOrderInterface, PopulatedProductToOrderInterface } from "../@types/product";
 import { isProductToOrderInterface, isProductToOrderInterfaceArray } from "../tools/typeTests";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
@@ -11,10 +11,10 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 const CartContext = createContext<cartContextInterface | null>(null);
 
 function CartProviderWrapper(props:PropsWithChildren<{}>) {
-  const [ productsState , setProductsState ] = useState<cartInterface | null>(null)
+  const [ productsState , setProductsState ] = useState<ProductToOrderInterface[]>([])
   const { storeToken, authenticateUser, isLoggedIn, user, logOutUser } = useContext(AuthContext) as AuthContextInterface;
   const [offlineCartState, setOfflineCartState ] = useState<ProductToOrderInterface[]>([])
-
+  const [ cartState, setCartState ] = useState<PopulatedProductToOrderInterface[]>([])
 
   const addItemToOfflineCart = (item:ProductToOrderInterface):void =>{
     const  offlineCartLStorageStr: string | null = localStorage.getItem('offlineCart')
@@ -40,7 +40,6 @@ function CartProviderWrapper(props:PropsWithChildren<{}>) {
       localStorage.setItem('offlineCart',JSON.stringify([item]))
       setOfflineCartState([item])
     }
-    
   }
 
   const getItemsFromOffLineCart = ():ProductToOrderInterface[] =>{
@@ -71,6 +70,16 @@ function CartProviderWrapper(props:PropsWithChildren<{}>) {
         })
   }
 
+  const postTheNewCart = (newProdList:ProductToOrderInterface[]) =>{
+      //refresh
+    }
+
+  const removeFromCartById = (id:string):void =>{
+      //get the cart
+      //remove
+      // postTheNewCart(newProdList)
+    }
+
   useEffect(()=>{
     console.log("isLoggedIn",isLoggedIn)
     if(isLoggedIn){
@@ -81,7 +90,8 @@ function CartProviderWrapper(props:PropsWithChildren<{}>) {
         },
       })
       .then(ans=>{
-        
+        console.log('online Cart : ',ans.data.products)
+        setCartState(ans.data.products)
       })
       .catch()
     }else{
@@ -102,7 +112,7 @@ function CartProviderWrapper(props:PropsWithChildren<{}>) {
   // }
 
   return (
-    <CartContext.Provider value={{ productsState, setProductsState, addItemToOfflineCart, getItemsFromOffLineCart, offlineCartState }}>
+    <CartContext.Provider value={{ productsState, setProductsState, addItemToOfflineCart, getItemsFromOffLineCart, offlineCartState, cartState }}>
       {props.children}
     </CartContext.Provider>
   );

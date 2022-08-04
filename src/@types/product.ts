@@ -20,6 +20,13 @@ export interface ProductToOrderInterface{
     quantity:number;
 }
 
+export interface PopulatedProductToOrderInterface{
+    productId:ProductInterface;
+    quantity:number;
+}
+
+
+
 // export interface MatrixContextState{
 //     matrix: [number,number][][];
 //     temp: number[];
