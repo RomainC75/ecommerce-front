@@ -10,6 +10,7 @@ import axios from "axios";
 import {
   cartContextInterface,
   cartInterface,
+  cartPopulatedInterface,
 } from "../@types/cartContext.type";
 import { AuthContext } from "./auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
@@ -18,6 +19,7 @@ import {
   PopulatedProductToOrderInterface,
 } from "../@types/product";
 import {
+  isCartPopulatedInterface,
   isProductToOrderInterface,
   isProductToOrderInterfaceArray,
 } from "../tools/typeTests";
@@ -78,6 +80,29 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       setOfflineCartState([item]);
     }
   };
+
+  const addItemToOnlineCart = (itemId:string, quantity:number): void => {
+    console.log('entering addItemToOfflineCart !')
+    const onlineCartStorageStr: string | null =localStorage.getItem('cart')
+    if(onlineCartStorageStr){
+      const onlineCartStorage: cartPopulatedInterface=JSON.parse(onlineCartStorageStr)
+      // console.log('test : ',isCartPopulatedInterface(onlineCartStorage))
+      console.log('onlineCartStorage : ',onlineCartStorage)
+      if(isCartPopulatedInterface(onlineCartStorage)){
+        console.log('preindex : ', onlineCartStorage)
+        const index:number = onlineCartStorage.products.findIndex(product=>product.productId._id===itemId)
+        console.log('index : ',index )
+        if(index>=0){
+          onlineCartStorage.products[index].quantity+=quantity
+        }else{
+          // onlineCartStorage.products.push({
+          //   productId:,
+          //   quantity:number
+          // })
+        }
+      }
+    }
+  }
 
   const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
     const offlineCartStr: string | null = localStorage.getItem("offlineCart");
@@ -143,18 +168,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
-      const storedToken: string | null = localStorage.getItem("authToken");
-      axios
-        .get(API_URL + "/cart", {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        })
-        .then((ans) => {
-          console.log("online Cart : ", ans.data.products);
-          setCartState(ans.data.products);
-        })
-        .catch();
+      getOnlineCartAndRecordToStateAndLS()
     } else {
       console.log("-->", getItemsFromOffLineCart());
       setOfflineCartState(getItemsFromOffLineCart());
@@ -181,6 +195,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         offlineCartState,
         cartState,
         removeFromCartById,
+        addItemToOnlineCart
       }}
     >
       {props.children}
