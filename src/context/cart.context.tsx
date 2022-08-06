@@ -17,6 +17,7 @@ import { AuthContextInterface } from "../@types/authContext.type";
 import {
   ProductToOrderInterface,
   PopulatedProductToOrderInterface,
+  ProductInterface,
 } from "../@types/product";
 import {
   isCartPopulatedInterface,
@@ -81,7 +82,21 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const addItemToOnlineCart = (itemId:string, quantity:number): void => {
+  const patchNewCart = (newCart:ProductToOrderInterface[]):void =>{
+    const storedToken = localStorage.getItem('authToken')
+    console.log('new cart to store :: ',newCart)
+    axios.patch(`${API_URL}/cart`,newCart,{
+      headers:{
+        Authorization:`Bearer ${storedToken}`
+      }
+    }).then(ans=>{
+      console.log('patch ans :',ans.data)
+      localStorage.setItem('cart',JSON.stringify(ans.data))
+      setCartState(ans.data.products)
+    })
+  }
+
+  const addItemToOnlineCart = (itemId:string, quantity:number, fullProduct:ProductInterface): void => {
     console.log('entering addItemToOfflineCart !')
     const onlineCartStorageStr: string | null =localStorage.getItem('cart')
     if(onlineCartStorageStr){
@@ -94,11 +109,13 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         console.log('index : ',index )
         if(index>=0){
           onlineCartStorage.products[index].quantity+=quantity
+          const cartToPatch:ProductToOrderInterface[]=onlineCartStorage.products.map(product=>{return{productId:product.productId._id,quantity:product.quantity}})
+          patchNewCart(cartToPatch)
         }else{
-          // onlineCartStorage.products.push({
-          //   productId:,
-          //   quantity:number
-          // })
+          console.log('!!!!!!!!!!!!')
+          const cartToPatch:ProductToOrderInterface[]=onlineCartStorage.products.map(product=>{return{productId:product.productId._id,quantity:product.quantity}})
+          cartToPatch.push({productId:itemId,quantity:quantity})
+          patchNewCart(cartToPatch)
         }
       }
     }

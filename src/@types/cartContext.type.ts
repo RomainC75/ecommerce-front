@@ -1,4 +1,4 @@
-import { ProductToOrderInterface, PopulatedProductToOrderInterface } from "./product"
+import { ProductToOrderInterface, PopulatedProductToOrderInterface, ProductInterface } from "./product"
 
 export interface cartInterface{
     _id:string;
@@ -22,5 +22,5 @@ export interface cartContextInterface{
     offlineCartState: ProductToOrderInterface[];
     cartState: PopulatedProductToOrderInterface[];
     removeFromCartById: (id:string)=>void;
-    addItemToOnlineCart: (itemId:string, quantity:number)=>void;
+    addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>void;
 }

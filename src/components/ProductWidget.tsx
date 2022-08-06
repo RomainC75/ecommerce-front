@@ -38,7 +38,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
         <div
           onClick={() =>
             // addItemToOfflineCart({ productId: product._id, quantity: 1 })
-            addItemToOnlineCart(product._id,1)
+            addItemToOnlineCart(product._id,1,product)
           }
         >
           ADD
