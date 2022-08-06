@@ -6,6 +6,7 @@ import { cartContextInterface } from "../@types/cartContext.type";
 import { ProductInterface } from "../@types/product";
 
 import "./style/productWidget.css";
+import { Link } from "react-router-dom";
 
 interface ProductProps {
   product: ProductInterface;
@@ -24,15 +25,17 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
 
   return (
     <div className="ProductWidget">
-      <p className="ProductWidget__infos">{product.brand}</p>
-      <h3 className="ProductWidget__infos">{product.name}</h3>
-      <div className="ProductWidget__picture">
-        {product.pictures ? (
-          <img src={product.pictures[0]} />
-        ) : (
-          <img src={fillInPicture} />
-        )}
-      </div>
+      <Link to={`/product/${product._id}`}>
+        <p className="ProductWidget__infos">{product.brand}</p>
+        <h3 className="ProductWidget__infos">{product.name}</h3>
+        <div className="ProductWidget__picture">
+          {product.pictures ? (
+            <img src={product.pictures[0]} />
+          ) : (
+            <img src={fillInPicture} />
+          )}
+        </div>
+      </Link>
       <div className="ProductWidget__infos">
         <p>{product.price}€</p>
         {product.weight && <p>{product.price / product.weight}</p>}
