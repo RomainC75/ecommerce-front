@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { ProductInterface } from "../@types/product";
-
-import "./style/productWidget.css";
+import { AddProductToBasket } from "./AddProductToBasket";
 
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
+import { ProductInterface } from "../@types/product";
+
+import "./style/productWidget.css";
 
 interface ProductProps {
   product: ProductInterface;
@@ -35,14 +36,16 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
       <div className="ProductWidget__infos">
         <p>{product.price}€</p>
         {product.weight && <p>{product.price / product.weight}</p>}
-        <div
+        {/* <div
+        className="ProductWidget__infos__quickAdd"
           onClick={() =>
             // addItemToOfflineCart({ productId: product._id, quantity: 1 })
             addItemToOnlineCart(product._id,1,product)
           }
         >
-          ADD
-        </div>
+          quick add
+        </div> */}
+        <AddProductToBasket product={product}/>
       </div>
     </div>
   );
