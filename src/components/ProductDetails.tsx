@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProductInterface } from "../@types/product";
+import { ProductInterface, caracteristicsInterface } from "../@types/product";
 import Carousel from "react-material-ui-carousel";
 import { Spinner } from "./Spinner";
 import { ErrorMessage } from "./ErrorMessage";
@@ -49,13 +49,29 @@ export const ProductDetails = (): JSX.Element => {
           <p>{productState.brand}</p>
           <h2>{productState.name}</h2>
           <ul>
-            {productState.caracteristics && Object.keys(productState.caracteristics).map((key,i)=>{
-              return(
-                <li key={`${key}-i`}>
-                  <p>{key}</p>
-                </li>
-              )
-            })}
+            {productState.caracteristics &&
+              Object.keys(productState.caracteristics).map((key: string, i) => {
+                const keyCarac =
+                  productState.caracteristics &&
+                  key in productState.caracteristics &&
+                  productState.caracteristics[key as keyof caracteristicsInterface]
+                    ? productState.caracteristics[key as keyof caracteristicsInterface]
+                    : [];
+                console.log("keyCarac", keyCarac);
+                return (
+                  <li key={`${key}-i`}>
+                    <p>{key}</p>
+                    <ul>
+                      {/* <li>{ productState.caracteristics[key][1]}</li> */}
+                      {Array.isArray(keyCarac) &&
+                        keyCarac.length > 0 &&
+                        keyCarac.map((caracEntry, i) => (
+                          <li key={`${caracEntry}`}>{caracEntry}</li>
+                        ))}
+                    </ul>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       )}
