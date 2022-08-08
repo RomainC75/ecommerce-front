@@ -1,19 +1,35 @@
 .Navbar{
     display:flex;
     justify-content:space-evenly;
+    align-items: center;;
     width:100%;
     padding-top:30px;
     
-    &__logPart{
-        display:flex;
-        
+    & h1{
+        margin:0;
+    }
+    & p{
+        margin:0;
     }
 
+    &__rightSide{
+        display:flex;
+    }
+
+    &__logPart{
+        display:flex;
+        align-items:center;
+        & p:nth-child(1){
+            margin-right: 5px;;
+            font-style:italic;
+        }
+    }
     &__shopping{
         position:relative;
+        cursor: pointer;
         & .basketIcon{
-            width:20px;
-            height:20px;
+            width:35px;
+            height:35px;
 
         }
         &__number{
@@ -32,6 +48,18 @@
 }
 
 .logOut{
-    background:rgb(156, 156, 156);
+    background:#961212;
+    padding:10px;
+    border-radius:2em;
+    color:white;
+    font-weight:600;
     cursor:pointer;
+}
+
+.logo{
+    width:50px;
+    height:50px;
+    & img{
+        width:100%;
+    }
 }

@@ -5,23 +5,49 @@
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
   padding-top: 30px;
+}
+
+.Navbar h1 {
+  margin: 0;
+}
+
+.Navbar p {
+  margin: 0;
+}
+
+.Navbar__rightSide {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .Navbar__logPart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Navbar__logPart p:nth-child(1) {
+  margin-right: 5px;
+  font-style: italic;
 }
 
 .Navbar__shopping {
   position: relative;
+  cursor: pointer;
 }
 
 .Navbar__shopping .basketIcon {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
 }
 
 .Navbar__shopping__number {
@@ -38,7 +64,20 @@
 }
 
 .logOut {
-  background: #9c9c9c;
+  background: #961212;
+  padding: 10px;
+  border-radius: 2em;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.logo img {
+  width: 100%;
 }
 /*# sourceMappingURL=navbar.css.map */

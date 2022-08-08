@@ -11,6 +11,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 
 import "./style/navbar.css";
+import bioLogo from '../pictures/bioLogo.png'
 
 const Navbar = (): JSX.Element => {
   const { storeToken, authenticateUser, isLoggedIn, user, logOutUser } =
@@ -32,39 +33,44 @@ const Navbar = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      const itemsNumber = Object.keys(cartState);
-      setItemsNumberState(itemsNumber.length);
+    console.log('CART : ',cartState,cartState.length)
+    if (isLoggedIn) { 
+      setItemsNumberState(cartState.length);
+      
     }
+
   }, [isLoggedIn, cartState]);
 
   return (
     <div className="Navbar">
-      <div className="logo">LOGO</div>
+      <Link className="logo" to="/"><img src={bioLogo} alt='logo'/></Link>
       <Link to="/">
         <h1>ECOMMERCE</h1>
       </Link>
-      {isLoggedIn ? (
-        <div className="Navbar__logPart">
-          <p>hello : {user && user.email} ! </p>
-          <p onClick={logOutUser} className="logOut">LogOut</p>
-        </div>
-      ) : (
-        <div>
-          <Link to="/login">Login</Link>
-        </div>
-      )}
-
-      <div className="Navbar__shopping" onClick={() => goToTheBasket()}>
-        {itemsNumberState > 0 ? (
-          <>
-            <FaShoppingCart className="basketIcon" />
-            <div className="Navbar__shopping__number">{itemsNumberState}</div>
-          </>
+      <div className="Navbar__rightSide">
+        {isLoggedIn ? (
+          <div className="Navbar__logPart">
+            <p>{user && user.email}</p>
+            <p onClick={logOutUser} className="logOut">LogOut</p>
+          </div>
         ) : (
-          <FiShoppingCart className="basketIcon" />
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
         )}
+
+        <div className="Navbar__shopping" onClick={() => goToTheBasket()}>
+          {itemsNumberState > 0 ? (
+            <>
+              <FaShoppingCart className="basketIcon" />
+              <div className="Navbar__shopping__number">{itemsNumberState}</div>
+            </>
+          ) : (
+            <FiShoppingCart className="basketIcon" />
+          )}
+        </div>
       </div>
+      
     </div>
   );
 };
