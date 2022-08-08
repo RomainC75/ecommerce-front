@@ -25,4 +25,5 @@ export interface cartContextInterface{
     cartState: PopulatedProductToOrderInterface[];
     removeFromCartById: (id:string)=>void;
     addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>void;
+    logOutAndEraseStateAndLS:()=>void;
 }

@@ -202,6 +202,12 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     patchTheUpdatedCart(newCart)
   };
 
+  const logOutAndEraseStateAndLS = ():void =>{
+    logOutUser()
+    setCartState([])
+    localStorage.removeItem('cart')
+  }
+
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
@@ -232,7 +238,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         offlineCartState,
         cartState,
         removeFromCartById,
-        addItemToOnlineCart
+        addItemToOnlineCart,
+        logOutAndEraseStateAndLS
       }}
     >
       {props.children}
