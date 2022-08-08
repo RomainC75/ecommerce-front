@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,mBAAmB,CAAA;EACf,UAAU,EAAC,IAAI;EACf,OAAO,EAAC,IAAI;EACZ,WAAW,EAAC,MAAM;EAClB,eAAe,EAAE,YAAY;CAChC;;AAED,AAAA,cAAc,CAAA;EACV,KAAK,EAAC,IAAI;EACV,YAAY,EAAC,IAAI;CACpB",
+    "sources": [
+        "addProductToBasket.scss"
+    ],
+    "names": [],
+    "file": "addProductToBasket.css"
+}

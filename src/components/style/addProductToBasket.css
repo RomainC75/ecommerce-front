@@ -1,0 +1,17 @@
+.AddProductToBasket {
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.quantityInput {
+  width: 70px;
+  margin-right: 20px;
+}
+/*# sourceMappingURL=addProductToBasket.css.map */

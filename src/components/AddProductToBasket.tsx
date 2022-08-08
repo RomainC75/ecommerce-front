@@ -5,6 +5,9 @@ import { PopulatedProductToOrderInterface } from "../@types/product";
 import { cartContextInterface } from "../@types/cartContext.type";
 
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField"
+
+import './style/addProductToBasket.css'
 
 interface ProductProps {
   product: ProductInterface;
@@ -41,14 +44,28 @@ export const AddProductToBasket = (props: ProductProps): JSX.Element => {
   };
 
   return (
-    <div className="AddProductToBasktet">
-      <label htmlFor="quantity">Quantity</label>
+    <div className="AddProductToBasket">
+      {/* <label htmlFor="quantity">Quantity</label>
       <input
         value={quantityState}
         type="number"
         onChange={(el) => handleQuantity(parseInt(el.target.value))}
-      />
+      /> */}
+      <TextField
+          className="quantityInput"
+          id="standard-number"
+          label="Quantity"
+          type="number"
+          value={quantityState}
+          onChange={(el) => handleQuantity(parseInt(el.target.value))}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="standard"
+        />
+
       <Button variant="contained" onClick={()=>addItemToOnlineCart(product._id,quantityState,product)}>Add</Button>
+
     </div>
   );
 };
