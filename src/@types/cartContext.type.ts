@@ -1,5 +1,7 @@
 import { ProductToOrderInterface, PopulatedProductToOrderInterface, ProductInterface } from "./product"
 
+//localStorage : cartPopulatedInterface !!!!!
+
 export interface cartInterface{
     _id:string;
     products: ProductToOrderInterface[];

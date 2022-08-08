@@ -49,7 +49,13 @@ export const ProductDetails = (): JSX.Element => {
           <p>{productState.brand}</p>
           <h2>{productState.name}</h2>
           <ul>
-            {/* {productState.caracteristics && productState.caracteristics.map(())} */}
+            {productState.caracteristics && Object.keys(productState.caracteristics).map((key,i)=>{
+              return(
+                <li key={`${key}-i`}>
+                  <p>{key}</p>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}

@@ -96,6 +96,19 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     })
   }
 
+  const postNewCart = (newProduct:ProductToOrderInterface[]):void =>{
+    const storedToken = localStorage.getItem('authToken')
+    axios.post(API_URL+'/cart',newProduct,{
+      headers:{
+        Authorization:`Bearer ${storedToken}`
+      }
+    }).then(ans=>{
+      console.log('-->post ans : ',ans.data)
+      localStorage.setItem('cart',JSON.stringify(ans.data))
+      setCartState(ans.data.products)
+    })
+  }
+
   const addItemToOnlineCart = (itemId:string, quantity:number, fullProduct:ProductInterface): void => {
     console.log('entering addItemToOfflineCart !')
     const onlineCartStorageStr: string | null =localStorage.getItem('cart')
@@ -118,6 +131,11 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
           patchNewCart(cartToPatch)
         }
       }
+    }else{
+      postNewCart([{
+        productId:itemId,
+        quantity
+      }])
     }
   }
 
@@ -166,6 +184,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       getOnlineCartAndRecordToStateAndLS()
     })
   };
+
+  
 
   const removeFromCartById = (id: string): void => {
     console.log("id : ", id);

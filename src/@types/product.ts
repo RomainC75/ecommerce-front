@@ -1,3 +1,9 @@
+export interface caracteristicsInterface {
+    ingredients:string[];
+    "valeur nutritionnelles pour 100g":string[];
+    "caractéristiques":string[];
+}
+
 export interface ProductInterface{
     _id:string,
     brand: string,

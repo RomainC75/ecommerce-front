@@ -15,7 +15,7 @@ import "./style/navbar.css";
 const Navbar = (): JSX.Element => {
   const { storeToken, authenticateUser, isLoggedIn, user, logOutUser } =
     useContext(AuthContext) as AuthContextInterface;
-  const { offlineCartState, getItemsFromOffLineCart } = useContext(
+  const { offlineCartState, getItemsFromOffLineCart, cartState } = useContext(
     CartContext
   ) as cartContextInterface;
   const [itemsNumberState, setItemsNumberState] = useState<number>(0);
@@ -33,10 +33,10 @@ const Navbar = (): JSX.Element => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      const itemsNumber = Object.keys(offlineCartState);
+      const itemsNumber = Object.keys(cartState);
       setItemsNumberState(itemsNumber.length);
     }
-  }, [isLoggedIn, offlineCartState]);
+  }, [isLoggedIn, cartState]);
 
   return (
     <div className="Navbar">

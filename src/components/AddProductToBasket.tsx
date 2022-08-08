@@ -25,11 +25,11 @@ const getQuantityAlreadyInBasket = (
 
 export const AddProductToBasket = (props: ProductProps): JSX.Element => {
   const { product } = props;
-  const [quantityState, setQuantityState] = useState<number>(0);
+  const [quantityState, setQuantityState] = useState<number>(1);
   const { addItemToOfflineCart, addItemToOnlineCart, cartState } = useContext(
     CartContext
   ) as cartContextInterface;
-
+    console.log('cartState : ',cartState)
   let quantityInBasket = getQuantityAlreadyInBasket(cartState, product);
 
   const handleQuantity = (num: number) => {
