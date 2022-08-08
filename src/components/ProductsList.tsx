@@ -3,9 +3,11 @@ import axios from 'axios'
 import { ProductInterface } from '../@types/product'
 import { ProductWidget } from './ProductWidget'
 
+import './style/productsList.css'
+
 const base_url = "http://localhost:5005"
 
-export const ProductList = ():JSX.Element => {
+export const ProductsList = ():JSX.Element => {
     const [productArrayState, setProductArrayState] = useState<ProductInterface[]>([])
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -22,9 +24,9 @@ export const ProductList = ():JSX.Element => {
   },[])
 
   return (
-    <div>
-        <div>ProductList</div>
-        <ul>
+    <div className="ProductsList">
+        <h2>ProductList</h2>
+        <ul className="ProductsList">
             {isLoaded && productArrayState.map(product=><ProductWidget key={product.name} product={product}/>)}
         </ul>
     </div>

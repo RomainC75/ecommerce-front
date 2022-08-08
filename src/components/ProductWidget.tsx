@@ -26,9 +26,9 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
   return (
     <div className="ProductWidget">
       <Link to={`/product/${product._id}`}>
-        <p className="ProductWidget__infos">{product.brand}</p>
-        <h3 className="ProductWidget__infos">{product.name}</h3>
-        <div className="ProductWidget__picture">
+        <p className="ProductWidget__infos brand">{product.brand.toUpperCase()}</p>
+        <h3 className="ProductWidget__infos name">{product.name}</h3>
+        <div className="ProductWidget__infos picture">
           {product.pictures ? (
             <img src={product.pictures[0]} />
           ) : (
@@ -39,15 +39,6 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
       <div className="ProductWidget__infos">
         <p>{product.price}€</p>
         {product.weight && <p>{product.price / product.weight}</p>}
-        {/* <div
-        className="ProductWidget__infos__quickAdd"
-          onClick={() =>
-            // addItemToOfflineCart({ productId: product._id, quantity: 1 })
-            addItemToOnlineCart(product._id,1,product)
-          }
-        >
-          quick add
-        </div> */}
         <AddProductToBasket product={product}/>
       </div>
     </div>
