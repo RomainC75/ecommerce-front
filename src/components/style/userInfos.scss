@@ -1,0 +1,12 @@
+.User{
+    &__line{
+        display:flex;
+        gap:20px;
+        justify-content: center;
+        margin-bottom:20px;
+        &__validated{
+            display:flex;
+            align-items:center;
+        }
+    }
+}

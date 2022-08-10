@@ -20,9 +20,7 @@ export const Basket = (): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-
-
-    console.log("cartState", cartState);
+  console.log("cartState", cartState);
 
   return (
     <div className="Basket">
