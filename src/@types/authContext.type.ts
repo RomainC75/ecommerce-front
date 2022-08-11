@@ -10,7 +10,7 @@ export interface UserExpandedInterface{
     createdAt:string;
     updatedAt:string;
     firstname?:string;
-    lastName?:string;
+    lastname?:string;
     street1?:string;
     street2?:string;
     city?:string;
@@ -21,7 +21,7 @@ export interface UserExpandedInterface{
 
 export interface NewUserToSend{
     firstname?:string;
-    lastName?:string;
+    lastname?:string;
     street1?:string;
     street2?:string;
     city?:string;

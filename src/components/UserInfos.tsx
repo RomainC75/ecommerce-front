@@ -4,18 +4,23 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Spinner } from "./Spinner";
-import { NewUserToSend, UserExpandedInterface } from "../@types/authContext.type";
+import {
+  NewUserToSend,
+  UserExpandedInterface,
+} from "../@types/authContext.type";
 import Button from "@mui/material/Button";
-import { ImCheckmark, ImCross } from "react-icons/im";
 
+import { ImCheckmark, ImCross } from "react-icons/im";
 import "./style/userInfos.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
-const selectUserInfosFieldsToSend = (userInfos: UserExpandedInterface):NewUserToSend => {
+const selectUserInfosFieldsToSend = (
+  userInfos: UserExpandedInterface
+): NewUserToSend => {
   const fields = [
-    "firstName",
-    "lastName",
+    "firstname",
+    "lastname",
     "street1",
     "street2",
     "city",
@@ -23,15 +28,18 @@ const selectUserInfosFieldsToSend = (userInfos: UserExpandedInterface):NewUserTo
     "state",
     "country",
   ];
-  const newObjectToSend:NewUserToSend = {};
+
+  const newObjectToSend: NewUserToSend = {};
   Object.keys(userInfos).forEach((key: string) => {
     if (fields.includes(key)) {
       newObjectToSend[key as keyof NewUserToSend] =
         userInfos[key as keyof UserExpandedInterface];
     }
   });
-  return newObjectToSend
+  return newObjectToSend;
 };
+
+//---------------------------------------------------
 
 export const UserInfos = (): JSX.Element => {
   const [userInfosState, setUserInfosState] =
@@ -40,6 +48,10 @@ export const UserInfos = (): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [buttonColorState, setButtonColorState] = useState<
+    "primary" | "success" | "error"
+  >("primary");
+  const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,7 +80,7 @@ export const UserInfos = (): JSX.Element => {
   ): void => {
     if (userInfosState) {
       const buff = userInfosState;
-      // console.log(el.target.name)
+      console.log(el.target.name,el.target.value)
       buff[el.target.name as keyof UserExpandedInterface] = el.target.value;
       console.log("buff", buff);
       setUserInfosState(buff);
@@ -79,19 +91,28 @@ export const UserInfos = (): JSX.Element => {
     el.preventDefault();
     console.log("userInfosState", userInfosState);
     if (userInfosState) {
-      console.log('FONCTION: ',selectUserInfosFieldsToSend(userInfosState))
+      console.log("FONCTION: ", selectUserInfosFieldsToSend(userInfosState));
       patchUserInfos(selectUserInfosFieldsToSend(userInfosState));
     }
   };
 
   const patchUserInfos = (newUserInfos: NewUserToSend) => {
     const storedToken = localStorage.getItem("authToken");
-
-    axios.patch(`${API_URL}/user`, newUserInfos, {
-      headers: {
-        Authorization: `Bearer ${storedToken}`,
-      },
-    });
+    setIsLoadingButton(true);
+    axios
+      .patch(`${API_URL}/user`, newUserInfos, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+      .then((ans) => {
+        setIsLoadingButton(false);
+        setButtonColorState("success");
+      })
+      .catch((ans) => {
+        setIsLoadingButton(false);
+        setButtonColorState("error");
+      });
   };
 
   return (
@@ -121,19 +142,19 @@ export const UserInfos = (): JSX.Element => {
             <div className="User__line">
               <TextField
                 id="filled-error"
-                label="street1"
-                defaultValue={userInfosState?.street1 || undefined}
+                label="firstname"
+                defaultValue={userInfosState?.firstname || "firstname"}
                 variant="filled"
-                name="street1"
-                value={userInfosState?.street1 || undefined}
+                name="firstname"
+                value={userInfosState?.firstname || undefined}
                 onChange={(el) => handleUserInfos(el)}
               />
               <TextField
                 id="filled-error"
-                label="street2"
-                defaultValue="stree"
+                label="lastname"
+                defaultValue={userInfosState?.lastname || "lastname"}
                 variant="filled"
-                name="street2"
+                name="lastname"
                 value={userInfosState?.street2}
                 onChange={(el) => handleUserInfos(el)}
               />
@@ -141,20 +162,40 @@ export const UserInfos = (): JSX.Element => {
             <div className="User__line">
               <TextField
                 id="filled-error"
+                label="street1"
+                defaultValue={userInfosState?.street1 || "street1"}
+                variant="filled"
+                name="street1"
+                value={userInfosState?.street1 }
+                onChange={(el) => handleUserInfos(el)}
+              />
+              <TextField
+                id="filled-error"
+                label="street2"
+                defaultValue={userInfosState?.street2 || "street2"}
+                variant="filled"
+                name="street2"
+                value={userInfosState?.street2 || undefined}
+                onChange={(el) => handleUserInfos(el)}
+              />
+            </div>
+            <div className="User__line">
+              <TextField
+                id="filled-error"
                 label="city"
-                defaultValue="city"
+                defaultValue={userInfosState?.city || "city"}
                 variant="filled"
                 name="city"
-                value={userInfosState?.city}
+                value={userInfosState?.city || undefined}
                 onChange={(el) => handleUserInfos(el)}
               />
               <TextField
                 id="filled-error"
                 label="zip"
-                defaultValue="zip"
+                defaultValue={userInfosState?.zip || "zip"}
                 variant="filled"
                 name="zip"
-                value={userInfosState?.zip}
+                value={userInfosState?.zip || undefined}
                 onChange={(el) => handleUserInfos(el)}
               />
             </div>
@@ -162,25 +203,29 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="state"
-                defaultValue="state"
+                defaultValue={userInfosState?.state || "state"}
                 variant="filled"
                 name="state"
-                value={userInfosState?.state}
+                value={userInfosState?.state || undefined}
                 onChange={(el) => handleUserInfos(el)}
               />
               <TextField
                 id="filled-error"
                 label="country"
-                defaultValue="country"
+                defaultValue={userInfosState?.country || "country"}
                 variant="filled"
                 name="country"
-                value={userInfosState?.country}
+                value={userInfosState?.country }
                 onChange={(el) => handleUserInfos(el)}
               />
             </div>
-            <Button variant="outlined" type="submit">
-              Outlined
-            </Button>
+            {isLoadingButton ? (
+              <Button variant="outlined" disabled>Loading</Button>
+            ) : (
+              <Button variant="outlined" type="submit" color={buttonColorState}>
+                Outlined
+              </Button>
+            )}
           </form>
         </div>
       ) : (
