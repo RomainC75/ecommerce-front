@@ -17,6 +17,8 @@ export interface UserExpandedInterface{
     zip?:string;
     state?:string;
     country?:string;
+    birthdate?:string;
+    imageUrl?:string;
 }
 
 export interface NewUserToSend{
@@ -28,7 +30,10 @@ export interface NewUserToSend{
     zip?:string;
     state?:string;
     country?:string;
+    birthdate?:string;
 }
+
+
 
 export interface AuthContextInterface{
     isLoggedIn:boolean;

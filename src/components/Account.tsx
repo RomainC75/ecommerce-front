@@ -41,7 +41,7 @@ const selectUserInfosFieldsToSend = (
 
 //---------------------------------------------------
 
-export const UserInfos = (): JSX.Element => {
+export const Account = (): JSX.Element => {
   const [userInfosState, setUserInfosState] =
     useState<UserExpandedInterface | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -80,8 +80,8 @@ export const UserInfos = (): JSX.Element => {
   ): void => {
     if (userInfosState) {
       const buff = userInfosState;
-      console.log(el.target.name,el.target.value)
-      buff[el.target.name as keyof UserExpandedInterface] = el.target.value;
+      console.log('val to insert :',el.target.name,el.target.value)
+      buff[el.target.name as keyof UserExpandedInterface] = el.target.value ? el.target.value:"";
       console.log("buff", buff);
       setUserInfosState(buff);
     }
@@ -143,19 +143,19 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="firstname"
-                defaultValue={userInfosState?.firstname || "firstname"}
+                // defaultValue={userInfosState?.firstname || "firstname"}
                 variant="filled"
                 name="firstname"
-                value={userInfosState?.firstname || undefined}
+                value={userInfosState.firstname }
                 onChange={(el) => handleUserInfos(el)}
               />
               <TextField
                 id="filled-error"
                 label="lastname"
-                defaultValue={userInfosState?.lastname || "lastname"}
+                // defaultValue={userInfosState?.lastname || "lastname"}
                 variant="filled"
                 name="lastname"
-                value={userInfosState?.street2}
+                value={userInfosState?.lastname}
                 onChange={(el) => handleUserInfos(el)}
               />
             </div>
@@ -163,7 +163,7 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="street1"
-                defaultValue={userInfosState?.street1 || "street1"}
+                // defaultValue={userInfosState?.street1 || "street1"}
                 variant="filled"
                 name="street1"
                 value={userInfosState?.street1 }
@@ -172,7 +172,7 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="street2"
-                defaultValue={userInfosState?.street2 || "street2"}
+                // defaultValue={userInfosState?.street2 || "street2"}
                 variant="filled"
                 name="street2"
                 value={userInfosState?.street2 || undefined}
@@ -183,7 +183,7 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="city"
-                defaultValue={userInfosState?.city || "city"}
+                // defaultValue={userInfosState?.city || "city"}
                 variant="filled"
                 name="city"
                 value={userInfosState?.city || undefined}
@@ -192,7 +192,7 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="zip"
-                defaultValue={userInfosState?.zip || "zip"}
+                // defaultValue={userInfosState?.zip || "zip"}
                 variant="filled"
                 name="zip"
                 value={userInfosState?.zip || undefined}
@@ -203,7 +203,7 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="state"
-                defaultValue={userInfosState?.state || "state"}
+                // defaultValue={userInfosState?.state || "state"}
                 variant="filled"
                 name="state"
                 value={userInfosState?.state || undefined}
@@ -212,18 +212,19 @@ export const UserInfos = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="country"
-                defaultValue={userInfosState?.country || "country"}
+                // defaultValue={userInfosState?.country || "country"}
                 variant="filled"
                 name="country"
                 value={userInfosState?.country }
                 onChange={(el) => handleUserInfos(el)}
               />
             </div>
+            
             {isLoadingButton ? (
               <Button variant="outlined" disabled>Loading</Button>
             ) : (
               <Button variant="outlined" type="submit" color={buttonColorState}>
-                Outlined
+                Update Infos
               </Button>
             )}
           </form>

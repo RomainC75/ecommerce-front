@@ -7,7 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from './components/LoginPage';
 import { Basket } from './components/Basket';
 import { ProductDetails } from './components/ProductDetails';
-import { UserInfos } from './components/UserInfos';
+import { Account } from './components/Account copy';
 import IsPrivate from './components/IsPrivate'
 
 function App():JSX.Element {
@@ -19,7 +19,7 @@ function App():JSX.Element {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/basket" element={<Basket/>}/>
         <Route path="/product/:productId" element={<ProductDetails/>}/>
-        <Route path="/account" element={<IsPrivate><UserInfos/></IsPrivate>}/>
+        <Route path="/account" element={<IsPrivate><Account/></IsPrivate>}/>
       </Routes>
     </div>
   );
