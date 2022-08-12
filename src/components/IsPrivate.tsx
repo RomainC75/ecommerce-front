@@ -5,11 +5,11 @@ import { AuthContext } from "../context/auth.context";
 import { Navigate } from "react-router-dom";
 import { AuthContextInterface } from "../@types/authContext.type";
 
-type isAnonType={
+type isPrivateType={
   children:JSX.Element
 }
 
-function IsPrivate( { children }:isAnonType ):JSX.Element  {
+function IsPrivate( { children }:isPrivateType ):JSX.Element  {
   const { isLoggedIn, isLoading } = useContext(AuthContext)as AuthContextInterface;
   if (isLoading) return <p>Loading ...</p>;
   if (!isLoggedIn) {
