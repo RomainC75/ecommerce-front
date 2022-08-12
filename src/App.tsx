@@ -8,6 +8,7 @@ import { LoginPage } from './components/LoginPage';
 import { Basket } from './components/Basket';
 import { ProductDetails } from './components/ProductDetails';
 import { UserInfos } from './components/UserInfos';
+import IsPrivate from './components/IsPrivate'
 
 function App():JSX.Element {
   return (
@@ -18,7 +19,7 @@ function App():JSX.Element {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/basket" element={<Basket/>}/>
         <Route path="/product/:productId" element={<ProductDetails/>}/>
-        <Route path="/user" element={<UserInfos/>}/>
+        <Route path="/account" element={<IsPrivate><UserInfos/></IsPrivate>}/>
       </Routes>
     </div>
   );

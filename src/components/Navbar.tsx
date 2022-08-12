@@ -52,7 +52,7 @@ const Navbar = (): JSX.Element => {
       <div className="Navbar__rightSide">
         {isLoggedIn ? (
           <div className="Navbar__logPart">
-            <Link to="/user"><p>{user && user.email}</p></Link>
+            <Link to="/account"><p>{user && user.email}</p></Link>
             <p onClick={logOutAndEraseStateAndLS} className="logOut">LogOut</p>
           </div>
         ) : (
