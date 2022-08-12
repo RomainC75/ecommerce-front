@@ -52,6 +52,7 @@ const Navbar = (): JSX.Element => {
       <div className="Navbar__rightSide">
         {isLoggedIn ? (
           <div className="Navbar__logPart">
+            {user && user.imageUrl.length>0 && <img className = "Navbar__rightSide__avatarImage" src={ user.imageUrl}/>}
             <Link to="/account"><p>{user && user.email}</p></Link>
             <p onClick={logOutAndEraseStateAndLS} className="logOut">LogOut</p>
           </div>

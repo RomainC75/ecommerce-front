@@ -1,6 +1,7 @@
 export interface UserInterface{
     _id:string;
     email:string;
+    imageUrl:string;
 }
 
 export interface UserExpandedInterface{

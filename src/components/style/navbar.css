@@ -26,6 +26,12 @@
   display: flex;
 }
 
+.Navbar__rightSide__avatarImage {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+}
+
 .Navbar__logPart {
   display: -webkit-box;
   display: -ms-flexbox;
