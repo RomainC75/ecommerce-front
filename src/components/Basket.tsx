@@ -8,6 +8,7 @@ import { ImCheckmark, ImCross } from "react-icons/im";
 
 import "./style/basket.css";
 import { isProductToOrderInterface } from "../tools/typeTests";
+import { Quantity } from "./Quantity";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -52,6 +53,7 @@ export const Basket = (): JSX.Element => {
                   </p>
                   <p>price : {prod.price}€</p>
                   <p>Quantity : {populatedProdToOrder.quantity}</p>
+                  <Quantity product={populatedProdToOrder}/>
                 </div>
                 <div className="basketUl__li__right">
                   <p>sub</p>

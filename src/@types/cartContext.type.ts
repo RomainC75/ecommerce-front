@@ -26,4 +26,5 @@ export interface cartContextInterface{
     removeFromCartById: (id:string)=>void;
     addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>void;
     logOutAndEraseStateAndLS:()=>void;
+    updateQuantityOnOneItemAndPatch:(id:string,quantity:number)=>Promise<boolean>;
 }

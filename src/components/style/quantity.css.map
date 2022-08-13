@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAA;EACL,OAAO,EAAC,IAAI;EACZ,GAAG,EAAC,IAAI;CACX",
+    "sources": [
+        "quantity.scss"
+    ],
+    "names": [],
+    "file": "quantity.css"
+}

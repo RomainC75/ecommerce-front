@@ -82,62 +82,108 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const patchNewCart = (newCart:ProductToOrderInterface[]):void =>{
-    const storedToken = localStorage.getItem('authToken')
-    console.log('new cart to store :: ',newCart)
-    axios.patch(`${API_URL}/cart`,newCart,{
-      headers:{
-        Authorization:`Bearer ${storedToken}`
-      }
-    }).then(ans=>{
-      console.log('patch ans :',ans.data)
-      localStorage.setItem('cart',JSON.stringify(ans.data))
-      setCartState(ans.data.products)
-    })
-  }
+  const patchNewCart = async (newCart: ProductToOrderInterface[] ): Promise<boolean> => {
+    const storedToken = localStorage.getItem("authToken");
+    console.log("new cart to store :: ", newCart);
+    try {
+      const ans = await axios.patch(`${API_URL}/cart`, newCart, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+      console.log("patch ans :", ans.data);
+      localStorage.setItem("cart", JSON.stringify(ans.data));
+      setCartState(ans.data.products);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 
-  const postNewCart = (newProduct:ProductToOrderInterface[]):void =>{
-    const storedToken = localStorage.getItem('authToken')
-    axios.post(API_URL+'/cart',newProduct,{
-      headers:{
-        Authorization:`Bearer ${storedToken}`
-      }
-    }).then(ans=>{
-      console.log('-->post ans : ',ans.data)
-      localStorage.setItem('cart',JSON.stringify(ans.data))
-      setCartState(ans.data.products)
+  const updateQuantityOnOneItemAndPatch = async (id: string,quantity: number): Promise<boolean> => {
+    console.log("id", id, "quantity", quantity);
+    const storedToken = localStorage.getItem("authToken");
+    console.log('cartToModify : ',cartState)
+    const newCartToSend:ProductToOrderInterface[] = cartState.map(item=>{
+      const newQuantity= item.productId._id===id ? quantity:item.quantity
+        return{
+          productId:item.productId._id,
+          quantity:newQuantity
+        }
     })
-  }
+    console.log('newCartToSend',newCartToSend)
+    try {
+      return patchNewCart(newCartToSend)
+    } catch (error) {
+      return false;
+    }
+    return true
+  };
 
-  const addItemToOnlineCart = (itemId:string, quantity:number, fullProduct:ProductInterface): void => {
-    console.log('entering addItemToOfflineCart !')
-    const onlineCartStorageStr: string | null =localStorage.getItem('cart')
-    if(onlineCartStorageStr){
-      const onlineCartStorage: cartPopulatedInterface=JSON.parse(onlineCartStorageStr)
+  const postNewCart = (newProduct: ProductToOrderInterface[]): void => {
+    const storedToken = localStorage.getItem("authToken");
+    axios
+      .post(API_URL + "/cart", newProduct, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+      .then((ans) => {
+        console.log("-->post ans : ", ans.data);
+        localStorage.setItem("cart", JSON.stringify(ans.data));
+        setCartState(ans.data.products);
+      });
+  };
+
+  const addItemToOnlineCart = (
+    itemId: string,
+    quantity: number,
+    fullProduct: ProductInterface
+  ): void => {
+    console.log("entering addItemToOfflineCart !");
+    const onlineCartStorageStr: string | null = localStorage.getItem("cart");
+    if (onlineCartStorageStr) {
+      const onlineCartStorage: cartPopulatedInterface =
+        JSON.parse(onlineCartStorageStr);
       // console.log('test : ',isCartPopulatedInterface(onlineCartStorage))
-      console.log('onlineCartStorage : ',onlineCartStorage)
-      if(isCartPopulatedInterface(onlineCartStorage)){
-        console.log('preindex : ', onlineCartStorage)
-        const index:number = onlineCartStorage.products.findIndex(product=>product.productId._id===itemId)
-        console.log('index : ',index )
-        if(index>=0){
-          onlineCartStorage.products[index].quantity+=quantity
-          const cartToPatch:ProductToOrderInterface[]=onlineCartStorage.products.map(product=>{return{productId:product.productId._id,quantity:product.quantity}})
-          patchNewCart(cartToPatch)
-        }else{
-          console.log('!!!!!!!!!!!!')
-          const cartToPatch:ProductToOrderInterface[]=onlineCartStorage.products.map(product=>{return{productId:product.productId._id,quantity:product.quantity}})
-          cartToPatch.push({productId:itemId,quantity:quantity})
-          patchNewCart(cartToPatch)
+      console.log("onlineCartStorage : ", onlineCartStorage);
+      if (isCartPopulatedInterface(onlineCartStorage)) {
+        console.log("preindex : ", onlineCartStorage);
+        const index: number = onlineCartStorage.products.findIndex(
+          (product) => product.productId._id === itemId
+        );
+        console.log("index : ", index);
+        if (index >= 0) {
+          onlineCartStorage.products[index].quantity += quantity;
+          const cartToPatch: ProductToOrderInterface[] =
+            onlineCartStorage.products.map((product) => {
+              return {
+                productId: product.productId._id,
+                quantity: product.quantity,
+              };
+            });
+          patchNewCart(cartToPatch);
+        } else {
+          const cartToPatch: ProductToOrderInterface[] =
+            onlineCartStorage.products.map((product) => {
+              return {
+                productId: product.productId._id,
+                quantity: product.quantity,
+              };
+            });
+          cartToPatch.push({ productId: itemId, quantity: quantity });
+          patchNewCart(cartToPatch);
         }
       }
-    }else{
-      postNewCart([{
-        productId:itemId,
-        quantity
-      }])
+    } else {
+      postNewCart([
+        {
+          productId: itemId,
+          quantity,
+        },
+      ]);
     }
-  }
+  };
 
   const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
     const offlineCartStr: string | null = localStorage.getItem("offlineCart");
@@ -154,7 +200,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
     return offLineCartLStorage;
   };
-//////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////
 
   const getOnlineCartAndRecordToStateAndLS = (): void => {
     const storedToken = localStorage.getItem("authToken");
@@ -168,24 +214,26 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         console.log("ans : ", ans.data);
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
-          setCartState(ans.data.products)
+          setCartState(ans.data.products);
         }
       });
   };
 
-  const patchTheUpdatedCart = (newProdList: ProductToOrderInterface[]):void => {
+  const patchTheUpdatedCart = (
+    newProdList: ProductToOrderInterface[]
+  ): void => {
     const storedToken = localStorage.getItem("authToken");
-    axios.patch(API_URL+'/cart',newProdList,{
-      headers:{
-        Authorization:`Bearer ${storedToken}`
-      }
-    }).then(ans=>{
-      console.log('------> post ans : ',ans.data)
-      getOnlineCartAndRecordToStateAndLS()
-    })
+    axios
+      .patch(API_URL + "/cart", newProdList, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+      .then((ans) => {
+        console.log("------> post ans : ", ans.data);
+        getOnlineCartAndRecordToStateAndLS();
+      });
   };
-
-  
 
   const removeFromCartById = (id: string): void => {
     console.log("id : ", id);
@@ -194,39 +242,29 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       .filter((populatedCartList) => populatedCartList.productId._id !== id)
       .map((filteredPopulatedCartList) => {
         return {
-          productId:filteredPopulatedCartList.productId._id,
-          quantity:filteredPopulatedCartList.quantity
-        }
+          productId: filteredPopulatedCartList.productId._id,
+          quantity: filteredPopulatedCartList.quantity,
+        };
       });
     console.log(newCart);
-    patchTheUpdatedCart(newCart)
+    patchTheUpdatedCart(newCart);
   };
 
-  const logOutAndEraseStateAndLS = ():void =>{
-    logOutUser()
-    setCartState([])
-    localStorage.removeItem('cart')
-  }
+  const logOutAndEraseStateAndLS = (): void => {
+    logOutUser();
+    setCartState([]);
+    localStorage.removeItem("cart");
+  };
 
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
-      getOnlineCartAndRecordToStateAndLS()
+      getOnlineCartAndRecordToStateAndLS();
     } else {
       console.log("-->", getItemsFromOffLineCart());
       setOfflineCartState(getItemsFromOffLineCart());
     }
   }, [isLoggedIn]);
-
-  //loggedIn
-
-  // const addToCart = (product:ProductToOrderInterface):void =>{
-  //   if(isLoggedIn){
-  //     if()
-  //   }else{
-
-  //   }
-  // }
 
   return (
     <CartContext.Provider
@@ -239,7 +277,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         cartState,
         removeFromCartById,
         addItemToOnlineCart,
-        logOutAndEraseStateAndLS
+        logOutAndEraseStateAndLS,
+        updateQuantityOnOneItemAndPatch,
       }}
     >
       {props.children}
