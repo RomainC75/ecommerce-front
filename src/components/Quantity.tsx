@@ -30,6 +30,8 @@ export const Quantity = (props: quantityProps): JSX.Element => {
     const res= await updateQuantityOnOneItemAndPatch(product.productId._id,quantityState)
     if(res){
         setUpdateButtonColorState('success')
+    }else{
+        setUpdateButtonColorState('error')
     }
   };
 
