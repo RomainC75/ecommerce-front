@@ -3,12 +3,14 @@
     flex-direction:column;
     align-items: center;
     width:200px;
-    height:350px;
+    height:380px;
     margin-bottom:20px;
     border:1px solid #e5e7eb;
     border-radius:1em;
     transition: box-shadow 0.3s ease-in-out;
-    padding:10px;
+    padding:15px;
+    &__link{
+    }
     &:hover{
         box-shadow:inset 0 0 0 6px #e5e7eb;
     }
@@ -22,9 +24,19 @@
         margin:0;
     }
     &__infos{
+        margin-top:10px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        &.price{
+            & p:nth-child(1){
+                font-weight:600;
+            }
+        }
         &.brand{
             color:#287960;
             font-weight:800;
+            margin-bottom:10px;
         }
         &.name{
             text-align: left;
@@ -39,3 +51,4 @@
         }
     }
 }
+

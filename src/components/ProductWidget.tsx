@@ -25,7 +25,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
 
   return (
     <div className="ProductWidget">
-      <Link to={`/product/${product._id}`}>
+      <Link className="ProductWidget__link" to={`/product/${product._id}`}>
         <p className="ProductWidget__infos brand">{product.brand.toUpperCase()}</p>
         <h3 className="ProductWidget__infos name">{product.name}</h3>
         <div className="ProductWidget__infos picture">
@@ -36,9 +36,9 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
           )}
         </div>
       </Link>
-      <div className="ProductWidget__infos">
-        <p>{product.price}€</p>
-        {product.weight && <p>{product.price / product.weight}</p>}
+      <div className="ProductWidget__infos price">
+        <p>Price : {product.price}€</p>
+        {product.weight && <p>({(product.price *1000 / product.weight).toFixed(2)}/kg)</p>}
         <AddProductToBasket product={product}/>
       </div>
     </div>

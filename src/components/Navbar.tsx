@@ -9,6 +9,7 @@ import { cartContextInterface } from "../@types/cartContext.type";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import Button from '@mui/material/Button';
 
 import "./style/navbar.css";
 import bioLogo from '../pictures/bioLogo.png'
@@ -47,14 +48,15 @@ const Navbar = (): JSX.Element => {
     <div className="Navbar">
       <Link className="logo" to="/"><img src={bioLogo} alt='logo'/></Link>
       <Link to="/">
-        <h1>ECOMMERCE</h1>
+        <h1>BioCom'</h1>
       </Link>
       <div className="Navbar__rightSide">
         {isLoggedIn ? (
           <div className="Navbar__logPart">
+            
             {user && user.imageUrl.length>0 && <img className = "Navbar__rightSide__avatarImage" src={ user.imageUrl}/>}
             <Link to="/account"><p>{user && user.email}</p></Link>
-            <p onClick={logOutAndEraseStateAndLS} className="logOut">LogOut</p>
+            <Button variant="text" color="error" onClick={logOutAndEraseStateAndLS}>LogOut</Button>
           </div>
         ) : (
           <div>

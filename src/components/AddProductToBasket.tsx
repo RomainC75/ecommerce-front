@@ -63,7 +63,6 @@ export const AddProductToBasket = (props: ProductProps): JSX.Element => {
           }}
           variant="standard"
         />
-
       <Button variant="contained" onClick={()=>{
         addItemToOnlineCart(product._id,quantityState,product)
         setQuantityState(0)

@@ -17,6 +17,10 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  border: 1px solid #1b4169;
+  background-color: #b1cbe6;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .basketUl__li__img {

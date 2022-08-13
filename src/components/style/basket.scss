@@ -7,6 +7,10 @@
     &__li{
         display:flex;
         justify-content:space-around;
+        border:1px solid rgb(27, 65, 105);
+        background-color: rgb(177, 203, 230);
+        border-radius:10px;
+        padding:10px;
         &__img{
             display:flex;
             align-items:center;

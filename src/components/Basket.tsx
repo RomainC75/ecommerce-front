@@ -10,6 +10,7 @@ import "./style/basket.css";
 import { isProductToOrderInterface } from "../tools/typeTests";
 import { Quantity } from "./Quantity";
 import Button from "@mui/material/Button";
+import Stack from '@mui/material/Stack';
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
