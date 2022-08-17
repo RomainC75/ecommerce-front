@@ -140,12 +140,12 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     quantity: number,
     fullProduct: ProductInterface
   ): void => {
-    console.log("entering addItemToOfflineCart !");
+    console.log("entering addItemToOnlineCart !",itemId,quantity,fullProduct);
     const onlineCartStorageStr: string | null = localStorage.getItem("cart");
     if (onlineCartStorageStr) {
       const onlineCartStorage: cartPopulatedInterface =
         JSON.parse(onlineCartStorageStr);
-      // console.log('test : ',isCartPopulatedInterface(onlineCartStorage))
+      console.log('=====>test : ',isCartPopulatedInterface(onlineCartStorage))
       console.log("onlineCartStorage : ", onlineCartStorage);
       if (isCartPopulatedInterface(onlineCartStorage)) {
         console.log("preindex : ", onlineCartStorage);
@@ -176,6 +176,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         }
       }
     } else {
+      
       postNewCart([
         {
           productId: itemId,
@@ -186,6 +187,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   };
 
   const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
+    
     const offlineCartStr: string | null = localStorage.getItem("offlineCart");
     if (!offlineCartStr) {
       return [];

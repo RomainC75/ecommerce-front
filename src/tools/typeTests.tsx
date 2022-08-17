@@ -21,6 +21,7 @@ export const isProductToOrderInterfaceArray = (array: any): boolean => {
 };
 
 const isProductInterface = (obj: any): boolean => {
+  console.log("===>test 1 ")
   if (
     !("productId" in obj) ||
     !("quantity" in obj) ||
@@ -30,6 +31,7 @@ const isProductInterface = (obj: any): boolean => {
     return false;
   }
   const pId = obj.productId;
+  console.log('==>test 2')
   if (
     "_id" in pId &&
     "brand" in pId &&
@@ -38,10 +40,10 @@ const isProductInterface = (obj: any): boolean => {
     "priceType" in pId &&
     "stockQuantity" in pId &&
     "pictures" in pId &&
-    "subCategory" in pId &&
-    "weight" in pId &&
-    "originCountry" in pId
+    "categories" in pId &&
+    "weight" in pId 
   ) {
+    console.log("==>test 3")
     if (
       typeof pId._id === "string" &&
       typeof pId.brand === "string" &&
@@ -49,9 +51,9 @@ const isProductInterface = (obj: any): boolean => {
       typeof pId.price === "number" &&
       typeof pId.priceType === "string" &&
       typeof pId.stockQuantity === "number" &&
-      typeof pId.subCategory === "string" &&
-      typeof pId.weight === "number" &&
-      typeof pId.originCountry === "string"
+      Array.isArray(pId.pictures) &&
+      Array.isArray(pId.categories) &&
+      typeof pId.weight === "object"
     ) {
       return true;
     }
