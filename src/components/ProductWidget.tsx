@@ -15,6 +15,19 @@ interface ProductProps {
 const fillInPicture =
   "https://img2.freepng.fr/20180615/fjw/kisspng-royalty-free-clip-art-bio-5b23ee2e74f274.805270871529081390479.jpg";
 
+  const pricePerQty = (product:ProductInterface) =>{
+    const proportion = product.price/product.weight.quantity
+    switch(product.weight.unity){
+      case 'g':
+        return (proportion/1000).toFixed(2)+'kg'
+      case 'kg':
+        return proportion.toFixed(2)+'kg'
+      case 'cl':
+        return proportion.toFixed(2)+'cl'
+    }
+  } 
+
+
 export const ProductWidget = (props: ProductProps): JSX.Element => {
   
   const { product } = props;
@@ -22,6 +35,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
   const { addItemToOfflineCart, addItemToOnlineCart } = useContext(
     CartContext
   ) as cartContextInterface;
+  console.log('Price : ',product.price, product.weight)
 
   return (
     <div className="ProductWidget">
@@ -38,7 +52,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
       </Link>
       <div className="ProductWidget__infos price">
         <p>Price : {product.price}€</p>
-        {product.weight && <p>({(product.price *1000 / product.weight).toFixed(2)}/kg)</p>}
+        {product.weight && <p>({(product.price *1000 / product.weight.quantity).toFixed(2)}/kg)</p>}
         <AddProductToBasket product={product}/>
       </div>
     </div>

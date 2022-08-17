@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProductInterface } from "../@types/product";
+import { ProductInterface, caracteristicsInterface } from "../@types/product";
 import Carousel from "react-material-ui-carousel";
 import { Spinner } from "./Spinner";
 import { ErrorMessage } from "./ErrorMessage";
@@ -30,7 +30,6 @@ export const ProductDetails = (): JSX.Element => {
         setIsLoaded(true);
         setIsLoading(false);
         setProductsState(ans.data);
-        console.log(ans.data)
       })
       .catch((err) => {
         setIsLoading(false);
@@ -45,21 +44,44 @@ export const ProductDetails = (): JSX.Element => {
       {isError && <ErrorMessage message={errorMessage} />}
       {isLoaded && productState && (
         <div className="ProductDetails__container">
-          <div className="ProductDetails__container__left">
-            <Carousel className="ProductDetails__container__left__carroussel">
-              {productState?.pictures?.map((item, i) => (
-                <img src={item} key={i} />
-              ))}
-            </Carousel>
-            <ul className="ProductDetails__container__left__caracteristicsCat">
-              {productState.caracteristics && productState.caracteristics.map((line:string,index)=>
-                <li key={`${index}-${line}`}>{line}<p></p></li>
-              )}
-            </ul>
-          </div>
+          <Carousel className="ProductDetails__container__carroussel">
+            {productState?.pictures?.map((item, i) => (
+              <img src={item} key={i} />
+            ))}
+          </Carousel>
           <div className="ProductDetails__container__infos">
             <p className="brand">{productState.brand.toUpperCase()}</p>
             <h2>{productState.name}</h2>
+            <ul className="ProductDetails__container__infos__caracteristicsCat">
+              {productState.caracteristics &&
+                Object.keys(productState.caracteristics).map(
+                  (key: string, i) => {
+                    const keyCarac =
+                      productState.caracteristics &&
+                      key in productState.caracteristics &&
+                      productState.caracteristics[
+                        key as keyof caracteristicsInterface
+                      ]
+                        ? productState.caracteristics[
+                            key as keyof caracteristicsInterface
+                          ]
+                        : [];
+                    return (
+                      <li key={`${key}-i`}>
+                        <p>{key}</p>
+                        <ul className="ProductDetails__container__infos__catElement">
+                          {/* <li>{ productState.caracteristics[key][1]}</li> */}
+                          {Array.isArray(keyCarac) &&
+                            keyCarac.length > 0 &&
+                            keyCarac.map((caracEntry, i) => (
+                              <li key={`${caracEntry}`}>{caracEntry}</li>
+                            ))}
+                        </ul>
+                      </li>
+                    );
+                  }
+                )}
+            </ul>
             <AddProductToBasket product={productState}/>
           </div>
         </div>

@@ -1,9 +1,14 @@
 
 
-export interface caracteristicsInterface {
-    ingredients?:string[];
-    "valeur nutritionnelles pour 100g"?:string[];
-    caractéristiques?:string[];
+// export interface caracteristicsInterface {
+//     ingredients?:string[];
+//     "valeur nutritionnelles pour 100g"?:string[];
+//     caractéristiques?:string[];
+// }
+
+interface weight{
+    quantity:number;
+    unity:'kg'|'g'|'cl'
 }
 
 export interface ProductInterface{
@@ -14,10 +19,10 @@ export interface ProductInterface{
     priceType: string,
     stockQuantity: number,
     pictures?: string[],
-    caracteristics?: caracteristicsInterface,
-    categories?: string[],
-    subCategory: string,
-    weight: number,
+    caracteristics?: string[],
+    categories: string[],
+    subCategory?: string,
+    weight: weight,
     originCountry: string,
     createdAt?:string,
     updatedAt?:string
