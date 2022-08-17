@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
-import { ProductsList } from './components/ProductsList';
+import { ProductsList } from './pages/ProductsList.page';
 import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from './components/LoginPage';
 import { Basket } from './components/Basket';

@@ -1,0 +1,17 @@
+.Filter__select {
+  width: 180px;
+}
+
+.Filter__priceDive {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Filter__priceDive__price {
+  width: 160px !important;
+}
+/*# sourceMappingURL=filter.css.map */

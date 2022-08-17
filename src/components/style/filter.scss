@@ -1,0 +1,12 @@
+.Filter{
+    &__select{
+        width:180px;
+    }
+    &__priceDive{
+        display:flex;
+        justify-content: center;
+        &__price{
+            width:160px !important;
+        }
+    }
+}
