@@ -17,7 +17,7 @@ function App():JSX.Element {
     <div className="App">
       <Navbar/>
       <Routes>
-        <Route path='/' element={<><Menu/><ProductsList/></>}/>
+        <Route path='/' element={<><Menu/></>}/>
         {/* <Route path="/category/:cat" render={() => (<CategoriesList/>)}></Route>/> */}
         <Route path="/category/:cat" element={<CategoriesList/>}/>
         <Route path="/login" element={<LoginPage/>}/>
