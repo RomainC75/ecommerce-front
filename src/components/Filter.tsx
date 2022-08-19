@@ -4,14 +4,14 @@ import { FilterContext } from "../context/filter.context";
 import { FilterContextInterface } from "../@types/filterContext.type";
 import MenuItem from "@mui/material/MenuItem";
 import { categories } from "../tools/categories";
-import Slider from '@mui/material/Slider';
+import Slider from "@mui/material/Slider";
 
 import "./style/filter.css";
 import { getValue } from "@testing-library/user-event/dist/utils";
 
 function valuetext(value: number) {
-    return `${value}°C`;
-  }
+  return `${value}°C`;
+}
 
 export const Filter = () => {
   const { filterState, setFilterState } = useContext(
@@ -29,38 +29,37 @@ export const Filter = () => {
   const handleSliderChange = (
     event: Event,
     newValue: number | number[],
-    activeThumb: number,
+    activeThumb: number
   ) => {
     if (!Array.isArray(newValue)) {
       return;
     }
     const minDistance = 10;
-    console.log('+++++',event,newValue,'active',activeThumb)
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], 100 - minDistance);
-        console.log("clamped",clamped)
         setFilterState({
-            ...filterState,
-            price:[clamped, clamped + minDistance]
+          ...filterState,
+          price: [clamped, clamped + minDistance],
         });
       } else {
         const clamped = Math.max(newValue[1], minDistance);
-        console.log("clamped",clamped)
         setFilterState({
-            ...filterState,
-            price:[clamped - minDistance, clamped]});
+          ...filterState,
+          price: [clamped - minDistance, clamped],
+        });
       }
     } else {
       setFilterState({
         ...filterState,
-        price:newValue as number[]});
+        price: newValue as number[],
+      });
     }
   };
 
   return (
     <div className="Filter">
-        <p>Category :</p>
+      <p>Category :</p>
       <Select
         className="Filter__select"
         labelId="demo-simple-select-label"
@@ -79,13 +78,13 @@ export const Filter = () => {
       <div className="Filter__priceDive">
         <p>{filterState.price[0]}</p>
         <Slider
-            className="Filter__priceDive__price"
-            getAriaLabel={() => 'Minimum distance shift'}
-            value={filterState.price}
-            onChange={handleSliderChange}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
-            disableSwap
+          className="Filter__priceDive__price"
+          getAriaLabel={() => "Minimum distance shift"}
+          value={filterState.price}
+          onChange={handleSliderChange}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          disableSwap
         />
         <p>{filterState.price[1]}</p>
       </div>

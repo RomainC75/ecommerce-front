@@ -32,11 +32,11 @@ export const AddProductToBasket = (props: ProductProps): JSX.Element => {
   const { addItemToOfflineCart, addItemToOnlineCart, cartState } = useContext(
     CartContext
   ) as cartContextInterface;
-    console.log('cartState : ',cartState)
+    // console.log('cartState : ',cartState)
   let quantityInBasket = getQuantityAlreadyInBasket(cartState, product);
 
   const handleQuantity = (num: number) => {
-    console.log(product, quantityInBasket);
+    // console.log(product, quantityInBasket);
     const maxPossibleQuantityToAdd = product.stockQuantity - quantityInBasket;
     if (num >= 0 && num <= maxPossibleQuantityToAdd) {
       setQuantityState(num);

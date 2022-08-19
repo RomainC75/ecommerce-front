@@ -48,7 +48,7 @@ const Navbar = (): JSX.Element => {
     <div className="Navbar">
       <Link className="logo" to="/"><img src={bioLogo} alt='logo'/></Link>
       <Link to="/">
-        <h1>BioCom'</h1>
+        <h1>BioCoop'</h1>
       </Link>
       <div className="Navbar__rightSide">
         {isLoggedIn ? (

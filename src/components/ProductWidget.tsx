@@ -35,7 +35,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
   const { addItemToOfflineCart, addItemToOnlineCart } = useContext(
     CartContext
   ) as cartContextInterface;
-  console.log('Price : ',product.price, product.weight)
+  // console.log('Price : ',product.price, product.weight)
 
   return (
     <div className="ProductWidget">

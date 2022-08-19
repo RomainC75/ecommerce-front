@@ -23,7 +23,6 @@ export interface ProductInterface{
     categories: string[],
     subCategory?: string,
     weight: weight,
-    originCountry: string,
     createdAt?:string,
     updatedAt?:string
 }
@@ -36,6 +35,13 @@ export interface ProductToOrderInterface{
 export interface PopulatedProductToOrderInterface{
     productId:ProductInterface;
     quantity:number;
+}
+
+export interface PaginatedCategoriesInterface{
+    data:ProductInterface;
+    page:number;
+    total:number;
+    totalPages:number;
 }
 
 
