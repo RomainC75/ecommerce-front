@@ -26,6 +26,8 @@ export const categoriesTranslator = [
   //   "Reconditionn",
   ];
 
+
+
 // export const categories = [
 //     "All",
 //     'Epicerie salée',

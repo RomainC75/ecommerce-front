@@ -1,4 +1,9 @@
 .ProductsList{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
     & h2{
         font-weight:800;
         display:block;

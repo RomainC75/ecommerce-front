@@ -42,6 +42,7 @@ export interface PaginatedCategoriesInterface{
     page:number;
     total:number;
     totalPages:number;
+    subCategories:string[];
 }
 
 

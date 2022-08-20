@@ -12,13 +12,14 @@ const defaultFilter:FilterInterface={
   price:[0,1000],
   stockQuantity:false,
   name:"",
-  category:"All"
+  subCategory:"All",
+  activated:false
 }
 
 function FilterProviderWrapper(props:PropsWithChildren<{}>) {
   const [filterState, setFilterState] = useState<FilterInterface>(defaultFilter)
   return (
-    <FilterContext.Provider value={{ filterState, setFilterState }}>
+    <FilterContext.Provider value={{ filterState, setFilterState, defaultFilter }}>
       {props.children}
     </FilterContext.Provider>
   );
