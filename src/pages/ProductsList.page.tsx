@@ -44,15 +44,15 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [maxPageNumber, setMaxPageNumber] = useState<number>(0);
-  const { filterState } = useContext(FilterContext) as FilterContextInterface;
+  const { filterState, isFilterActivated, setIsFilterActivated } = useContext(FilterContext) as FilterContextInterface;
 
   const handlePage = (event: React.ChangeEvent<unknown>, value: number):void => {
     const searchP:any = {
       page: value.toString(),
     };
     console.log("page value", value);
-    if (filterState.activated){
-        searchP.subCategory=filterState.subCategory
+    if (isFilterActivated){
+        searchP.subCat=filterState.subCategory
         searchP.minPrice=filterState.price[0].toString()
         searchP.maxPrice=filterState.price[1].toString()
     }
@@ -67,7 +67,7 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
     setIsLoading(true);
     console.log('===========',pageState,'===========',filterState)
     let url=""
-    if (filterState.activated) {
+    if (isFilterActivated) {
       url = window.location.href
       .split("/")
       .filter((val, i) => i >= 3)
@@ -88,6 +88,7 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
         setProductArrayState(ans.data.data);
         setMaxPageNumber(ans.data.totalPages);
         setSubCategoriesState(ans.data.subCategories);
+        setPageState(ans.data.page)
       })
       .catch((err) => {
         setIsLoading(false);
@@ -96,52 +97,6 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
 
   },[pageState,filterState])
 
-
-  //first rendering
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   const requestUrl = props.cat
-  //     ? base_url + `/product/${"category/" + props.cat}` + "?page=" + pageState
-  //     : base_url + "/product/";
-  //   axios
-  //     .get(requestUrl)
-  //     .then((ans) => {
-  //       setIsLoaded(true);
-  //       setIsLoading(false);
-  //       setProductArrayState(ans.data.data);
-  //       setMaxPageNumber(ans.data.totalPages);
-  //       setSubCategoriesState(ans.data.subCategories);
-  //     })
-  //     .catch((err) => {
-  //       setIsLoading(false);
-  //       console.log("error : ", err);
-  //     });
-  // }, [pageState]);
-
-  // //other renderings
-  // useEffect(() => {
-  //   if (!filterState.activated) {
-  //     return;
-  //   }
-  //   const urlSuffix = window.location.href
-  //     .split("/")
-  //     .filter((val, i) => i >= 3)
-  //     .join("/");
-  //   console.log("urlSuffix", urlSuffix);
-  //   axios
-  //     .get(base_url + "/product/" + urlSuffix)
-  //     .then((ans) => {
-  //       setIsLoaded(true);
-  //       setIsLoading(false);
-  //       setProductArrayState(ans.data.data);
-  //       setMaxPageNumber(ans.data.totalPages);
-  //       setSubCategoriesState(ans.data.subCategories);
-  //     })
-  //     .catch((err) => {
-  //       setIsLoading(false);
-  //       console.log("error : ", err);
-  //     });
-  // }, [filterState]);
 
   return (
     <div className="ProductsList">

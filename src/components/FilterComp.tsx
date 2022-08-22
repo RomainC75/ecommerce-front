@@ -24,22 +24,33 @@ function valuetext(value: number) {
 
 export const FilterComp = (props:FilterCompInterface) => {
   const navigate = useNavigate()
-  const { filterState, setFilterState,defaultFilter } = useContext(
+  const { filterState, setFilterState,defaultFilter, isFilterActivated, setIsFilterActivated } = useContext(
     FilterContext
   ) as FilterContextInterface;
   const [tempFilterState, setTempFilterState] = useState<FilterInterface>(defaultFilter)
 
   const handleValidateFilter = () => {
-    navigate({
-      pathname:`/category/${props.cat}`,
-      search:createSearchParams({
-        page:"1",
-        subCat:tempFilterState.subCategory,
-        minPrice:tempFilterState.price[0].toString(),
-        maxPrice:tempFilterState.price[1].toString()
-      }).toString()
-    })
-    setFilterState(tempFilterState)
+    if(isFilterActivated){
+      navigate({
+        pathname:`/category/${props.cat}`,
+        search:createSearchParams({
+          page:"1",
+          subCat:tempFilterState.subCategory,
+          minPrice:tempFilterState.price[0].toString(),
+          maxPrice:tempFilterState.price[1].toString()
+        }).toString()
+      })
+      setFilterState(tempFilterState)
+    }else{
+      navigate({
+        pathname:`/category/${props.cat}`,
+        search:createSearchParams({
+          page:"1"
+        }).toString()
+      })
+      setTempFilterState(defaultFilter)
+      setFilterState(defaultFilter)
+    }
   };
   
   const handleSubcategoryChange = (event: SelectChangeEvent):void => {
@@ -52,8 +63,7 @@ export const FilterComp = (props:FilterCompInterface) => {
 
   const handleCheckbox = (event:React.ChangeEvent<HTMLInputElement>) =>{
     console.log('checked : ',event.target.checked)
-    setTempFilterState({...tempFilterState,activated:event.target.checked})
-    setFilterState({...filterState,activated:event.target.checked})
+    setIsFilterActivated(event.target.checked)
   }
   
   const handleSliderChange = (
@@ -94,7 +104,7 @@ export const FilterComp = (props:FilterCompInterface) => {
         <p>Activated : </p>
         <Checkbox
           sx={{ '& .MuiSvgIcon-root': { fontSize: 28 }}}
-          checked={tempFilterState.activated}
+          checked={isFilterActivated}
           name="activated"
           onChange={handleCheckbox}
 

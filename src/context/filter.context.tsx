@@ -13,13 +13,13 @@ const defaultFilter:FilterInterface={
   stockQuantity:false,
   name:"",
   subCategory:"All",
-  activated:false
 }
 
 function FilterProviderWrapper(props:PropsWithChildren<{}>) {
   const [filterState, setFilterState] = useState<FilterInterface>(defaultFilter)
+  const [isFilterActivated, setIsFilterActivated] = useState<boolean>(false)
   return (
-    <FilterContext.Provider value={{ filterState, setFilterState, defaultFilter }}>
+    <FilterContext.Provider value={{ filterState, setFilterState, defaultFilter, isFilterActivated, setIsFilterActivated }}>
       {props.children}
     </FilterContext.Provider>
   );
