@@ -24,7 +24,8 @@ export interface ProductInterface{
     subCategory?: string,
     weight: weight,
     createdAt?:string,
-    updatedAt?:string
+    updatedAt?:string,
+    promo?:number|null;
 }
 
 export interface ProductToOrderInterface{
@@ -38,7 +39,7 @@ export interface PopulatedProductToOrderInterface{
 }
 
 export interface PaginatedCategoriesInterface{
-    data:ProductInterface;
+    data:ProductInterface[];
     page:number;
     total:number;
     totalPages:number;

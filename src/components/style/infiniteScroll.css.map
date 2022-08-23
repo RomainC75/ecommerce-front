@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAA;EACX,OAAO,EAAC,IAAI;EACZ,SAAS,EAAE,IAAI;EACf,GAAG,EAAC,IAAI;EACR,eAAe,EAAE,MAAM;CAC1B",
+    "sources": [
+        "infiniteScroll.scss"
+    ],
+    "names": [],
+    "file": "infiniteScroll.css"
+}

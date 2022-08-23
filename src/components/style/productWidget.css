@@ -10,7 +10,7 @@
       -ms-flex-align: center;
           align-items: center;
   width: 200px;
-  height: 380px;
+  height: 400px;
   margin-bottom: 20px;
   border: 1px solid #e5e7eb;
   border-radius: 1em;
@@ -63,11 +63,46 @@
 .ProductWidget__infos.picture {
   margin: 0 auto;
   width: 70%;
+  position: relative;
 }
 
 .ProductWidget__infos.picture img {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.ProductWidget__infos.picture.promo {
+  color: red;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  -webkit-transform: scale(3);
+          transform: scale(3);
+}
+
+.promo {
+  color: #be1313;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.promo .promorate {
+  font-size: 1.5em;
+}
+
+.promo .newPrice {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+.overline {
+  text-decoration: line-through;
 }
 /*# sourceMappingURL=productWidget.css.map */

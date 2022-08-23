@@ -7,6 +7,7 @@ import { ProductInterface } from "../@types/product";
 
 import "./style/productWidget.css";
 import { Link } from "react-router-dom";
+import {AiOutlineWarning} from 'react-icons/ai'
 
 interface ProductProps {
   product: ProductInterface;
@@ -27,7 +28,6 @@ const fillInPicture =
     }
   } 
 
-
 export const ProductWidget = (props: ProductProps): JSX.Element => {
   
   const { product } = props;
@@ -43,6 +43,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
         <p className="ProductWidget__infos brand">{product.brand.toUpperCase()}</p>
         <h3 className="ProductWidget__infos name">{product.name}</h3>
         <div className="ProductWidget__infos picture">
+          {"promo" in product && <div className="promo"><AiOutlineWarning className="ProductWidget__infos picture promo"/></div>}
           {product.pictures ? (
             <img src={product.pictures[0]} />
           ) : (
@@ -51,8 +52,13 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
         </div>
       </Link>
       <div className="ProductWidget__infos price">
-        <p>Price : {product.price}€</p>
+        <p>Price : <span className={'promo' in product ? 'overline' : ''}>{product.price}</span>€</p>
+        {'promo' in product && <div className="promo">
+          <p className="promorate">{product.promo}%  =</p>
+          <p className="newPrice">{(product.price - product.price*(product.promo ? product.promo : 0)/100).toFixed(2)}€</p>
+          </div>}
         {product.weight && <p>({(product.price *1000 / product.weight.quantity).toFixed(2)}/kg)</p>}
+
         <AddProductToBasket product={product}/>
       </div>
     </li>
