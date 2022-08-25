@@ -1,4 +1,4 @@
-.InfiniteScroll {
+.InfiniteScroll ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

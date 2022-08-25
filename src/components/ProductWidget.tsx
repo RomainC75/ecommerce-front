@@ -11,6 +11,7 @@ import {AiOutlineWarning} from 'react-icons/ai'
 
 interface ProductProps {
   product: ProductInterface;
+  ref?:Function;
 }
 
 const fillInPicture =

@@ -6,7 +6,6 @@ export const HomePage = () => {
   return (
     <div className="HomePage">
       <Menu/>
-
       <h2>Home Page</h2>
       <InfiniteScroll/>
     </div>
