@@ -12,12 +12,6 @@ import "./style/infiniteScroll.css";
 const base_url = "http://localhost:5005";
 const PAGE_NUMBER = 1;
 
-// function isBottom(ref: React.RefObject<HTMLUListElement>) {
-//   if (!ref.current) {
-//     return false;
-//   }
-//   return ref.current.getBoundingClientRect().bottom <= window.innerHeight;
-// }
 
 export const InfiniteScroll = () => {
   const [products, setProducts] = useState<ProductInterface[]>([]);

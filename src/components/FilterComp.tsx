@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate,createSearchParams } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate,createSearchParams, useLocation } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import Slider from "@mui/material/Slider";
 import Button from '@mui/material/Button';
@@ -24,10 +24,21 @@ function valuetext(value: number) {
 
 export const FilterComp = (props:FilterCompInterface) => {
   const navigate = useNavigate()
+  
   const { filterState, setFilterState,defaultFilter, isFilterActivated, setIsFilterActivated } = useContext(
     FilterContext
   ) as FilterContextInterface;
   const [tempFilterState, setTempFilterState] = useState<FilterInterface>(defaultFilter)
+  const {search} = useLocation()
+  
+  useEffect(() => {
+    
+    console.log("==> q : ",search)
+    if (!search){
+      setIsFilterActivated(false)
+    }
+  }, [])
+  
 
   const handleValidateFilter = () => {
     if(isFilterActivated){
