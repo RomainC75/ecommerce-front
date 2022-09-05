@@ -25,7 +25,7 @@ export interface ProductInterface{
     weight: weight,
     createdAt?:string,
     updatedAt?:string,
-    promo?:number|null;
+    promo?:number;
 }
 
 export interface ProductToOrderInterface{
