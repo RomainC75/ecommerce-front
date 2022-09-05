@@ -12,10 +12,14 @@
   overflow: hidden;
   height: 40px;
   padding: 0 40px;
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
 }
 
-position:relative .content__container:before {
+.content__container:before {
   content: "[";
+  position: absolute;
   left: 0;
 }
 
@@ -32,11 +36,11 @@ position:relative .content__container:before {
   font-size: 42px;
   line-height: 40px;
   -webkit-animation-name: opacity;
+          animation-name: opacity;
   -webkit-animation-duration: 2s;
+          animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
-  animation-name: opacity;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 .content__container__text {

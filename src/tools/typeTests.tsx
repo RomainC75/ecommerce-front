@@ -1,3 +1,5 @@
+import { pid } from "process";
+
 export const isProductToOrderInterface = (obj: any): boolean => {
   console.log(obj);
   const keys = Object.keys(obj);
@@ -40,7 +42,8 @@ const isProductInterface = (obj: any): boolean => {
     "priceType" in pId &&
     "stockQuantity" in pId &&
     "pictures" in pId &&
-    "categories" in pId &&
+    "category" in pId &&
+    "subCategories" in pId &&
     "weight" in pId 
   ) {
     console.log("==>test 3")
@@ -52,7 +55,8 @@ const isProductInterface = (obj: any): boolean => {
       typeof pId.priceType === "string" &&
       typeof pId.stockQuantity === "number" &&
       Array.isArray(pId.pictures) &&
-      Array.isArray(pId.categories) &&
+      typeof pId.category === "string" &&
+      Array.isArray(pId.subCategories) &&
       typeof pId.weight === "object"
     ) {
       return true;

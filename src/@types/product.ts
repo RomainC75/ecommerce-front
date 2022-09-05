@@ -8,7 +8,7 @@
 
 interface weight{
     quantity:number;
-    unity:'kg'|'g'|'cl'
+    unity:'g'|'kg'|'cl'|'ml'|'l'|'m²'
 }
 
 export interface ProductInterface{
@@ -20,8 +20,8 @@ export interface ProductInterface{
     stockQuantity: number,
     pictures?: string[],
     caracteristics?: string[],
-    categories: string[],
-    subCategory?: string,
+    category: string,
+    subCategories: string[],
     weight: weight,
     createdAt?:string,
     updatedAt?:string,
