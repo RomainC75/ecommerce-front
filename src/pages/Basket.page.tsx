@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
@@ -67,7 +67,7 @@ export const BasketPage = (): JSX.Element => {
             return (
               <li key={prod._id} className="basketUl__li">
                 <div className="basketUl__li__img">
-                  <img src={pic} alt={`picture of ${prod._id}`} />
+                  <Link to={`/product/${populatedProdToOrder.productId._id}`}><img src={pic} alt={`picture of ${prod._id}`} /></Link>
                 </div>
                 <div className="basketUl__li__middle">
                   <h3>{prod.name}</h3>
@@ -80,7 +80,6 @@ export const BasketPage = (): JSX.Element => {
                       <ImCross className="red" />
                     )}
                   </p>
-
                   <p>
                   <span className="infoName">Price</span> :{" "}
                     {"promo" in prod && prod.promo ? (

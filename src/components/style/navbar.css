@@ -8,8 +8,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   width: 100%;
   padding-top: 30px;
+}
+
+.Navbar > * {
+  margin: 0 10px 10px 10px;
 }
 
 .Navbar h1 {

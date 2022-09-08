@@ -1,9 +1,11 @@
 .InfiniteScroll{
+    max-width:1000px;
+    margin: 0 auto;
     & ul{
         display:flex;
         flex-wrap: wrap;
         gap:10px;
         justify-content: center;
-
+        padding:0;
     }
 }

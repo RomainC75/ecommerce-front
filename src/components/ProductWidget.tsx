@@ -30,6 +30,13 @@ const fillInPicture =
     }
   } 
 
+const isInPromo = (product:ProductInterface) =>{
+  return 'promo' in product 
+    && product.promo 
+    && typeof product.promo === 'number' 
+    && product.promo>0
+}
+
 export const ProductWidget = (props: ProductProps): JSX.Element => {
   
   const { product } = props;
@@ -40,12 +47,12 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
   // console.log('Price : ',product.price, product.weight)
 
   return (
-    <li className="ProductWidget">
+    <li className={`ProductWidget ${isInPromo(product) ? 'promoWidget' : ''}`}>
       <Link className="ProductWidget__link" to={`/product/${product._id}`}>
         <p className="ProductWidget__infos brand">{product.brand.toUpperCase()}</p>
-        <h3 className="ProductWidget__infos name">{product.name}</h3>
+        <h3 className={`ProductWidget__infos name `}>{product.name}</h3>
         <div className="ProductWidget__infos picture">
-          {"promo" in product && <div className="promo"><GoHeart className="ProductWidget__infos picture promo"/></div>}
+          {isInPromo(product) && <div className="promo"><GoHeart className="ProductWidget__infos picture promo"/></div>}
           {product.pictures ? (
             <img src={product.pictures[0]} />
           ) : (
@@ -56,7 +63,7 @@ export const ProductWidget = (props: ProductProps): JSX.Element => {
 
       <div className="ProductWidget__infos price">
         <p>Price : <span className={'promo' in product ? 'overline' : ''}>{product.price}</span>€</p>
-        {'promo' in product && <div className="promo">
+        {isInPromo(product) && <div className="promo">
           <p className="promorate">{product.promo}%  =</p>
           <p className="newPrice">{(product.price - product.price*(product.promo ? product.promo : 0)/100).toFixed(2)}€</p>
           </div>}

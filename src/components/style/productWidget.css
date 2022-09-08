@@ -54,10 +54,14 @@
   color: #287960;
   font-weight: 800;
   margin-bottom: 10px;
+  height: 44px;
 }
 
 .ProductWidget__infos.name {
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 50px;
 }
 
 .ProductWidget__infos.picture {
@@ -81,6 +85,14 @@
   height: 18px;
   -webkit-transform: scale(3);
           transform: scale(3);
+}
+
+.promoWidget .price {
+  gap: 0;
+}
+
+.promoWidget .AddProductToBasket {
+  margin: 0;
 }
 
 .promo {

@@ -39,5 +39,8 @@
   gap: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 /*# sourceMappingURL=productsList.css.map */
