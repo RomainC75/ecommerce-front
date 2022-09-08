@@ -71,9 +71,9 @@ export const BasketPage = (): JSX.Element => {
                 </div>
                 <div className="basketUl__li__middle">
                   <h3>{prod.name}</h3>
-                  <p>by {prod.brand}</p>
+                  <p><span className="infoName">By {prod.brand}</span></p>
                   <p>
-                    in stock :{" "}
+                  <span className="infoName">In Stock</span> :{" "}
                     {prod.stockQuantity > 0 ? (
                       <ImCheckmark className="green" />
                     ) : (
@@ -82,7 +82,7 @@ export const BasketPage = (): JSX.Element => {
                   </p>
 
                   <p>
-                    price :{" "}
+                  <span className="infoName">Price</span> :{" "}
                     {"promo" in prod && prod.promo ? (
                       <span style={{ color: "red", fontWeight:600 }}>
                         {getNewPromoPrice(prod.price,prod.promo).toFixed(2)}
@@ -96,7 +96,7 @@ export const BasketPage = (): JSX.Element => {
                   <Quantity product={populatedProdToOrder} />
                 </div>
                 <div className="basketUl__li__right">
-                  <p>sub</p>
+                  <p><span className="infoName">Sub</span> :</p>
                   <p>{"promo" in prod && prod.promo ? 
                     (populatedProdToOrder.quantity*getNewPromoPrice(prod.price,prod.promo)).toFixed(2)
                     :

@@ -38,6 +38,7 @@
 .basketUl__li__img img {
   width: 200px;
   height: 200px;
+  border-radius: 0.5em;
 }
 
 .basketUl__li__middle {
@@ -47,6 +48,11 @@
 
 .basketUl__li__right p:nth-child(2) {
   font-weight: bold;
+}
+
+.infoName {
+  font-weight: 500;
+  font-style: italic;
 }
 
 @media (max-width: 800px) {

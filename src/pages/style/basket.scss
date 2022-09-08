@@ -26,6 +26,7 @@
             & img{
                 width:200px;
                 height:200px;
+                border-radius: 0.5em;
             }  
         }
         &__middle{
@@ -40,6 +41,11 @@
             }
         }
     }
+}
+
+.infoName{
+    font-weight:500;
+    font-style: italic;
 }
 
 @media (max-width:800px) {
@@ -62,3 +68,4 @@
         }
     }
 }
+
