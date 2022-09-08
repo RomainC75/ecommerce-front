@@ -73,10 +73,12 @@
 }
 
 .ProductWidget__infos.picture.promo {
-  color: red;
+  color: #76d649;
   position: absolute;
   top: 20px;
-  left: 10px;
+  left: -20px;
+  width: 18px;
+  height: 18px;
   -webkit-transform: scale(3);
           transform: scale(3);
 }

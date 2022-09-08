@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
@@ -39,13 +40,21 @@ export const BasketPage = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const navigate = useNavigate();
 
   console.log("cartState", cartState);
+  
+  const goToCheckout = () =>{
+    console.log('CHEKCOUT')
+    localStorage.setItem('isCurrentCartValidated','true')
+    navigate("/checkout")
+  }
 
   return (
     <div className="Basket">
       <h2>This is you basket</h2>
       <h3>Total : {getTotal(cartState)} €</h3>
+      <Button variant="contained" onClick={goToCheckout}>Checkout !</Button>
       <ul className="basketUl">
         {cartState &&
           cartState.map((populatedProdToOrder) => {
@@ -91,7 +100,7 @@ export const BasketPage = (): JSX.Element => {
                   <p>{"promo" in prod && prod.promo ? 
                     (populatedProdToOrder.quantity*getNewPromoPrice(prod.price,prod.promo)).toFixed(2)
                     :
-                    populatedProdToOrder.quantity * prod.price 
+                    (populatedProdToOrder.quantity * prod.price ).toFixed(2)
                   }</p>
                   <Button
                     variant="contained"

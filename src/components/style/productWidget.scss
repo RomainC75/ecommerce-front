@@ -50,10 +50,12 @@
                 object-fit: cover;
             }
             &.promo{
-                color:red;
+                color:#76d649;
                 position: absolute;
                 top:20px;
-                left:10px;
+                left:-20px;
+                width:18px;
+                height:18px;
 
                 transform:scale(3);
             }

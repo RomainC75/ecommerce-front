@@ -12,13 +12,16 @@
 }
 
 .basketUl__li {
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   border: 1px solid #1b4169;
-  background-color: #b1cbe6;
+  background-color: #edeece;
   border-radius: 10px;
   padding: 10px;
 }
@@ -33,8 +36,8 @@
 }
 
 .basketUl__li__img img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 
 .basketUl__li__middle {
@@ -44,5 +47,24 @@
 
 .basketUl__li__right p:nth-child(2) {
   font-weight: bold;
+}
+
+@media (max-width: 800px) {
+  .basketUl__li {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 60%;
+  }
+}
+
+@media (max-width: 530px) {
+  .basketUl__li {
+    width: 300px;
+  }
 }
 /*# sourceMappingURL=basket.css.map */

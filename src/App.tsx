@@ -9,7 +9,9 @@ import { ProductDetails } from './components/ProductDetails';
 import { Account } from './components/Account copy';
 import { HomePage } from './pages/HomePage';
 import IsPrivate from './components/IsPrivate'
-
+import { CheckoutPage } from './pages/Checkout.page';
+import IsCartValidated from './components/IsCartValidated';
+ 
 function App():JSX.Element {
   return (
     <div className="App">
@@ -21,6 +23,7 @@ function App():JSX.Element {
         <Route path="/basket" element={<BasketPage/>}/>
         <Route path="/product/:productId" element={<ProductDetails/>}/>
         <Route path="/account" element={<IsPrivate><Account/></IsPrivate>}/>
+        <Route path="/checkout" element={<IsPrivate><IsCartValidated><CheckoutPage/></IsCartValidated></IsPrivate>}/>
       </Routes>
     </div>
   );
