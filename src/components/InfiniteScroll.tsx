@@ -61,12 +61,13 @@ export const InfiniteScroll = () => {
 
   return (
     <div className="InfiniteScroll">
+      
       <ul>
         {products.map((product, i) => {
           return <ProductWidget key={"promo" + i} product={product} />;
         })}
       </ul>
-      {loading && page!==totalPages && <Spinner/>}
+      {loading && (page!==totalPages || page===1) && <Spinner/>}
       {/* {error && <div>Error</div>} */}
     </div>
   );
