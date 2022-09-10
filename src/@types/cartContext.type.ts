@@ -27,4 +27,6 @@ export interface cartContextInterface{
     addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>void;
     logOutAndEraseStateAndLS:()=>void;
     updateQuantityOnOneItemAndPatch:(id:string,quantity:number)=>Promise<boolean>;
+    getTotal:()=>string;
+    getNewPromoPrice:(basePrice:number, promo:number)=>number;
 }

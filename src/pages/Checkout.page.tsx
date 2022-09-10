@@ -1,40 +1,44 @@
-import React, { Fragment, useRef, useEffect, useState, useContext } from 'react';
-import TextField from '@mui/material/TextField';
+import React,{useContext, useState} from "react";
+import CreditCard from "../components/CreditCard";
+import CreditCardCvc from "../components/CreditCardCvc";
+import { CartContext } from "../context/cart.context";
+import Button from "@mui/material/Button";
+import { CreditCardName } from "../components/CreditCardName";
+import { cartContextInterface } from "../@types/cartContext.type";
+
+import './style/checkoutPage.css'
 
 export const CheckoutPage = () => {
-  const inputRef = useRef<HTMLInputElement>(null!);
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState("")
-  const [cardNumber, setCardNumber ] = useState<number | null>(null)
+
+  const {
+    getTotal
+  } = useContext(CartContext) as cartContextInterface;
+  const [cvcNumber, setCvcNumber] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [cardNumber, setCardNumber] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(e);
+    console.log(e.target)
+  };
+
   
 
-  const handleCreditCard = (e:any) =>{
-    const value = e.target.value
-    console.log(value)
-    
-    if(value) {return } 
-    
-    if (value.length>3){
-      setError(true)
-      setHelperText("invalid number")
-    }else{
-      setError(false)
-    }
-    
-  }
-
   return (
-    <>
-      <div>CheckoutPage</div>
-      <TextField
-          error={error}
-          id="outlined-error-helper-text"
-          label="Card number"
-          defaultValue=""
-          helperText={helperText}
-          onChange={handleCreditCard}
-          inputRef={inputRef}
-        />
-    </>
-  )
-}
+    <div className="CheckoutPage">
+      <h2>CheckoutPage</h2>
+      <p className="total">Total : <span>{getTotal()}€</span></p>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <CreditCard cardNumber={cardNumber} setCardNumber={setCardNumber}/>
+          <CreditCardCvc cvcNumber={cvcNumber} setCvcNumber={setCvcNumber}/>
+          <CreditCardName name={name} setName={setName}/>
+          <Button variant="outlined" type="submit">
+            Validate
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+};

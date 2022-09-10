@@ -1,0 +1,30 @@
+.CheckoutPage {
+  margin: 0 auto;
+}
+
+.CheckoutPage p.total {
+  font-size: 1.5em;
+}
+
+.CheckoutPage p.total span {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.CheckoutPage div:nth-child(2) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.CheckoutPage div:nth-child(2) div {
+  margin-bottom: 10px;
+}
+
+.CheckoutPage div:nth-child(2) form {
+  width: 245px;
+}
+/*# sourceMappingURL=checkoutPage.css.map */

@@ -252,6 +252,20 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     patchTheUpdatedCart(newCart);
   };
 
+  const getNewPromoPrice = (basePrice:number, promo:number):number =>{  
+    return basePrice - basePrice*promo/100
+  }
+
+  const getTotal = ():string =>{
+    return cartState.reduce((accu:number,currentProd:PopulatedProductToOrderInterface)=>{
+      if("promo" in currentProd.productId && currentProd.productId.promo){
+        return accu+ getNewPromoPrice(currentProd.productId.price,currentProd.productId.promo)*currentProd.quantity
+      }else{
+        return accu+ currentProd.productId.price*currentProd.quantity
+      }
+    },0).toFixed(2)
+  }
+
   const logOutAndEraseStateAndLS = (): void => {
     logOutUser();
     setCartState([]);
@@ -281,6 +295,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         addItemToOnlineCart,
         logOutAndEraseStateAndLS,
         updateQuantityOnOneItemAndPatch,
+        getNewPromoPrice,
+        getTotal
       }}
     >
       {props.children}
