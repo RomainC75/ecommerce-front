@@ -53,32 +53,11 @@ export const Account = (): JSX.Element => {
   >("primary");
   const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const storedToken = localStorage.getItem("authToken");
-    axios
-      .get(`${API_URL}/user`, {
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      })
-      .then((ans) => {
-        setIsLoading(false);
-        setIsLoaded(true);
-        console.log("++++", ans.data);
-        setUserInfosState(ans.data);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setIsError(true);
-        setErrorMessage(err.response.data.message);
-      });
-  }, []);
-
   const handleUserInfos = (
     el: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     if (userInfosState) {
+      //FILTER ! TEUBE !!!!!!
       const buff = userInfosState;
       console.log('val to insert :',el.target.name,el.target.value)
       buff[el.target.name as keyof UserExpandedInterface] = el.target.value ? el.target.value:"";

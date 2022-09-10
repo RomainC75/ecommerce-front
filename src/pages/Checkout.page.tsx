@@ -9,6 +9,8 @@ import { cartContextInterface } from "../@types/cartContext.type";
 import "./style/checkoutPage.css";
 import { CardNumberVerification } from "card-validator/dist/card-number";
 import axios from "axios";
+import { DestinationAddress } from "../components/DestinationAddress";
+import { DestinationAddressInterface } from "../@types/destinationAddress.type";
 
 export const CheckoutPage = () => {
   const { getTotal, validateCartWithCreditCard } = useContext(
@@ -17,22 +19,25 @@ export const CheckoutPage = () => {
   const [cvcNumber, setCvcNumber] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
+  const [addressToSendState, setAddressToSendState] = useState<DestinationAddressInterface|null>(null)
   const [isCardNumberFullyValid, setIsCardNumberFullyValid] =
     useState<boolean>(false);
-  const [isFullInfosValid, setIsFullInfosValid] = useState<boolean>(false);
 
+  const [isFullInfosValid, setIsFullInfosValid] = useState<boolean>(false);
   const [isCartValidatedByServer, setIsCartValidatedByServer] =
     useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isFullInfosValid) {
+    console.log("==============>",e)
+    if (isFullInfosValid && addressToSendState) {
       console.log("==>");
       console.log(cardNumber, cvcNumber, name);
       const ans = await validateCartWithCreditCard({
         cardNumber: cardNumber.replace(/ /g, ""),
         cvcNumber,
         name,
+        address:addressToSendState
       });
       if (ans) {
         setIsCartValidatedByServer(true);
@@ -40,6 +45,10 @@ export const CheckoutPage = () => {
       console.log("validateCardWithCreditCard ans : ", ans);
     }
   };
+
+  useEffect(()=>{
+    axios.get('')
+  },[])
 
   useEffect(() => {
     console.log(
@@ -80,6 +89,7 @@ export const CheckoutPage = () => {
                 setCvcNumber={setCvcNumber}
               />
               <CreditCardName name={name} setName={setName} />
+              <DestinationAddress addressToSendState={addressToSendState} setAddressToSendState={setAddressToSendState}/>
               <Button
                 variant="outlined"
                 type="submit"

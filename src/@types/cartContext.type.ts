@@ -1,5 +1,5 @@
 import { ProductToOrderInterface, PopulatedProductToOrderInterface, ProductInterface } from "./product"
-
+import { DestinationAddressInterface } from "./destinationAddress.type";
 //localStorage : cartPopulatedInterface !!!!!
 
 export interface cartInterface{
@@ -13,6 +13,7 @@ export interface CreditCardInfosInterface{
     cardNumber:string;
     cvcNumber:string;
     name:string;
+    address:DestinationAddressInterface;
 }
 
 export interface cartPopulatedInterface{
