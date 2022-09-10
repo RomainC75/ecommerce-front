@@ -6,6 +6,7 @@ import { CardNumberVerification } from "card-validator/dist/card-number";
 interface CreditCardProps{
   cardNumber:string;
   setCardNumber:(state:string)=>void;
+  setIsCardNumberFullyValid:(state:boolean)=>void;
 }
 
 const splitCardNumberString = (val: string): string => {
@@ -18,13 +19,14 @@ const splitCardNumberString = (val: string): string => {
 
 
 const CreditCard = (props:CreditCardProps) => {
-  const {cardNumber,setCardNumber} = props;
+  const { cardNumber, setCardNumber, setIsCardNumberFullyValid } = props;
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
   // const [cardNumber, setCardNumber] = useState<string>("");
   const [color, setColor] = useState<
     "error" | "primary" | "secondary" | "info" | "success" | "warning"
   >("primary");
+  
 
   const handleCreditCard = (e: any) => {
     const value = e.target.value.replace(/ /g, "");
@@ -40,16 +42,20 @@ const CreditCard = (props:CreditCardProps) => {
     const cardNumberValidator: CardNumberVerification = number(value);
 
     if (cardNumberValidator.isValid) {
+      console.log("(isValid...;)")
       setColor("success");
       setError(false);
       setHelperText("number valid !");
+      setIsCardNumberFullyValid(true)
     } else if (cardNumberValidator.isPotentiallyValid) {
       setColor("primary");
       setError(false);
       setHelperText("waiting...");
+      setIsCardNumberFullyValid(false)
     } else {
       setError(true);
       setHelperText("number invalid !");
+      setIsCardNumberFullyValid(false)
     }
   };
 

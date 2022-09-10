@@ -21,6 +21,13 @@ export const CreditCardName = (props:CreditCardProps) => {
     if(!value.match(/\d/)){
         setName(value)
     }
+    if(value.length>=5){
+      setColor("success")
+      setHelperText("name valid !")
+    }else{
+      setColor("error")
+      setHelperText("more than 5 characters")
+    }
   }
 
   return (

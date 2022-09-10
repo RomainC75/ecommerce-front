@@ -11,6 +11,7 @@ import {
   cartContextInterface,
   cartInterface,
   cartPopulatedInterface,
+  CreditCardInfosInterface,
 } from "../@types/cartContext.type";
 import { AuthContext } from "./auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
@@ -266,6 +267,32 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     },0).toFixed(2)
   }
 
+  const validateCartWithCreditCard = (infos:CreditCardInfosInterface):Promise<boolean>=>{
+    const storedToken = localStorage.getItem('authToken')
+    return new Promise (async(resolve,reject)=>{
+      try {
+        axios({
+          url:API_URL+'/cart/checkout',
+          method:"POST",
+          headers:{
+            authorization:`BEARER ${storedToken}`
+          },
+          data:infos
+        }).then(ans=>{
+          console.log('ans : ',ans.data)
+          resolve(true)
+        })
+        .catch(err=>{
+          console.log("validateCardWithCreditCard" ,err)
+          reject(false)
+        })
+      } catch (error) {
+        console.log("validateCardWithCreditCard" ,error)
+        reject(false)
+      }
+    })
+  }
+
   const logOutAndEraseStateAndLS = (): void => {
     logOutUser();
     setCartState([]);
@@ -296,7 +323,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         logOutAndEraseStateAndLS,
         updateQuantityOnOneItemAndPatch,
         getNewPromoPrice,
-        getTotal
+        getTotal,
+        validateCartWithCreditCard
       }}
     >
       {props.children}

@@ -9,6 +9,12 @@ export interface cartInterface{
     updatedAt: string;
 }
 
+export interface CreditCardInfosInterface{
+    cardNumber:string;
+    cvcNumber:string;
+    name:string;
+}
+
 export interface cartPopulatedInterface{
     _id:string;
     products: PopulatedProductToOrderInterface[];
@@ -29,4 +35,5 @@ export interface cartContextInterface{
     updateQuantityOnOneItemAndPatch:(id:string,quantity:number)=>Promise<boolean>;
     getTotal:()=>string;
     getNewPromoPrice:(basePrice:number, promo:number)=>number;
+    validateCartWithCreditCard:(infos:CreditCardInfosInterface)=>Promise<boolean>;
 }
