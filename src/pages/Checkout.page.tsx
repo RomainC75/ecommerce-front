@@ -2,23 +2,22 @@ import React, { useContext, useState, useEffect } from "react";
 import CreditCard from "../components/CreditCard";
 import CreditCardCvc from "../components/CreditCardCvc";
 import { CartContext } from "../context/cart.context";
-import { AuthContext } from "../context/auth.context";
 import Button from "@mui/material/Button";
 import { CreditCardName } from "../components/CreditCardName";
 import { cartContextInterface } from "../@types/cartContext.type";
 
 import "./style/checkoutPage.css";
-import { CardNumberVerification } from "card-validator/dist/card-number";
 import axios from "axios";
 import { DestinationAddress } from "../components/DestinationAddress";
 import { DestinationAddressInterface } from "../@types/destinationAddress.type";
+import { AuthContext } from "../context/auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
 
 export const CheckoutPage = () => {
-  const { getTotal, validateCartWithCreditCard } = useContext(
+  const { getTotal, validateCartWithCreditCard, getOnlineCartAndRecordToStateAndLS } = useContext(
     CartContext
   ) as cartContextInterface;
-  const { user } = useContext(
+  const { authenticateUser } = useContext(
     AuthContext
   ) as AuthContextInterface;
   const [cvcNumber, setCvcNumber] = useState<string>("");
@@ -35,13 +34,11 @@ export const CheckoutPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("==============>",e)
-    if (isFullInfosValid && addressToSendState && user?._id) {
+    if (isFullInfosValid && addressToSendState) {
       console.log("==>");
       console.log(cardNumber, cvcNumber, name);
-      console.log("userId", user._id);
-      console.log("==============;================")
       const ans = await validateCartWithCreditCard({
-        userId:user._id,
+        totalCost:parseFloat(getTotal()),
         creditCard:{
           cardNumber: cardNumber.replace(/ /g, ""),
           cvcNumber,
@@ -51,8 +48,9 @@ export const CheckoutPage = () => {
       });
       if (ans) {
         setIsCartValidatedByServer(true);
+        getOnlineCartAndRecordToStateAndLS()
+
       }
-      console.log("validateCardWithCreditCard ans : ", ans);
     }
   };
 

@@ -187,6 +187,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
+
   const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
     
     const offlineCartStr: string | null = localStorage.getItem("offlineCart");
@@ -218,8 +219,12 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
           setCartState(ans.data.products);
+        }else{
+          localStorage.removeItem('cart')
+          setCartState([])
         }
-      });
+      })
+      
   };
 
   const patchTheUpdatedCart = (
@@ -237,6 +242,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         getOnlineCartAndRecordToStateAndLS();
       });
   };
+
 
   const removeFromCartById = (id: string): void => {
     console.log("id : ", id);
@@ -266,6 +272,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       }
     },0).toFixed(2)
   }
+
+
 
   const validateCartWithCreditCard = (infos:CartToOrderInterface):Promise<boolean>=>{
     const storedToken = localStorage.getItem('authToken')
@@ -324,7 +332,8 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         updateQuantityOnOneItemAndPatch,
         getNewPromoPrice,
         getTotal,
-        validateCartWithCreditCard
+        validateCartWithCreditCard,
+        getOnlineCartAndRecordToStateAndLS
       }}
     >
       {props.children}

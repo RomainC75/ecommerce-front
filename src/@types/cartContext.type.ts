@@ -16,7 +16,7 @@ interface CreditCardInterface{
 }
 
 export interface CartToOrderInterface{
-    userId:string;
+    totalCost:number
     creditCard:CreditCardInterface;
     address:DestinationAddressInterface;
 }
@@ -42,4 +42,8 @@ export interface cartContextInterface{
     getTotal:()=>string;
     getNewPromoPrice:(basePrice:number, promo:number)=>number;
     validateCartWithCreditCard:(infos:CartToOrderInterface)=>Promise<boolean>;
+    getOnlineCartAndRecordToStateAndLS:()=>void;
+
+    
+
 }
