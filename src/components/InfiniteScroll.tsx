@@ -19,6 +19,7 @@ export const InfiniteScroll = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log("infinite scroll || env : ",process.env.REACT_APP_API_URL)
     if (page > totalPages) return;
     setLoading(true);
     setTimeout(() => {
