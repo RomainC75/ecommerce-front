@@ -1,0 +1,26 @@
+.LoginPage .inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 500px) {
+  .LoginPage .inputs {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .LoginPage .inputs__input {
+    width: 300px;
+  }
+}
+/*# sourceMappingURL=loginPage.css.map */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAEI,UAFM,CAEJ,OAAO,CAAA;EACL,OAAO,EAAC,IAAI;EACZ,eAAe,EAAE,MAAM;EACvB,GAAG,EAAC,IAAI;EACR,aAAa,EAAC,IAAI;CACrB;;AAGL,MAAM,EAAC,SAAS,EAAE,KAAK;EACnB,AACI,UADM,CACJ,OAAO,CAAA;IACL,cAAc,EAAE,MAAM;IACtB,WAAW,EAAC,MAAM;GAIrB;EAPL,AAIQ,UAJE,CAID,cAAO,CAAA;IACJ,KAAK,EAAC,KAAK;GACd",
+    "sources": [
+        "loginPage.scss"
+    ],
+    "names": [],
+    "file": "loginPage.css"
+}

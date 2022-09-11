@@ -1,0 +1,10 @@
+.Footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #287960;
+  color: white;
+  font-weight: 800;
+  font-size: 2em;
+}
+/*# sourceMappingURL=footer.css.map */

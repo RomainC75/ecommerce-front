@@ -12,7 +12,6 @@ import "./style/infiniteScroll.css";
 const base_url = "http://localhost:5005";
 const PAGE_NUMBER = 1;
 
-
 export const InfiniteScroll = () => {
   const [products, setProducts] = useState<ProductInterface[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -52,7 +51,6 @@ export const InfiniteScroll = () => {
       window.innerHeight + document.documentElement.scrollTop + 1 >=
       document.documentElement.scrollHeight
     ) {
-      
       setPage((prev) => {
         return prev + 1;
       });

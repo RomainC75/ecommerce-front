@@ -7,6 +7,8 @@ import { categoriesTranslator } from '../tools/categories'
 export const CategoriesList = () => {
     const {cat} = useParams()
   return (
-    <div><ProductsList cat={cat}/></div>
+    <div className="CategoriesList">
+      <ProductsList cat={cat}/>
+    </div>
   )
 }
