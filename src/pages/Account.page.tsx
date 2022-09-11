@@ -1,5 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+import { AuthContextInterface } from "../@types/authContext.type";
 import TextField from "@mui/material/TextField";
 import { Spinner } from "../components/Spinner";
 import {
@@ -58,6 +60,8 @@ const initialFValues: UserExpandedInterface = {
 //---------------------------------------------------
 
 export const Account = (): JSX.Element => {
+  const { authenticateUser } = useContext(AuthContext) as AuthContextInterface;
+
   const [userInfosState, setUserInfosState] =
     useState<UserExpandedInterface | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -68,7 +72,8 @@ export const Account = (): JSX.Element => {
     "primary" | "success" | "error"
   >("primary");
   const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileNameState, setFileNameState] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -110,8 +115,8 @@ export const Account = (): JSX.Element => {
         zip: userInfosState.zip ? userInfosState.zip : "",
         state: userInfosState.state ? userInfosState.state : "",
         country: userInfosState.country ? userInfosState.country : "",
-        birthdate: userInfosState.birthdate ? userInfosState.birthdate : ""
-      }
+        birthdate: userInfosState.birthdate ? userInfosState.birthdate : "",
+      };
       buff[el.target.name as keyof UserExpandedInterface] = el.target.value
         ? el.target.value
         : "";
@@ -145,33 +150,39 @@ export const Account = (): JSX.Element => {
       });
   };
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    if(!e.target.files) return
-    // console.log('FILE ',e.target.files[0])
-    setSelectedFile(e.target.files[0])
-  }
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    // console.log('FILE ',e.target.files[0].name)
+    setFileNameState(e.target.files[0].name);
+    setSelectedFile(e.target.files[0]);
+  };
 
-  const sendFile = () =>{
-    if(selectedFile){
-      const storedToken = localStorage.getItem('authToken')
-      const formData = new FormData()
-      formData.append('image',selectedFile,"ZeName")
+  const sendFile = () => {
+    if (selectedFile) {
+      const storedToken = localStorage.getItem("authToken");
+      const formData = new FormData();
+      formData.append("image", selectedFile, "ZeName");
       axios({
-        url:API_URL+'/user/image',
-        method:"POST",
-        headers:{
-          authorization:`BEARER ${storedToken}`
+        url: API_URL + "/user/image",
+        method: "POST",
+        headers: {
+          authorization: `BEARER ${storedToken}`,
         },
-        data:formData
-      }).then(ans=>console.log('ans : ',ans.data))
-      .catch(err=>{})
+        data: formData,
+      })
+        .then((ans) => {
+          console.log("ans : ", ans.data);
+          authenticateUser();
+        })
+        .catch((err) => {});
     }
-  }
+  };
 
   return (
-    <>
+    <div className="AccountPage">
       {!isLoading && userInfosState ? (
-        <div className="User">
+        <div className="User box">
+          <h2>User Informations</h2>
           <form onSubmit={handleSubmit}>
             <div className="User__line">
               <TextField
@@ -281,11 +292,11 @@ export const Account = (): JSX.Element => {
               />
             </div>
             {isLoadingButton ? (
-              <Button variant="outlined" disabled>
+              <Button variant="contained" disabled>
                 Loading
               </Button>
             ) : (
-              <Button variant="outlined" type="submit" color={buttonColorState}>
+              <Button variant="contained" type="submit" color={buttonColorState}>
                 Update Infos
               </Button>
             )}
@@ -294,9 +305,24 @@ export const Account = (): JSX.Element => {
       ) : (
         <Spinner />
       )}
-      <br/>
-      <input type="file" name="file" onChange={handleFile}/>
-      <Button variant="contained" color="primary" onClick={()=>sendFile()}>Send File</Button>
-    </>
+      <br />
+
+      <div className="avatarSection box">
+        <h2>Avatar</h2>
+        <Button className="avatarSection__selectFileButton" variant="outlined" component="label">
+          Select file
+          <input type="file" hidden onChange={handleFile} />
+        </Button>
+        <Button variant="contained" color="primary" onClick={() => sendFile()}>
+          Send File
+        </Button>
+        {fileNameState && (
+          <div className="avatarSection__fileName">
+            <p>Nom du fichier : </p>
+            <p>{fileNameState}</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };

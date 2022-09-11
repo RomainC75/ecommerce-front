@@ -1,3 +1,13 @@
+.AccountPage{
+    & > .box{
+        max-width:500px;
+        margin:20px auto;
+        padding:20px;
+        border:5px solid rgb(211, 215, 235);
+        border-radius:1.5em;
+    }
+}
+
 .User{
     &__line{
         display:flex;
@@ -6,6 +16,41 @@
         margin-bottom:20px;
         &__validated{
             display:flex;
+            align-items:center;
+        }
+    }
+}
+
+.avatarSection{
+    &__selectFileButton{
+        margin-right:10px !important;   
+    }
+    &__fileName{
+        & p:nth-child(1){
+            text-decoration: underline;
+            font-weight:800;
+        }
+        & p:nth-child(2){
+            font-size:1.2em;
+        }
+    }
+}
+
+@media (max-width:500px) {
+    .AccountPage{
+        width:95%;
+        margin:0 auto;
+    }
+    .User{
+        & form{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+        }
+        &__line{
+            flex-direction: column;
+            width:300px;
             align-items:center;
         }
     }

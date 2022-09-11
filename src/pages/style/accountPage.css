@@ -1,3 +1,11 @@
+.AccountPage > .box {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 5px solid #d3d7eb;
+  border-radius: 1.5em;
+}
+
 .User__line {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16,5 +24,50 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.avatarSection__selectFileButton {
+  margin-right: 10px !important;
+}
+
+.avatarSection__fileName p:nth-child(1) {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+.avatarSection__fileName p:nth-child(2) {
+  font-size: 1.2em;
+}
+
+@media (max-width: 500px) {
+  .AccountPage {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .User form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .User__line {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 300px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
 }
 /*# sourceMappingURL=accountPage.css.map */
