@@ -1,8 +1,6 @@
-import React, { useState, useEffect, createContext, ReactNode, PropsWithChildren } from "react";
+import { useState, createContext, PropsWithChildren } from "react";
 
 import { FilterContextInterface, FilterInterface } from "../@types/filterContext.type";
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 const FilterContext = createContext<FilterContextInterface | null>(null);
 

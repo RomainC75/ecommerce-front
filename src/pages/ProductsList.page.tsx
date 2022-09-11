@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import {
   useLocation,
-  useParams,
   useNavigate,
   createSearchParams,
 } from "react-router-dom";
@@ -12,13 +11,11 @@ import { FilterContext } from "../context/filter.context";
 import Pagination from "@mui/material/Pagination";
 import { Spinner } from "../components/Spinner";
 import { FilterContextInterface } from "../@types/filterContext.type";
-import { PaginatedCategoriesInterface } from "../@types/product";
 
 import "./style/productsList.css";
 import { FilterComp } from "../components/FilterComp";
-import { Menu } from "../components/Menu";
 
-const base_url = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 interface ProductListInterface {
   cat?: string;
@@ -44,7 +41,7 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [maxPageNumber, setMaxPageNumber] = useState<number>(0);
-  const { filterState, isFilterActivated, setIsFilterActivated } = useContext(FilterContext) as FilterContextInterface;
+  const { filterState, isFilterActivated } = useContext(FilterContext) as FilterContextInterface;
 
   const handlePage = (event: React.ChangeEvent<unknown>, value: number):void => {
     const searchP:any = {
@@ -73,12 +70,12 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
       .filter((val, i) => i >= 3)
       .join("/");
       console.log('temp',url)
-      url = base_url + "/product/" + url
+      url = API_URL + "/product/" + url
     }else{
       console.log('non activé')
       url = props.cat
-        ? base_url + `/product/${"category/" + props.cat}` + "?page=" + pageState
-        : base_url + "/product/";
+        ? API_URL + `/product/category/${props.cat}` + "?page=" + pageState
+        : API_URL + "/product/";
     }
     axios
       .get(url)
@@ -94,7 +91,6 @@ export const ProductsList = (props: ProductListInterface): JSX.Element => {
         setIsLoading(false);
         console.log("error : ", err);
       });
-
   },[pageState,filterState])
 
 

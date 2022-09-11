@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { ProductInterface } from "../@types/product";
 import { CartContext } from "../context/cart.context";
 import { PopulatedProductToOrderInterface } from "../@types/product";
@@ -29,7 +29,7 @@ const getQuantityAlreadyInBasket = (
 export const AddProductToBasket = (props: ProductProps): JSX.Element => {
   const { product } = props;
   const [quantityState, setQuantityState] = useState<number>(1);
-  const { addItemToOfflineCart, addItemToOnlineCart, cartState } = useContext(
+  const { addItemToOnlineCart, cartState } = useContext(
     CartContext
   ) as cartContextInterface;
     console.log('cartState : ',cartState)

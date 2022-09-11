@@ -4,44 +4,20 @@ import {useNavigate, Link} from "react-router-dom";
 
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
-import { PopulatedProductToOrderInterface, ProductInterface, ProductToOrderInterface } from "../@types/product";
 import { ImCheckmark, ImCross } from "react-icons/im";
 
 import "./style/basket.css";
-import { isProductToOrderInterface } from "../tools/typeTests";
 import { Quantity } from "../components/Quantity";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
-
-// const getNewPromoPrice = (basePrice:number, promo:number):number =>{  
-//   return basePrice - basePrice*promo/100
-// }
-
-// const getTotal = (cart:PopulatedProductToOrderInterface[]):string =>{
-//   return cart.reduce((accu:number,currentProd:PopulatedProductToOrderInterface)=>{
-//     if("promo" in currentProd.productId && currentProd.productId.promo){
-//       return accu+ getNewPromoPrice(currentProd.productId.price,currentProd.productId.promo)*currentProd.quantity
-//     }else{
-//       return accu+ currentProd.productId.price*currentProd.quantity
-//     }
-//   },0).toFixed(2)
-// }
 
 export const BasketPage = (): JSX.Element => {
   const {
-    offlineCartState,
-    getItemsFromOffLineCart,
     cartState,
     removeFromCartById,
     getTotal,
     getNewPromoPrice
   } = useContext(CartContext) as cartContextInterface;
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
 
   console.log("cartState", cartState);

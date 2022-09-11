@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ProductWidget } from "./ProductWidget";
 import { Spinner } from "./Spinner";
 import {
@@ -9,7 +9,7 @@ import {
 
 import "./style/infiniteScroll.css";
 
-const base_url = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 const PAGE_NUMBER = 1;
 
 export const InfiniteScroll = () => {
@@ -24,7 +24,7 @@ export const InfiniteScroll = () => {
     setTimeout(() => {
       axios({
         method: "GET",
-        url: `${base_url}/product/promo`,
+        url: `${API_URL}/product/promo`,
         params: {
           page: page,
         },

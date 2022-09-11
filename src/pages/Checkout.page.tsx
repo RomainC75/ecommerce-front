@@ -17,9 +17,6 @@ export const CheckoutPage = () => {
   const { getTotal, validateCartWithCreditCard, getOnlineCartAndRecordToStateAndLS } = useContext(
     CartContext
   ) as cartContextInterface;
-  const { authenticateUser } = useContext(
-    AuthContext
-  ) as AuthContextInterface;
   const [cvcNumber, setCvcNumber] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
@@ -68,10 +65,8 @@ export const CheckoutPage = () => {
     console.log("test ENSEMBLE");
     if (isCardNumberFullyValid && cvcNumber.length === 3 && name.length >= 5) {
       setIsFullInfosValid(true);
-      console.log("VALIDATE !");
     } else {
       setIsFullInfosValid(false);
-      console.log("NON VALID !");
     }
   }, [cvcNumber, name, cardNumber, isCardNumberFullyValid]);
 

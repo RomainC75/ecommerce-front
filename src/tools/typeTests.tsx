@@ -1,5 +1,3 @@
-import { pid } from "process";
-
 export const isProductToOrderInterface = (obj: any): boolean => {
   console.log(obj);
   const keys = Object.keys(obj);

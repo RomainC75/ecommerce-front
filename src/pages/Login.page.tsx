@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 
 import './style/loginPage.css'
 
-const base_url = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 export const LoginPage = (): JSX.Element => {
   const [emailState, setEmailState] = useState<string>("");
@@ -25,7 +25,7 @@ export const LoginPage = (): JSX.Element => {
     e.preventDefault();
     console.log(emailState, passwordState);
     axios
-      .post(base_url + "/auth/signin", {
+      .post(API_URL + "/auth/signin", {
         email: emailState,
         password: passwordState,
       })

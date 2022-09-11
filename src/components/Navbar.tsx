@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,9 +14,9 @@ import "./style/navbar.css";
 import bioLogo from '../pictures/bioLogo.png'
 
 const Navbar = (): JSX.Element => {
-  const { storeToken, authenticateUser, isLoggedIn, user } =
+  const { authenticateUser, isLoggedIn, user } =
     useContext(AuthContext) as AuthContextInterface;
-  const { offlineCartState, getItemsFromOffLineCart, cartState, logOutAndEraseStateAndLS } = useContext(
+  const { cartState, logOutAndEraseStateAndLS } = useContext(
     CartContext
   ) as cartContextInterface;
   const [itemsNumberState, setItemsNumberState] = useState<number>(0);

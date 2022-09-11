@@ -1,15 +1,13 @@
-import React, {
+import {
   useState,
   useEffect,
   createContext,
   useContext,
-  ReactNode,
   PropsWithChildren,
 } from "react";
 import axios from "axios";
 import {
   cartContextInterface,
-  cartInterface,
   cartPopulatedInterface,
   CartToOrderInterface,
 } from "../@types/cartContext.type";
@@ -22,7 +20,6 @@ import {
 } from "../@types/product";
 import {
   isCartPopulatedInterface,
-  isProductToOrderInterface,
   isProductToOrderInterfaceArray,
 } from "../tools/typeTests";
 

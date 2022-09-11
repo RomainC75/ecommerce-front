@@ -5,8 +5,6 @@ import Slider from "@mui/material/Slider";
 import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from '@mui/material/Checkbox';
-import { getValue } from "@testing-library/user-event/dist/utils";
-import { categories } from "../tools/categories";
 
 import { FilterContext } from "../context/filter.context";
 import { FilterContextInterface, FilterInterface } from "../@types/filterContext.type";
@@ -25,7 +23,7 @@ function valuetext(value: number) {
 export const FilterComp = (props:FilterCompInterface) => {
   const navigate = useNavigate()
   
-  const { filterState, setFilterState,defaultFilter, isFilterActivated, setIsFilterActivated } = useContext(
+  const { setFilterState,defaultFilter, isFilterActivated, setIsFilterActivated } = useContext(
     FilterContext
   ) as FilterContextInterface;
   const [tempFilterState, setTempFilterState] = useState<FilterInterface>(defaultFilter)

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import './style/errorMessage.css'
 
 interface errorInterface{

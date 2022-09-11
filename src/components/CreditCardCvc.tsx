@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import TextField from "@mui/material/TextField";
 
 interface CreditCardCvcProp{
@@ -10,7 +10,6 @@ const CreditCardCvc = (props:CreditCardCvcProp) => {
   const {cvcNumber,setCvcNumber}=props
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
-  // const [cvcNumber, setCvcNumber] = useState<string>("");
   const [color, setColor] = useState<
     "error" | "primary" | "secondary" | "info" | "success" | "warning"
   >("primary");
