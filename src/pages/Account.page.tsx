@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Spinner } from "./Spinner";
+import { Spinner } from "../components/Spinner";
 import {
   NewUserToSend,
   UserExpandedInterface,
@@ -11,7 +9,7 @@ import {
 import Button from "@mui/material/Button";
 
 import { ImCheckmark, ImCross } from "react-icons/im";
-import "./style/userInfos.css";
+import "./style/accountPage.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -98,21 +96,32 @@ export const Account = (): JSX.Element => {
     el: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     if (userInfosState) {
-      const buff: UserExpandedInterface = userInfosState;
-      console.log("val to insert :", el.target.name, el.target.value);
+      const buff: UserExpandedInterface = {
+        _id: userInfosState._id,
+        email: userInfosState.email,
+        isMailValidated: userInfosState.isMailValidated,
+        createdAt: userInfosState.createdAt,
+        updatedAt: userInfosState.updatedAt,
+        firstname: userInfosState.firstname ? userInfosState.firstname : "",
+        lastname: userInfosState.lastname ? userInfosState.lastname : "",
+        street1: userInfosState.street1 ? userInfosState.street1 : "",
+        street2: userInfosState.street2 ? userInfosState.street2 : "",
+        city: userInfosState.city ? userInfosState.city : "",
+        zip: userInfosState.zip ? userInfosState.zip : "",
+        state: userInfosState.state ? userInfosState.state : "",
+        country: userInfosState.country ? userInfosState.country : "",
+        birthdate: userInfosState.birthdate ? userInfosState.birthdate : ""
+      }
       buff[el.target.name as keyof UserExpandedInterface] = el.target.value
         ? el.target.value
         : "";
-      console.log("buff", buff);
       setUserInfosState(buff);
     }
   };
 
   const handleSubmit = (el: React.SyntheticEvent) => {
     el.preventDefault();
-    console.log("userInfosState", userInfosState);
     if (userInfosState) {
-      console.log("FONCTION: ", selectUserInfosFieldsToSend(userInfosState));
       patchUserInfos(selectUserInfosFieldsToSend(userInfosState));
     }
   };
@@ -138,7 +147,7 @@ export const Account = (): JSX.Element => {
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) =>{
     if(!e.target.files) return
-    console.log('FILE ',e.target.files[0])
+    // console.log('FILE ',e.target.files[0])
     setSelectedFile(e.target.files[0])
   }
 
@@ -147,7 +156,6 @@ export const Account = (): JSX.Element => {
       const storedToken = localStorage.getItem('authToken')
       const formData = new FormData()
       formData.append('image',selectedFile,"ZeName")
-      // formData.append('mail',userInfosState.name)
       axios({
         url:API_URL+'/user/image',
         method:"POST",
@@ -188,7 +196,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="First Name"
-                // defaultValue={userInfosState?.firstname || "firstname"}
                 variant="filled"
                 name="firstname"
                 value={userInfosState.firstname}
@@ -197,7 +204,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="Last Name"
-                // defaultValue={userInfosState?.lastname || "lastname"}
                 variant="filled"
                 name="lastname"
                 value={userInfosState?.lastname}
@@ -208,7 +214,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="Street 1"
-                // defaultValue={userInfosState?.street1 || "street1"}
                 variant="filled"
                 name="street1"
                 value={userInfosState?.street1}
@@ -217,7 +222,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="street2"
-                // defaultValue={userInfosState?.street2 || "street2"}
                 variant="filled"
                 name="street2"
                 value={userInfosState?.street2 || undefined}
@@ -248,7 +252,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="state"
-                // defaultValue={userInfosState?.state || "state"}
                 variant="filled"
                 name="state"
                 value={userInfosState?.state || undefined}
@@ -257,7 +260,6 @@ export const Account = (): JSX.Element => {
               <TextField
                 id="filled-error"
                 label="country"
-                // defaultValue={userInfosState?.country || "country"}
                 variant="filled"
                 name="country"
                 value={userInfosState?.country}
@@ -267,15 +269,15 @@ export const Account = (): JSX.Element => {
             <div className="User__line">
               <TextField
                 id="date"
-                label="Birthday"
+                label="Birthdate"
                 type="date"
-                name="birthday"
-                defaultValue="2022-05-24"
+                name="birthdate"
                 onChange={handleUserInfos}
                 sx={{ width: 220 }}
                 InputLabelProps={{
                   shrink: true,
                 }}
+                value={userInfosState?.birthdate}
               />
             </div>
             {isLoadingButton ? (

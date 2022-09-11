@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from './components/LoginPage';
 import { BasketPage } from './pages/Basket.page';
 import { ProductDetails } from './components/ProductDetails';
-import { Account } from './components/Account copy';
+import { Account } from './pages/Account.page';
 import { HomePage } from './pages/HomePage';
 import IsPrivate from './components/IsPrivate'
 import { CheckoutPage } from './pages/Checkout.page';
