@@ -1,5 +1,5 @@
 .CheckoutPage {
-  margin: 0 auto;
+  margin: 0 auto 74px auto;
 }
 
 .CheckoutPage p.total {
@@ -11,20 +11,14 @@
   font-style: italic;
 }
 
-.CheckoutPage div:nth-child(2) {
+.CheckoutPage .creditCardInformation {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.CheckoutPage div:nth-child(2) div {
-  margin-bottom: 10px;
-}
-
-.CheckoutPage div:nth-child(2) form {
-  width: 245px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
 }
 /*# sourceMappingURL=checkoutPage.css.map */

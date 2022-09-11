@@ -32,7 +32,17 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
         setIsLoading(false);
         setIsLoaded(true);
         console.log("++++", ans.data);
-        setAddressToSendState(ans.data);
+        const buff={
+          firstname: ans.data.firstname,
+          lastname: ans.data.lastname,
+          street1: ans.data.street1,
+          street2: ans.data.street2,
+          city: ans.data.city,
+          zip: ans.data.zip,
+          state: ans.data.state,
+          country: ans.data.country,   
+        }
+        setAddressToSendState(buff);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -68,7 +78,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
 
   return (
     <div className="DestinationAddress">
-      <div>DestinationAddress</div>
+      <h3>Destination address :</h3>
       <div className="line">
         <TextField
           // error={error}
@@ -81,7 +91,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.firstname : ""}
           // placeholder={addressToSendState?.firstname}
-          focused
+          // focused
           // color={color}
         />
         <TextField
@@ -95,7 +105,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.lastname : ""}
           // placeholder={addressToSendState?.lastname}
-          focused
+          // focused
           // color={color}
         />
       </div>
@@ -112,7 +122,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.street1 : ""}
           // placeholder={addressToSendState?.firstname}
-          focused
+          // focused
           // color={color}
         />
         <TextField
@@ -126,7 +136,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.street2 : ""}
           // placeholder={addressToSendState?.firstname}
-          focused
+          // focused
           // color={color}
         />
       </div>
@@ -143,7 +153,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.city : ""}
           // placeholder={addressToSendState?.firstname}
-          focused
+          // focused
           // color={color}
         />
         <TextField
@@ -157,7 +167,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.zip : ""}
           // placeholder={addressToSendState?.lastname}
-          focused
+          // focused
           // color={color}
         />
       </div>
@@ -174,7 +184,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.state : ""}
           // placeholder={addressToSendState?.firstname}
-          focused
+          // focused
           // color={color}
         />
         <TextField
@@ -188,7 +198,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           //inputRef={inputRef}
           value={addressToSendState ? addressToSendState?.country : ""}
           // placeholder={addressToSendState?.lastname}
-          focused
+          // focused
           // color={color}
         />
       </div>

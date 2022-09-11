@@ -11,7 +11,7 @@ import {
   cartContextInterface,
   cartInterface,
   cartPopulatedInterface,
-  CreditCardInfosInterface,
+  CartToOrderInterface,
 } from "../@types/cartContext.type";
 import { AuthContext } from "./auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
@@ -267,7 +267,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     },0).toFixed(2)
   }
 
-  const validateCartWithCreditCard = (infos:CreditCardInfosInterface):Promise<boolean>=>{
+  const validateCartWithCreditCard = (infos:CartToOrderInterface):Promise<boolean>=>{
     const storedToken = localStorage.getItem('authToken')
     return new Promise (async(resolve,reject)=>{
       try {

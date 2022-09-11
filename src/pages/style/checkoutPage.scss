@@ -1,5 +1,6 @@
 .CheckoutPage{
-    margin:0 auto;
+    margin:0 auto 74px auto;
+    
     & p.total{
         font-size:1.5em;
         & span{
@@ -7,15 +8,9 @@
             font-style:italic;
         }
     }
-    & div:nth-child(2){
+    & .creditCardInformation{
         display:flex;
-        justify-content: center;
-        & div{
-            margin-bottom:10px;
-        }
-        
-        & form{
-            width:245px;
-        }
-    }
+        flex-direction:column;
+        gap:15px;
+    }    
 }
