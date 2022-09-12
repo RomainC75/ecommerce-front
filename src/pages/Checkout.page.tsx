@@ -82,6 +82,8 @@ export const CheckoutPage = () => {
           </p>
           <div >
             <h3>Credit card informations :</h3>
+            <h4>Enter a valid cart number !!</h4>
+            <p>ex : 5131 6282 1234 5671</p>
             <form onSubmit={handleSubmit}>
               <div className="creditCardInformation">
                 <CreditCard

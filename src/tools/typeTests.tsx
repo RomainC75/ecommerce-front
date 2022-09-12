@@ -76,6 +76,7 @@ export const isCartPopulatedInterface = (obj: any): boolean => {
     "createdAt" in obj &&
     "updatedAt" in obj
   ) {
+    console.log("===>test 0")
     if (
       isArrayOfProductInterface(obj.products) &&
       typeof obj.createdAt === "string" &&

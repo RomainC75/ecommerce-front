@@ -123,9 +123,11 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         },
       })
       .then((ans) => {
-        console.log("-->post ans : ", ans.data);
-        localStorage.setItem("cart", JSON.stringify(ans.data));
-        setCartState(ans.data.products);
+        if(ans){
+          console.log("-->post ans : ", ans.data);
+          localStorage.setItem("cart", JSON.stringify(ans.data));
+          setCartState(ans.data.products);
+        }
       });
   };
 
@@ -170,12 +172,12 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         }
       }
     } else {
-      
+      console.log("POST NEW CARD")
       postNewCart([
         {
           productId: itemId,
           quantity,
-        },
+        }
       ]);
     }
   };
