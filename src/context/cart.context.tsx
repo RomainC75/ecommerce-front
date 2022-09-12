@@ -31,7 +31,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   const [productsState, setProductsState] = useState<ProductToOrderInterface[]>(
     []
   );
-  const { storeToken, authenticateUser, isLoggedIn, user, logOutUser } =
+  const { isLoggedIn, logOutUser } =
     useContext(AuthContext) as AuthContextInterface;
   const [offlineCartState, setOfflineCartState] = useState<
     ProductToOrderInterface[]
@@ -99,9 +99,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   };
 
   const updateQuantityOnOneItemAndPatch = async (id: string,quantity: number): Promise<boolean> => {
-    console.log("id", id, "quantity", quantity);
-    const storedToken = localStorage.getItem("authToken");
-    console.log('cartToModify : ',cartState)
     const newCartToSend:ProductToOrderInterface[] = cartState.map(item=>{
       const newQuantity= item.productId._id===id ? quantity:item.quantity
         return{
@@ -115,7 +112,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     } catch (error) {
       return false;
     }
-    return true
   };
 
   const postNewCart = (newProduct: ProductToOrderInterface[]): void => {

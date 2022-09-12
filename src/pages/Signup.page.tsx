@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 import "./style/signupPage.css";
 
 import image from "../images/signup-image.jpg";
-import { AuthContext } from "../context/auth.context";
-import { AuthContextInterface } from "../@types/authContext.type";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -34,7 +32,7 @@ export const SignupPage = (): JSX.Element => {
         navigate("/login");
       })
       .catch((err) => {
-        
+        setErrorMessage(err.response.data.message);
       });
   };
 

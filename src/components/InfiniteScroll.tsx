@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { ProductWidget } from "./ProductWidget";
 import { Spinner } from "./Spinner";
 import {
-  PaginatedCategoriesInterface,
   ProductInterface,
 } from "../@types/product";
 

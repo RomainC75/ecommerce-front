@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
 import { AddProductToBasket } from "./AddProductToBasket";
 
-import { CartContext } from "../context/cart.context";
-import { cartContextInterface } from "../@types/cartContext.type";
 import { ProductInterface } from "../@types/product";
 
 import "./style/productWidget.css";
 import { Link } from "react-router-dom";
-import {AiOutlineWarning} from 'react-icons/ai'
 import { GoHeart } from "react-icons/go";
 
 interface ProductProps {
@@ -18,17 +14,6 @@ interface ProductProps {
 const fillInPicture =
   "https://img2.freepng.fr/20180615/fjw/kisspng-royalty-free-clip-art-bio-5b23ee2e74f274.805270871529081390479.jpg";
 
-  const pricePerQty = (product:ProductInterface) =>{
-    const proportion = product.price/product.weight.quantity
-    switch(product.weight.unity){
-      case 'g':
-        return (proportion/1000).toFixed(2)+'kg'
-      case 'kg':
-        return proportion.toFixed(2)+'kg'
-      case 'cl':
-        return proportion.toFixed(2)+'cl'
-    }
-  } 
 
 const isInPromo = (product:ProductInterface) =>{
   return 'promo' in product 
@@ -40,11 +25,6 @@ const isInPromo = (product:ProductInterface) =>{
 export const ProductWidget = (props: ProductProps): JSX.Element => {
   
   const { product } = props;
-
-  const { addItemToOfflineCart, addItemToOnlineCart } = useContext(
-    CartContext
-  ) as cartContextInterface;
-  // console.log('Price : ',product.price, product.weight)
 
   return (
     <li className={`ProductWidget ${isInPromo(product) ? 'promoWidget' : ''}`}>

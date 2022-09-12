@@ -4,6 +4,7 @@ import { DestinationAddressInterface } from "../@types/destinationAddress.type";
 import TextField from "@mui/material/TextField";
 
 import './style/destinationAddress.css'
+import { Spinner } from "./Spinner";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
@@ -22,6 +23,7 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
   useEffect(() => {
     setIsLoading(true);
     const storedToken = localStorage.getItem("authToken");
+    setIsLoading(true)
     axios
       .get(`${API_URL}/user`, {
         headers: {
@@ -77,7 +79,11 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
   };
 
   return (
-    <div className="DestinationAddress">
+    <>
+      {isError && <div>{errorMessage}</div>}
+      {isLoading && !isLoaded ? <Spinner/>
+      :
+      <div className="DestinationAddress">
       <h3>Destination address :</h3>
       <div className="line">
         <TextField
@@ -202,6 +208,8 @@ export const DestinationAddress = (props: DestinationAddressProps) => {
           // color={color}
         />
       </div>
-    </div>
+    </div>}
+    </>
+    
   );
 };
