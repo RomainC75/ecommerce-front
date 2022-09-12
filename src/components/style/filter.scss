@@ -3,14 +3,32 @@
     justify-content :center;
     align-items: center;
     gap:20px;
+    flex-wrap: wrap;
+    & h3{
+        margin:0;
+    }
+    & p{
+        font-weight: 800;
+    }
     &__select{
         width:180px;
     }
-    &__priceDive{
-        display:flex;
-        justify-content: center;
-        &__price{
-            width:160px !important;
+    &__priceSection{
+        &__priceDive{
+            display:flex;
+            justify-content: center;
+            &__price{
+                width:160px !important;
+            }
+        }
+    }
+}
+
+@media(max-width:600px){
+    .Filter{
+        flex-direction: column;
+        & p{
+            margin:0;
         }
     }
 }

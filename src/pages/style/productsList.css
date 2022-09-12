@@ -39,6 +39,9 @@
   gap: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   padding: 0;
   max-width: 1000px;
   margin: 0 auto;

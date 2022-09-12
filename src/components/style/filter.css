@@ -9,13 +9,23 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.Filter h3 {
+  margin: 0;
+}
+
+.Filter p {
+  font-weight: 800;
 }
 
 .Filter__select {
   width: 180px;
 }
 
-.Filter__priceDive {
+.Filter__priceSection__priceDive {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -24,7 +34,19 @@
           justify-content: center;
 }
 
-.Filter__priceDive__price {
+.Filter__priceSection__priceDive__price {
   width: 160px !important;
+}
+
+@media (max-width: 600px) {
+  .Filter {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .Filter p {
+    margin: 0;
+  }
 }
 /*# sourceMappingURL=filter.css.map */

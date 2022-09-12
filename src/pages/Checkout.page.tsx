@@ -74,7 +74,7 @@ export const CheckoutPage = () => {
     <div className="CheckoutPage">
       <h2>CheckoutPage</h2>
       {isCartValidatedByServer ? (
-        <p>Thank you for your purchase ! You'll get an email confirmation !</p>
+        <p>Thank you for your purchase ! You'll get a confirmation email soon !</p>
       ) : (
         <>
           <p className="total">

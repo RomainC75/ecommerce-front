@@ -24,9 +24,11 @@
         display:flex;
         gap:20px;
         flex-wrap: wrap;
+        justify-content: space-evenly;
         padding:0;
         max-width:1000px;
         margin:0 auto;
+
     }
 }
 
