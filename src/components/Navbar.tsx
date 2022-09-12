@@ -52,17 +52,16 @@ const Navbar = (): JSX.Element => {
       <div className="Navbar__rightSide">
         {isLoggedIn ? (
           <div className="Navbar__logPart">
-            
             {user && user.imageUrl.length>0 && <img className = "Navbar__rightSide__avatarImage" src={ user.imageUrl}/>}
             <Link to="/account"><p>{user && user.email}</p></Link>
             <Button variant="text" color="error" onClick={logOutAndEraseStateAndLS}>LogOut</Button>
           </div>
         ) : (
-          <div>
+          <div className="signupAndLogin">
             <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
           </div>
         )}
-
         <div className="Navbar__shopping" onClick={() => goToTheBasket()}>
           {itemsNumberState > 0 ? (
             <>

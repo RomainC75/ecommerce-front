@@ -2,6 +2,11 @@
   margin-bottom: 44px;
 }
 
+.HomePage__img {
+  max-width: 640px;
+  width: 90%;
+}
+
 .content {
   height: 160px;
   overflow: hidden;

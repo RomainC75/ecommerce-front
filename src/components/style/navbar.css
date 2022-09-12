@@ -12,6 +12,8 @@
       flex-wrap: wrap;
   width: 100%;
   padding-top: 30px;
+  color: white;
+  background-color: #287960;
 }
 
 .Navbar > * {
@@ -20,7 +22,6 @@
 
 .Navbar h1 {
   margin: 0;
-  color: #287960;
 }
 
 .Navbar p {
@@ -76,6 +77,23 @@
   color: red;
 }
 
+.Navbar .signupAndLogin {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.2em;
+  font-style: italic;
+  margin-right: 10px;
+}
+
 .logOut {
   background: #961212;
   padding: 10px;
@@ -92,5 +110,11 @@
 
 .logo img {
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    display: none;
+  }
 }
 /*# sourceMappingURL=navbar.css.map */

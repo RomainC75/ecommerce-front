@@ -1,6 +1,6 @@
-.LoginPage{
-    & img{
-        width:150px;
+.SignupPage{
+    & .img{
+        width:200px;
     }
     & .inputs{
         display:flex;
@@ -14,7 +14,7 @@
 }
 
 @media(max-width:500px){
-    .LoginPage{
+    .SignupPage{
         & .inputs{
             flex-direction: column;
             align-items:center;
@@ -24,4 +24,3 @@
         }
     }
 }
-

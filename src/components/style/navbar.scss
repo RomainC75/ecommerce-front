@@ -5,12 +5,15 @@
     flex-wrap: wrap;
     width:100%;
     padding-top:30px;
+
+    color:white;
+    background-color: #287960;
     & > *{
         margin: 0 10px 10px 10px;
     }
     & h1{
         margin:0;
-        color:#287960;
+        // color:white;
     }
     & p{
         margin:0;
@@ -54,6 +57,16 @@
             color:red;
         }
     }
+    .signupAndLogin{
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        gap:10px;
+        font-weight:600;
+        font-size:1.2em;
+        font-style: italic;
+        margin-right: 10px;
+    }
 }
 
 .logOut{
@@ -70,5 +83,11 @@
     height:50px;
     & img{
         width:100%;
+    }
+}
+
+@media(max-width:600px){
+    .logo{
+        display:none;
     }
 }
