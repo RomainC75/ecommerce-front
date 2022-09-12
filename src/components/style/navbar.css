@@ -94,6 +94,12 @@
   margin-right: 10px;
 }
 
+.Navbar .logOutButton {
+  font-weight: 800;
+  color: #fa6e6e;
+  border-color: #fa6e6e;
+}
+
 .logOut {
   background: #961212;
   padding: 10px;

@@ -54,7 +54,7 @@ const Navbar = (): JSX.Element => {
           <div className="Navbar__logPart">
             {user && user.imageUrl.length>0 && <img className = "Navbar__rightSide__avatarImage" src={ user.imageUrl}/>}
             <Link to="/account"><p>{user && user.email}</p></Link>
-            <Button variant="text" color="error" onClick={logOutAndEraseStateAndLS}>LogOut</Button>
+            <Button variant="outlined" color="error" onClick={logOutAndEraseStateAndLS} className="logOutButton">LogOut</Button>
           </div>
         ) : (
           <div className="signupAndLogin">

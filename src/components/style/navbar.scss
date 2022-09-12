@@ -67,6 +67,11 @@
         font-style: italic;
         margin-right: 10px;
     }
+    & .logOutButton{
+        font-weight:800;
+        color:rgb(250, 110, 110);
+        border-color: rgb(250, 110, 110);
+    }
 }
 
 .logOut{
