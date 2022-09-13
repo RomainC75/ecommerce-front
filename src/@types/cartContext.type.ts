@@ -36,14 +36,11 @@ export interface cartContextInterface{
     offlineCartState: ProductToOrderInterface[];
     cartState: PopulatedProductToOrderInterface[];
     removeFromCartById: (id:string)=>void;
-    addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>void;
+    addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>Promise<boolean>;
     logOutAndEraseStateAndLS:()=>void;
     updateQuantityOnOneItemAndPatch:(id:string,quantity:number)=>Promise<boolean>;
     getTotal:()=>string;
     getNewPromoPrice:(basePrice:number, promo:number)=>number;
     validateCartWithCreditCard:(infos:CartToOrderInterface)=>Promise<boolean>;
     getOnlineCartAndRecordToStateAndLS:()=>void;
-
-    
-
 }

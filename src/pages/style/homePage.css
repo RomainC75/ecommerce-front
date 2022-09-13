@@ -7,6 +7,22 @@
   width: 90%;
 }
 
+.HomePage h3 span {
+  font-weight: 800;
+  color: #792828;
+  font-style: italic;
+}
+
+.HomePage p span {
+  text-decoration: underline;
+}
+
+.HomePage .heart {
+  color: #76d649;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
 .content {
   height: 160px;
   overflow: hidden;

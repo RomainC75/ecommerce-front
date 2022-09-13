@@ -1,10 +1,10 @@
 import { AddProductToBasket } from "./AddProductToBasket";
+import { Link } from "react-router-dom";
+import { GoHeart } from "react-icons/go";
 
 import { ProductInterface } from "../@types/product";
 
 import "./style/productWidget.css";
-import { Link } from "react-router-dom";
-import { GoHeart } from "react-icons/go";
 
 interface ProductProps {
   product: ProductInterface;
@@ -25,9 +25,9 @@ const isInPromo = (product:ProductInterface) =>{
 export const ProductWidget = (props: ProductProps): JSX.Element => {
   
   const { product } = props;
-
   return (
     <li className={`ProductWidget ${isInPromo(product) ? 'promoWidget' : ''}`}>
+
       <Link className="ProductWidget__link" to={`/product/${product._id}`}>
         <p className="ProductWidget__infos brand">{product.brand.toUpperCase()}</p>
         <h3 className={`ProductWidget__infos name `}>{product.name}</h3>

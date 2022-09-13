@@ -12,6 +12,18 @@
     max-width:640px;
     width:90%;
   }
+  & h3 span{
+    font-weight:800;
+    color:#792828;
+    font-style: italic;
+  }
+  & p span{
+    text-decoration: underline;
+  }
+  & .heart{
+    color:#76d649;
+    transform:scale(1.5);
+  }
 }
 
 .content {

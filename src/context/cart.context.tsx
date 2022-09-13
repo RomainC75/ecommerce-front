@@ -31,8 +31,9 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   const [productsState, setProductsState] = useState<ProductToOrderInterface[]>(
     []
   );
-  const { isLoggedIn, logOutUser } =
-    useContext(AuthContext) as AuthContextInterface;
+  const { isLoggedIn, logOutUser } = useContext(
+    AuthContext
+  ) as AuthContextInterface;
   const [offlineCartState, setOfflineCartState] = useState<
     ProductToOrderInterface[]
   >([]);
@@ -80,15 +81,17 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const patchNewCart = async (newCart: ProductToOrderInterface[] ): Promise<boolean> => {
+  const patchNewCart = async (
+    newCart: ProductToOrderInterface[]
+  ): Promise<boolean> => {
     const storedToken = localStorage.getItem("authToken");
     console.log("new cart to store :: ", newCart);
     try {
       const ans = await axios.patch(`${API_URL}/cart`, newCart, {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        })
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       console.log("patch ans :", ans.data);
       localStorage.setItem("cart", JSON.stringify(ans.data));
       setCartState(ans.data.products);
@@ -98,50 +101,82 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const updateQuantityOnOneItemAndPatch = async (id: string,quantity: number): Promise<boolean> => {
-    const newCartToSend:ProductToOrderInterface[] = cartState.map(item=>{
-      const newQuantity= item.productId._id===id ? quantity:item.quantity
-        return{
-          productId:item.productId._id,
-          quantity:newQuantity
+  const postNewCart = (
+    newProduct: ProductToOrderInterface[]
+  ): Promise<boolean> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const storedToken = localStorage.getItem("authToken");
+        const ans = await axios.post(API_URL + "/cart", newProduct, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
+        if (ans) {
+          console.log("-->post ans : ", ans.data);
+          localStorage.setItem("cart", JSON.stringify(ans.data));
+          setCartState(ans.data.products);
+          resolve(true);
         }
-    })
-    console.log('newCartToSend',newCartToSend)
+        reject(false);
+      } catch (error) {
+        reject(false);
+      }
+    });
+  };
+
+  // const postNewCart = (newProduct: ProductToOrderInterface[]): void => {
+  //   const storedToken = localStorage.getItem("authToken");
+  //   axios
+  //     .post(API_URL + "/cart", newProduct, {
+  //       headers: {
+  //         Authorization: `Bearer ${storedToken}`,
+  //       },
+  //     })
+  //     .then((ans) => {
+  //       if(ans){
+  //         console.log("-->post ans : ", ans.data);
+  //         localStorage.setItem("cart", JSON.stringify(ans.data));
+  //         setCartState(ans.data.products);
+  //       }
+  //     });
+  // };
+
+  const updateQuantityOnOneItemAndPatch = async (
+    id: string,
+    quantity: number
+  ): Promise<boolean> => {
+    const newCartToSend: ProductToOrderInterface[] = cartState.map((item) => {
+      const newQuantity = item.productId._id === id ? quantity : item.quantity;
+      return {
+        productId: item.productId._id,
+        quantity: newQuantity,
+      };
+    });
+    console.log("newCartToSend", newCartToSend);
     try {
-      return patchNewCart(newCartToSend)
+      return patchNewCart(newCartToSend);
     } catch (error) {
       return false;
     }
   };
 
-  const postNewCart = (newProduct: ProductToOrderInterface[]): void => {
-    const storedToken = localStorage.getItem("authToken");
-    axios
-      .post(API_URL + "/cart", newProduct, {
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      })
-      .then((ans) => {
-        if(ans){
-          console.log("-->post ans : ", ans.data);
-          localStorage.setItem("cart", JSON.stringify(ans.data));
-          setCartState(ans.data.products);
-        }
-      });
-  };
-
-  const addItemToOnlineCart = (
+  const addItemToOnlineCart = async(
     itemId: string,
     quantity: number,
     fullProduct: ProductInterface
-  ): void => {
-    console.log("entering addItemToOnlineCart !",itemId,quantity,fullProduct);
+  ): Promise<boolean> => {
+    console.log(
+      "entering addItemToOnlineCart !",
+      itemId,
+      quantity,
+      fullProduct
+    );
     const onlineCartStorageStr: string | null = localStorage.getItem("cart");
     if (onlineCartStorageStr) {
       const onlineCartStorage: cartPopulatedInterface =
         JSON.parse(onlineCartStorageStr);
-      console.log('=====>test : ',isCartPopulatedInterface(onlineCartStorage))
+      console.log("=====>test : ", isCartPopulatedInterface(onlineCartStorage));
       console.log("onlineCartStorage : ", onlineCartStorage);
       if (isCartPopulatedInterface(onlineCartStorage)) {
         console.log("preindex : ", onlineCartStorage);
@@ -158,7 +193,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
                 quantity: product.quantity,
               };
             });
-          patchNewCart(cartToPatch);
+          return await patchNewCart(cartToPatch);
         } else {
           const cartToPatch: ProductToOrderInterface[] =
             onlineCartStorage.products.map((product) => {
@@ -168,23 +203,23 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
               };
             });
           cartToPatch.push({ productId: itemId, quantity: quantity });
-          patchNewCart(cartToPatch);
+          return await patchNewCart(cartToPatch);
         }
       }
+      return new Promise((resolve,reject)=>reject(false))
     } else {
-      console.log("POST NEW CARD")
-      postNewCart([
+      console.log("POST NEW CARD");
+      return await postNewCart([
         {
           productId: itemId,
           quantity,
-        }
+        },
       ]);
     }
+    
   };
 
-
   const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
-    
     const offlineCartStr: string | null = localStorage.getItem("offlineCart");
     if (!offlineCartStr) {
       return [];
@@ -214,12 +249,11 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
           setCartState(ans.data.products);
-        }else{
-          localStorage.removeItem('cart')
-          setCartState([])
+        } else {
+          localStorage.removeItem("cart");
+          setCartState([]);
         }
-      })
-      
+      });
   };
 
   const patchTheUpdatedCart = (
@@ -238,7 +272,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       });
   };
 
-
   const removeFromCartById = (id: string): void => {
     console.log("id : ", id);
     console.log("cartState : ", cartState);
@@ -254,47 +287,57 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     patchTheUpdatedCart(newCart);
   };
 
-  const getNewPromoPrice = (basePrice:number, promo:number):number =>{  
-    return basePrice - basePrice*promo/100
-  }
+  const getNewPromoPrice = (basePrice: number, promo: number): number => {
+    return basePrice - (basePrice * promo) / 100;
+  };
 
-  const getTotal = ():string =>{
-    return cartState.reduce((accu:number,currentProd:PopulatedProductToOrderInterface)=>{
-      if("promo" in currentProd.productId && currentProd.productId.promo){
-        return accu+ getNewPromoPrice(currentProd.productId.price,currentProd.productId.promo)*currentProd.quantity
-      }else{
-        return accu+ currentProd.productId.price*currentProd.quantity
-      }
-    },0).toFixed(2)
-  }
+  const getTotal = (): string => {
+    return cartState
+      .reduce((accu: number, currentProd: PopulatedProductToOrderInterface) => {
+        if ("promo" in currentProd.productId && currentProd.productId.promo) {
+          return (
+            accu +
+            getNewPromoPrice(
+              currentProd.productId.price,
+              currentProd.productId.promo
+            ) *
+              currentProd.quantity
+          );
+        } else {
+          return accu + currentProd.productId.price * currentProd.quantity;
+        }
+      }, 0)
+      .toFixed(2);
+  };
 
-
-
-  const validateCartWithCreditCard = (infos:CartToOrderInterface):Promise<boolean>=>{
-    const storedToken = localStorage.getItem('authToken')
-    return new Promise (async(resolve,reject)=>{
+  const validateCartWithCreditCard = (
+    infos: CartToOrderInterface
+  ): Promise<boolean> => {
+    const storedToken = localStorage.getItem("authToken");
+    return new Promise(async (resolve, reject) => {
       try {
         axios({
-          url:API_URL+'/cart/checkout',
-          method:"POST",
-          headers:{
-            authorization:`BEARER ${storedToken}`
+          url: API_URL + "/cart/checkout",
+          method: "POST",
+          headers: {
+            authorization: `BEARER ${storedToken}`,
           },
-          data:infos
-        }).then(ans=>{
-          console.log('ans : ',ans.data)
-          resolve(true)
+          data: infos,
         })
-        .catch(err=>{
-          console.log("validateCardWithCreditCard" ,err)
-          reject(false)
-        })
+          .then((ans) => {
+            console.log("ans : ", ans.data);
+            resolve(true);
+          })
+          .catch((err) => {
+            console.log("validateCardWithCreditCard", err);
+            reject(false);
+          });
       } catch (error) {
-        console.log("validateCardWithCreditCard" ,error)
-        reject(false)
+        console.log("validateCardWithCreditCard", error);
+        reject(false);
       }
-    })
-  }
+    });
+  };
 
   const logOutAndEraseStateAndLS = (): void => {
     logOutUser();
@@ -328,7 +371,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         getNewPromoPrice,
         getTotal,
         validateCartWithCreditCard,
-        getOnlineCartAndRecordToStateAndLS
+        getOnlineCartAndRecordToStateAndLS,
       }}
     >
       {props.children}
