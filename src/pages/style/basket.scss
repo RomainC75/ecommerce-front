@@ -37,15 +37,24 @@
             // border:1px solid blue;
         }
         &__right{
+            display: flex;
+            flex-direction:column;
+            justify-content:flex-end;
+            & p:nth-child(1){
+                margin:0;
+            }
             & p:nth-child(2){
                 font-weight:bold;
+            }
+            & .removeButton{
+                height:56px;
             }
         }
     }
 }
 
 .infoName{
-    font-weight:600;
+    font-weight:700;
     font-style: italic;
 }
 
@@ -55,7 +64,21 @@
             align-items: center;
             flex-direction: column;
             width:60%;
+            &__right{
+                margin-top:10px;
+                width:300px;
+                flex-direction: row;;
+                justify-content: space-between;
+                & p:nth-child(1){
+                    display:flex;
+                    align-items:center;
+                }
+                & .removeButton{
+                    width:80px;
+                }
+            }
         }
+
     }
 }
 

@@ -11,8 +11,6 @@ import { AddProductToBasket } from "./AddProductToBasket";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
-
-
 export const ProductDetails = (): JSX.Element => {
   const [productState, setProductsState] = useState<ProductInterface | null>(
     null

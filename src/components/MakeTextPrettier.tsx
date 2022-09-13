@@ -1,5 +1,3 @@
-import React from "react";
-
 interface MakeTextPrettierInterface {
   text: string;
 }
@@ -7,7 +5,6 @@ interface MakeTextPrettierInterface {
 const MakeTextPrettier = (props: MakeTextPrettierInterface): JSX.Element => {
   const { text } = props;
   const res = text.match(/:/);
-
   if (
     res &&
     "index" in res &&

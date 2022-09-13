@@ -80,6 +80,7 @@ export const BasketPage = (): JSX.Element => {
                     (populatedProdToOrder.quantity * prod.price ).toFixed(2)
                   }</p>
                   <Button
+                    className="removeButton"
                     variant="contained"
                     color="error"
                     onClick={() => removeFromCartById(prod._id)}
