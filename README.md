@@ -1,46 +1,81 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About The Project
 
-## Available Scripts
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-In the project directory, you can run:
+Here you can describe the project, why you made it and **for who you made it**, but mostly don't forget to add a screenshot like the image above AND a link to the demo like this : https://NicolasBrondin.github.io/basic-readme-template/
 
-### `npm start`
+### Built With
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* 🖊️ Markdown
+* 🐙 Github
+* 💻 VS Code
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- GETTING STARTED -->
+## Getting Started
 
-### `npm test`
+To get a local copy up and running follow these simple steps.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+This is an example of how to list things you need to use the software and how to install them.
+* Git
+```sh
+sudo apt-get install git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
+ 
+1. Clone the repo
+```sh
+git clone https://github.com/NicolasBrondin/basic-readme-template
+```
+2. Open VS Code
+3. Install Markdown Preview Enhancement plugin
+3. Open the README.md file and execute the following command
+```sh
+ctrl+k v
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- USAGE EXAMPLES -->
+## Usage
 
-### `npm run eject`
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+_For more examples, please refer to the [Documentation](https://example.com)_
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<!-- CONTACT -->
+## Contact
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Your Name - [@Romainchenard](https://twitter.com/Romainchenard) - rom.chenard@gmail.com
 
-## Learn More
+Project Link: [https://github.com/RomainC75/ecommerce-front](https://github.com/RomainC75/ecommerce-front)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+
+* This readme version is a simplified version of this [github repository](https://github.com/othneildrew/Best-README-Template) by Othneildrew
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/NicolasBrondin/basic-readme-template.svg?style=flat-square
+[contributors-url]: https://github.com/NicolasBrondin/basic-readme-template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/NicolasBrondin/basic-readme-template.svg?style=flat-square
+[forks-url]: https://github.com/NicolasBrondin/basic-readme-template/network/members
+[stars-shield]: https://img.shields.io/github/stars/NicolasBrondin/basic-readme-template.svg?style=flat-square
+[stars-url]: https://github.com/NicolasBrondin/basic-readme-template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/NicolasBrondin/basic-readme-template.svg?style=flat-square
+[issues-url]: https://github.com/NicolasBrondin/basic-readme-template/issues
+[license-shield]: https://img.shields.io/github/license/NicolasBrondin/basic-readme-template.svg?style=flat-square
+[license-url]: https://github.com/NicolasBrondin/basic-readme-template/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: docs/cover.jpg
