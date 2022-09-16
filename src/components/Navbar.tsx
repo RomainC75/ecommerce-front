@@ -16,7 +16,7 @@ import bioLogo from '../pictures/bioLogo.png'
 const Navbar = (): JSX.Element => {
   const { authenticateUser, isLoggedIn, user } =
     useContext(AuthContext) as AuthContextInterface;
-  const { cartState, logOutAndEraseStateAndLS } = useContext(
+  const { cartState, offlineCartState, logOutAndEraseStateAndLS } = useContext(
     CartContext
   ) as cartContextInterface;
   const [itemsNumberState, setItemsNumberState] = useState<number>(0);
@@ -33,15 +33,15 @@ const Navbar = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    console.log('CART : ',cartState,cartState.length)
     if (isLoggedIn) { 
       setItemsNumberState(cartState.length);
     }else{
-      //check 'offline Cart'
-      setItemsNumberState(0)
+      if(offlineCartState && 'products' in offlineCartState){
+        setItemsNumberState(offlineCartState?.products.length)
+      }
     }
 
-  }, [isLoggedIn, cartState]);
+  }, [isLoggedIn, cartState, offlineCartState]);
 
   return (
     <div className="Navbar">
