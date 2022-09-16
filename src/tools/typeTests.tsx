@@ -57,6 +57,7 @@ const isProductInterface = (obj: any): boolean => {
       Array.isArray(pId.subCategories) &&
       typeof pId.weight === "object"
     ) {
+      console.log('isProductInterface test : passed ')
       return true;
     }
   }

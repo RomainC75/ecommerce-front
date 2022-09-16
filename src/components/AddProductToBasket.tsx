@@ -33,7 +33,7 @@ export const AddProductToBasket = (props: ProductProps): JSX.Element => {
 
   const { product } = props;
   const [quantityState, setQuantityState] = useState<number>(1);
-  const { addItemToOnlineCart, cartState } = useContext(
+  const { addItemToOnlineCart, addItemToOfflineCart, cartState } = useContext(
     CartContext
   ) as cartContextInterface;
     console.log('cartState : ',cartState)
@@ -48,15 +48,16 @@ export const AddProductToBasket = (props: ProductProps): JSX.Element => {
   };
 
   const handleAddingProcess = async () =>{
-    const ans = await addItemToOnlineCart(product._id,quantityState,product)
-    if(ans){
-      setColorState('success')
-      setButtonTextState('Added')
-      setTimeout(()=>{
-        setColorState('primary')
-        setButtonTextState('Add')
-      }, 2000)
-    }
+    // const ans = await addItemToOnlineCart(product._id,quantityState,product)
+    // if(ans){
+    //   setColorState('success')
+    //   setButtonTextState('Added')
+    //   setTimeout(()=>{
+    //     setColorState('primary')
+    //     setButtonTextState('Add')
+    //   }, 2000)
+    // }
+    addItemToOfflineCart(product, quantityState)
   }
 
   return (

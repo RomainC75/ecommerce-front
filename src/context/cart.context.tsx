@@ -10,6 +10,7 @@ import {
   cartContextInterface,
   cartPopulatedInterface,
   CartToOrderInterface,
+  OfflinePopulatedCartInterface,
 } from "../@types/cartContext.type";
 import { AuthContext } from "./auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
@@ -35,51 +36,71 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     AuthContext
   ) as AuthContextInterface;
   const [offlineCartState, setOfflineCartState] = useState<
-    ProductToOrderInterface[]
-  >([]);
+    OfflinePopulatedCartInterface | null
+  >(null);
   const [cartState, setCartState] = useState<
     PopulatedProductToOrderInterface[]
   >([]);
 
-  const addItemToOfflineCart = (item: ProductToOrderInterface): void => {
+  const addItemToOfflineCart = (
+    fullProduct: ProductInterface,
+    quantity: number): void => {
+    console.log("addItemsToOfflineCart")
+    let newOfflineCart : OfflinePopulatedCartInterface | null = null
     const offlineCartLStorageStr: string | null =
       localStorage.getItem("offlineCart");
     if (offlineCartLStorageStr) {
-      const offlineCartLStorage: ProductToOrderInterface[] = JSON.parse(
+      const offlineCartLStorage: any | null = JSON.parse(
         offlineCartLStorageStr
       );
-      if (isProductToOrderInterfaceArray(offlineCartLStorage)) {
-        const foundIndex: number = offlineCartLStorage.findIndex(
-          (offlineItem) => offlineItem.productId === item.productId
-        );
-        if (foundIndex >= 0) {
-          offlineCartLStorage[foundIndex].quantity += item.quantity;
-          localStorage.setItem(
-            "offlineCart",
-            JSON.stringify(offlineCartLStorage)
-          );
-          setOfflineCartState(offlineCartLStorage);
-        } else {
-          offlineCartLStorage.push(item);
-          localStorage.setItem(
-            "offlineCart",
-            JSON.stringify(offlineCartLStorage)
-          );
-          setOfflineCartState(offlineCartLStorage);
-        }
+      if (isCartPopulatedInterface(offlineCartLStorage)) {
+        console.log('offline products content : ', offlineCartLStorage.products)
+        newOfflineCart = pushNewProductOrUpdateQuantityAndReturnObj(offlineCartLStorage,fullProduct,quantity)
+        
       } else {
-        offlineCartLStorage.push(item);
-        localStorage.setItem(
-          "offlineCart",
-          JSON.stringify(offlineCartLStorage)
-        );
-        setOfflineCartState(offlineCartLStorage);
+        newOfflineCart = createNewOfflineCartObj(quantity,fullProduct)
       }
     } else {
-      localStorage.setItem("offlineCart", JSON.stringify([item]));
-      setOfflineCartState([item]);
+      newOfflineCart = createNewOfflineCartObj(quantity,fullProduct)
     }
+    localStorage.setItem('offlineCart', JSON.stringify(newOfflineCart))
+    setOfflineCartState(newOfflineCart);
   };
+
+  const pushNewProductOrUpdateQuantityAndReturnObj = (existingCart: OfflinePopulatedCartInterface, fullProduct: ProductInterface, quantity:number):OfflinePopulatedCartInterface =>{
+    const foundIndex = existingCart.products.findIndex(prod=>prod.productId._id===fullProduct._id)
+    console.log("foundIndex",foundIndex)
+    if(foundIndex>=0){
+      console.log('update quantity+productInfos')
+      existingCart.products[foundIndex].productId=fullProduct
+      existingCart.products[foundIndex].quantity+=quantity
+    }else{
+      console.log('push new products+qty')
+      existingCart.products.push({
+          productId:fullProduct,
+          quantity
+        })
+    }
+    const now = new Date()
+    existingCart.updatedAt=now.toISOString()
+    return existingCart
+  }
+
+  const createNewOfflineCartObj = (
+    quantity: number,
+    fullProduct: ProductInterface):OfflinePopulatedCartInterface =>{
+      const now = new Date()
+      const isoString = now.toISOString()
+      const newOfflineCartObj = {
+        products: [
+          {productId: fullProduct, quantity }
+        ],
+        updatedAt: isoString,
+        createdAt: isoString
+      }
+      // localStorage.setItem('offlineCart', JSON.stringify(newOfflineCartObj))
+      return newOfflineCartObj;
+  }
 
   const patchNewCart = async (
     newCart: ProductToOrderInterface[]
@@ -219,18 +240,18 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     
   };
 
-  const getItemsFromOffLineCart = (): ProductToOrderInterface[] => {
-    const offlineCartStr: string | null = localStorage.getItem("offlineCart");
+  const getOffLineCartOrCleanIfDataIsCorrupted = (): OfflinePopulatedCartInterface | null => {
+    const offlineCartStr: string | null = localStorage.getItem('offlineCart');
     if (!offlineCartStr) {
-      return [];
+      return null;
     }
     const offLineCartLStorage = JSON.parse(offlineCartStr);
     if (
       !offLineCartLStorage ||
-      !isProductToOrderInterfaceArray(offLineCartLStorage)
+      !isCartPopulatedInterface(offLineCartLStorage)
     ) {
       localStorage.removeItem("offlineCart");
-      return [];
+      return null;
     }
     return offLineCartLStorage;
   };
@@ -345,13 +366,25 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     localStorage.removeItem("cart");
   };
 
+  const addItemToCart = (
+    itemId: string,
+    quantity: number,
+    fullProduct: ProductInterface
+    ) =>{
+    if(isLoggedIn){
+      return addItemToOnlineCart(itemId,quantity,fullProduct)
+    }else{
+      // return addItemToOfflineCart(itemId,quantity,fullProduct)
+    }
+  }
+
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
       getOnlineCartAndRecordToStateAndLS();
     } else {
-      console.log("-->", getItemsFromOffLineCart());
-      setOfflineCartState(getItemsFromOffLineCart());
+      console.log("-->getOfflineCartOrCleanIfDataIsCorrupted", getOffLineCartOrCleanIfDataIsCorrupted());
+      setOfflineCartState(getOffLineCartOrCleanIfDataIsCorrupted());
     }
   }, [isLoggedIn]);
 
@@ -361,7 +394,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         productsState,
         setProductsState,
         addItemToOfflineCart,
-        getItemsFromOffLineCart,
         offlineCartState,
         cartState,
         removeFromCartById,

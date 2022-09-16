@@ -21,6 +21,12 @@ export interface CartToOrderInterface{
     address:DestinationAddressInterface;
 }
 
+export interface OfflinePopulatedCartInterface{
+    products: PopulatedProductToOrderInterface[];
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface cartPopulatedInterface{
     _id:string;
     products: PopulatedProductToOrderInterface[];
@@ -31,9 +37,12 @@ export interface cartPopulatedInterface{
 export interface cartContextInterface{
     productsState: ProductToOrderInterface[] | null;
     setProductsState: (state:ProductToOrderInterface[])=>void;
-    addItemToOfflineCart: (item:ProductToOrderInterface)=>void;
-    getItemsFromOffLineCart: ()=>ProductToOrderInterface[];
-    offlineCartState: ProductToOrderInterface[];
+    addItemToOfflineCart: (
+        fullProduct: ProductInterface,
+        quantity: number
+        )=>void;
+    // getItemsFromOffLineCartOrCleanIfDataIsCorrupted: ()=>OfflinePopulatedCartInterface | null;
+    offlineCartState: OfflinePopulatedCartInterface | null;
     cartState: PopulatedProductToOrderInterface[];
     removeFromCartById: (id:string)=>void;
     addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>Promise<boolean>;
