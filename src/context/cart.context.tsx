@@ -235,7 +235,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
           })
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
-          console.log('=================================================================',ans.data.products)
           setCartState(ans.data.products);
           resolve(true)
 
@@ -382,7 +381,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     const offlineCartSTR:string|null=localStorage.getItem('offlineCart')
     const offlineCartObj:OfflinePopulatedCartInterface|null=offlineCartSTR ? JSON.parse(offlineCartSTR) : null
     if(offlineCartObj && isCartPopulatedInterface(offlineCartObj)){
-      console.log('this offline Cart is ok !')
       return offlineCartObj
     }else{
       //if localStorage is corrupted
@@ -394,8 +392,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   const getOnlinceCartObjFromLocalStorage = ():PopulatedProductToOrderInterface[]|null =>{
     const onlineCartSTR:string|null=localStorage.getItem('cart')
     const onlineCartObj:PopulatedProductToOrderInterface[]|null=onlineCartSTR ? JSON.parse(onlineCartSTR) : null
-    if(onlineCartObj ){
-      console.log('this online Cart is ok !')
+    if(onlineCartObj){
       return onlineCartObj
     }else{
       //if localStorage is corrupted
@@ -405,8 +402,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   }
 
   const mixCarts=(cart1:PopulatedProductToOrderInterface[], cart2:PopulatedProductToOrderInterface[]):PopulatedProductToOrderInterface[]=>{
-    console.log('cart1 : ',cart1)
-    console.log('cart2 : ',cart2)
     const bigPopulated:PopulatedProductToOrderInterface[] = cart1.concat(cart2)
     const newPopulatedCart:PopulatedProductToOrderInterface[]=[]
     bigPopulated.forEach((populatedProduct:PopulatedProductToOrderInterface)=>{
