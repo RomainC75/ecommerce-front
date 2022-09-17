@@ -35,6 +35,9 @@ export interface cartPopulatedInterface{
 }
 
 export interface cartContextInterface{
+    addItemToCart: (
+        fullProduct: ProductInterface,
+        quantity: number)=>Promise<boolean>;
     productsState: ProductToOrderInterface[] | null;
     setProductsState: (state:ProductToOrderInterface[])=>void;
     addItemToOfflineCart: (
@@ -42,12 +45,11 @@ export interface cartContextInterface{
         quantity: number
         )=>void;
     // getItemsFromOffLineCartOrCleanIfDataIsCorrupted: ()=>OfflinePopulatedCartInterface | null;
-    offlineCartState: OfflinePopulatedCartInterface | null;
     cartState: PopulatedProductToOrderInterface[];
     removeFromCartById: (id:string)=>void;
-    addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>Promise<boolean>;
+    // addItemToOnlineCart: (itemId:string, quantity:number, product:ProductInterface)=>Promise<boolean>;
     logOutAndEraseStateAndLS:()=>void;
-    updateQuantityOnOneItemAndPatch:(id:string,quantity:number)=>Promise<boolean>;
+    updateCart:(id:string,quantity:number)=>Promise<boolean>;
     getTotal:()=>string;
     getNewPromoPrice:(basePrice:number, promo:number)=>number;
     validateCartWithCreditCard:(infos:CartToOrderInterface)=>Promise<boolean>;

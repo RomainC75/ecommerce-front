@@ -18,6 +18,7 @@ export const BasketPage = (): JSX.Element => {
     getTotal,
     getNewPromoPrice
   } = useContext(CartContext) as cartContextInterface;
+
   const navigate = useNavigate();
 
   console.log("cartState", cartState);

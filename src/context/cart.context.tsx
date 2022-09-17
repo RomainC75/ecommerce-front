@@ -21,7 +21,6 @@ import {
 } from "../@types/product";
 import {
   isCartPopulatedInterface,
-  isProductToOrderInterfaceArray,
 } from "../tools/typeTests";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
@@ -35,18 +34,15 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   const { isLoggedIn, logOutUser } = useContext(
     AuthContext
   ) as AuthContextInterface;
-  const [offlineCartState, setOfflineCartState] = useState<
-    OfflinePopulatedCartInterface | null
-  >(null);
   const [cartState, setCartState] = useState<
     PopulatedProductToOrderInterface[]
   >([]);
 
   const addItemToOfflineCart = (
     fullProduct: ProductInterface,
-    quantity: number): void => {
-    console.log("addItemsToOfflineCart")
-    let newOfflineCart : OfflinePopulatedCartInterface | null = null
+    quantity: number
+  ): void => {
+    let newOfflineCart: OfflinePopulatedCartInterface | null = null;
     const offlineCartLStorageStr: string | null =
       localStorage.getItem("offlineCart");
     if (offlineCartLStorageStr) {
@@ -54,66 +50,68 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         offlineCartLStorageStr
       );
       if (isCartPopulatedInterface(offlineCartLStorage)) {
-        console.log('offline products content : ', offlineCartLStorage.products)
-        newOfflineCart = pushNewProductOrUpdateQuantityAndReturnObj(offlineCartLStorage,fullProduct,quantity)
-        
+        newOfflineCart = pushNewProductOrUpdateQuantityAndReturnObj(
+          offlineCartLStorage,
+          fullProduct,
+          quantity
+        );
       } else {
-        newOfflineCart = createNewOfflineCartObj(quantity,fullProduct)
+        newOfflineCart = createNewOfflineCartObj(quantity, fullProduct);
       }
     } else {
-      newOfflineCart = createNewOfflineCartObj(quantity,fullProduct)
+      newOfflineCart = createNewOfflineCartObj(quantity, fullProduct);
     }
-    localStorage.setItem('offlineCart', JSON.stringify(newOfflineCart))
-    setOfflineCartState(newOfflineCart);
+    localStorage.setItem("offlineCart", JSON.stringify(newOfflineCart));
+    setCartState(newOfflineCart.products);
   };
 
-  const pushNewProductOrUpdateQuantityAndReturnObj = (existingCart: OfflinePopulatedCartInterface, fullProduct: ProductInterface, quantity:number):OfflinePopulatedCartInterface =>{
-    const foundIndex = existingCart.products.findIndex(prod=>prod.productId._id===fullProduct._id)
-    console.log("foundIndex",foundIndex)
-    if(foundIndex>=0){
-      console.log('update quantity+productInfos')
-      existingCart.products[foundIndex].productId=fullProduct
-      existingCart.products[foundIndex].quantity+=quantity
-    }else{
-      console.log('push new products+qty')
+  const pushNewProductOrUpdateQuantityAndReturnObj = (
+    existingCart: OfflinePopulatedCartInterface,
+    fullProduct: ProductInterface,
+    quantity: number
+  ): OfflinePopulatedCartInterface => {
+    const foundIndex = existingCart.products.findIndex(
+      (prod) => prod.productId._id === fullProduct._id
+    );
+    if (foundIndex >= 0) {
+      existingCart.products[foundIndex].productId = fullProduct;
+      existingCart.products[foundIndex].quantity += quantity;
+    } else {
       existingCart.products.push({
-          productId:fullProduct,
-          quantity
-        })
+        productId: fullProduct,
+        quantity,
+      });
     }
-    const now = new Date()
-    existingCart.updatedAt=now.toISOString()
-    return existingCart
-  }
+    const now = new Date();
+    existingCart.updatedAt = now.toISOString();
+    return existingCart;
+  };
 
   const createNewOfflineCartObj = (
     quantity: number,
-    fullProduct: ProductInterface):OfflinePopulatedCartInterface =>{
-      const now = new Date()
-      const isoString = now.toISOString()
-      const newOfflineCartObj = {
-        products: [
-          {productId: fullProduct, quantity }
-        ],
-        updatedAt: isoString,
-        createdAt: isoString
-      }
-      // localStorage.setItem('offlineCart', JSON.stringify(newOfflineCartObj))
-      return newOfflineCartObj;
-  }
+    fullProduct: ProductInterface
+  ): OfflinePopulatedCartInterface => {
+    const now = new Date();
+    const isoString = now.toISOString();
+    const newOfflineCartObj = {
+      products: [{ productId: fullProduct, quantity }],
+      updatedAt: isoString,
+      createdAt: isoString,
+    };
+    // localStorage.setItem('offlineCart', JSON.stringify(newOfflineCartObj))
+    return newOfflineCartObj;
+  };
 
   const patchNewCart = async (
     newCart: ProductToOrderInterface[]
   ): Promise<boolean> => {
     const storedToken = localStorage.getItem("authToken");
-    console.log("new cart to store :: ", newCart);
     try {
       const ans = await axios.patch(`${API_URL}/cart`, newCart, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
       });
-      console.log("patch ans :", ans.data);
       localStorage.setItem("cart", JSON.stringify(ans.data));
       setCartState(ans.data.products);
       return true;
@@ -134,7 +132,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
           },
         });
         if (ans) {
-          console.log("-->post ans : ", ans.data);
           localStorage.setItem("cart", JSON.stringify(ans.data));
           setCartState(ans.data.products);
           resolve(true);
@@ -146,65 +143,35 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     });
   };
 
-  // const postNewCart = (newProduct: ProductToOrderInterface[]): void => {
-  //   const storedToken = localStorage.getItem("authToken");
-  //   axios
-  //     .post(API_URL + "/cart", newProduct, {
-  //       headers: {
-  //         Authorization: `Bearer ${storedToken}`,
-  //       },
-  //     })
-  //     .then((ans) => {
-  //       if(ans){
-  //         console.log("-->post ans : ", ans.data);
-  //         localStorage.setItem("cart", JSON.stringify(ans.data));
-  //         setCartState(ans.data.products);
-  //       }
-  //     });
-  // };
-
-  const updateQuantityOnOneItemAndPatch = async (
+  const updateCart = async (
     id: string,
+    quantity: number): Promise<boolean> =>{
+      const newCartToSend: PopulatedProductToOrderInterface[] = cartState.map((item) => {
+        const newQuantity = item.productId._id === id ? quantity : item.quantity;
+        return {
+          productId:item.productId,
+          quantity: newQuantity,
+        };
+      });
+      if(isLoggedIn){
+        return patchOnlineCartAndUpdateState(newCartToSend)
+      }else{
+        return patchOfflineCartAndUpdateState(newCartToSend)
+      }
+  }
+
+  const addItemToOnlineCart = async (
+    fullProduct: ProductInterface,
     quantity: number
   ): Promise<boolean> => {
-    const newCartToSend: ProductToOrderInterface[] = cartState.map((item) => {
-      const newQuantity = item.productId._id === id ? quantity : item.quantity;
-      return {
-        productId: item.productId._id,
-        quantity: newQuantity,
-      };
-    });
-    console.log("newCartToSend", newCartToSend);
-    try {
-      return patchNewCart(newCartToSend);
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const addItemToOnlineCart = async(
-    itemId: string,
-    quantity: number,
-    fullProduct: ProductInterface
-  ): Promise<boolean> => {
-    console.log(
-      "entering addItemToOnlineCart !",
-      itemId,
-      quantity,
-      fullProduct
-    );
     const onlineCartStorageStr: string | null = localStorage.getItem("cart");
     if (onlineCartStorageStr) {
       const onlineCartStorage: cartPopulatedInterface =
         JSON.parse(onlineCartStorageStr);
-      console.log("=====>test : ", isCartPopulatedInterface(onlineCartStorage));
-      console.log("onlineCartStorage : ", onlineCartStorage);
       if (isCartPopulatedInterface(onlineCartStorage)) {
-        console.log("preindex : ", onlineCartStorage);
         const index: number = onlineCartStorage.products.findIndex(
-          (product) => product.productId._id === itemId
+          (product) => product.productId._id === fullProduct._id
         );
-        console.log("index : ", index);
         if (index >= 0) {
           onlineCartStorage.products[index].quantity += quantity;
           const cartToPatch: ProductToOrderInterface[] =
@@ -223,38 +190,37 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
                 quantity: product.quantity,
               };
             });
-          cartToPatch.push({ productId: itemId, quantity: quantity });
+          cartToPatch.push({ productId: fullProduct._id, quantity: quantity });
           return await patchNewCart(cartToPatch);
         }
       }
-      return new Promise((resolve,reject)=>reject(false))
+      return new Promise((resolve, reject) => reject(false));
     } else {
-      console.log("POST NEW CARD");
       return await postNewCart([
         {
-          productId: itemId,
+          productId: fullProduct._id,
           quantity,
         },
       ]);
     }
-    
   };
 
-  const getOffLineCartOrCleanIfDataIsCorrupted = (): OfflinePopulatedCartInterface | null => {
-    const offlineCartStr: string | null = localStorage.getItem('offlineCart');
-    if (!offlineCartStr) {
-      return null;
-    }
-    const offLineCartLStorage = JSON.parse(offlineCartStr);
-    if (
-      !offLineCartLStorage ||
-      !isCartPopulatedInterface(offLineCartLStorage)
-    ) {
-      localStorage.removeItem("offlineCart");
-      return null;
-    }
-    return offLineCartLStorage;
-  };
+  const getOffLineCartOrCleanIfDataIsCorrupted =
+    (): OfflinePopulatedCartInterface | null => {
+      const offlineCartStr: string | null = localStorage.getItem("offlineCart");
+      if (!offlineCartStr) {
+        return null;
+      }
+      const offLineCartLStorage = JSON.parse(offlineCartStr);
+      if (
+        !offLineCartLStorage ||
+        !isCartPopulatedInterface(offLineCartLStorage)
+      ) {
+        localStorage.removeItem("offlineCart");
+        return null;
+      }
+      return offLineCartLStorage;
+    };
   //////////////////////////////////////////////////////////////
 
   const getOnlineCartAndRecordToStateAndLS = (): void => {
@@ -266,7 +232,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         },
       })
       .then((ans) => {
-        console.log("ans : ", ans.data);
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
           setCartState(ans.data.products);
@@ -277,35 +242,65 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       });
   };
 
-  const patchTheUpdatedCart = (
-    newProdList: ProductToOrderInterface[]
-  ): void => {
-    const storedToken = localStorage.getItem("authToken");
-    axios
-      .patch(API_URL + "/cart", newProdList, {
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      })
-      .then((ans) => {
-        console.log("------> post ans : ", ans.data);
-        getOnlineCartAndRecordToStateAndLS();
-      });
+  const patchOnlineCartAndUpdateState = (
+    newProdList: PopulatedProductToOrderInterface[]
+  ): Promise<boolean> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const storedToken = localStorage.getItem("authToken");
+        const productsToOrderArray: ProductToOrderInterface[] = newProdList.map(
+          (prodToOrder) => {
+            return {
+              productId: prodToOrder.productId._id,
+              quantity: prodToOrder.quantity,
+            };
+          }
+        );
+        const ans = await axios.patch(API_URL + "/cart", productsToOrderArray, {
+            headers: {
+              Authorization: `Bearer ${storedToken}`,
+            },
+          })
+        if(ans){
+          getOnlineCartAndRecordToStateAndLS();
+
+        }else{
+          reject(false)
+        }
+      } catch (error) {
+        reject(false)
+      }
+    });
   };
 
-  const removeFromCartById = (id: string): void => {
-    console.log("id : ", id);
-    console.log("cartState : ", cartState);
-    const newCart = cartState
-      .filter((populatedCartList) => populatedCartList.productId._id !== id)
-      .map((filteredPopulatedCartList) => {
-        return {
-          productId: filteredPopulatedCartList.productId._id,
-          quantity: filteredPopulatedCartList.quantity,
-        };
-      });
-    console.log(newCart);
-    patchTheUpdatedCart(newCart);
+  const removeFromCartById = async (id: string): Promise<boolean> => {
+    const newCart = cartState.filter(
+      (populatedCartList) => populatedCartList.productId._id !== id
+    );
+    if (isLoggedIn) {
+      return await patchOnlineCartAndUpdateState(newCart);
+    } else {
+      // update offlineCartState && localStorage
+      return patchOfflineCartAndUpdateState(newCart);
+    }
+  };
+
+  //=============================
+  const patchOfflineCartAndUpdateState = (
+    newProductsArray: PopulatedProductToOrderInterface[]
+  ):Promise<boolean> => {
+    const offlineCartLSString: string | null =
+      localStorage.getItem("offlineCart");
+    const offlineCartLS: any = offlineCartLSString
+      ? JSON.parse(offlineCartLSString)
+      : null;
+    if (offlineCartLS && isCartPopulatedInterface(offlineCartLS)) {
+      offlineCartLS.products = newProductsArray;
+      localStorage.setItem("offlineCart", JSON.stringify(offlineCartLS));
+      setCartState(newProductsArray);
+      return new Promise((resolve)=>resolve(true))
+    }
+    return new Promise((resolve,reject)=>reject(false))
   };
 
   const getNewPromoPrice = (basePrice: number, promo: number): number => {
@@ -346,15 +341,12 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
           data: infos,
         })
           .then((ans) => {
-            console.log("ans : ", ans.data);
             resolve(true);
           })
           .catch((err) => {
-            console.log("validateCardWithCreditCard", err);
             reject(false);
           });
       } catch (error) {
-        console.log("validateCardWithCreditCard", error);
         reject(false);
       }
     });
@@ -367,39 +359,39 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
   };
 
   const addItemToCart = (
-    itemId: string,
-    quantity: number,
-    fullProduct: ProductInterface
-    ) =>{
-    if(isLoggedIn){
-      return addItemToOnlineCart(itemId,quantity,fullProduct)
-    }else{
-      // return addItemToOfflineCart(itemId,quantity,fullProduct)
+    fullProduct: ProductInterface,
+    quantity: number
+  ): Promise<boolean> => {
+    if (isLoggedIn) {
+      return addItemToOnlineCart(fullProduct, quantity);
+    } else {
+      addItemToOfflineCart(fullProduct, quantity);
+      return new Promise((resolve) => resolve(true));
     }
-  }
+  };
 
   useEffect(() => {
-    console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
       getOnlineCartAndRecordToStateAndLS();
     } else {
-      console.log("-->getOfflineCartOrCleanIfDataIsCorrupted", getOffLineCartOrCleanIfDataIsCorrupted());
-      setOfflineCartState(getOffLineCartOrCleanIfDataIsCorrupted());
+      const offlineClean = getOffLineCartOrCleanIfDataIsCorrupted();
+      if (offlineClean && "products" in offlineClean) {
+        setCartState(offlineClean.products);
+      }
     }
   }, [isLoggedIn]);
 
   return (
     <CartContext.Provider
       value={{
+        addItemToCart,
         productsState,
         setProductsState,
         addItemToOfflineCart,
-        offlineCartState,
         cartState,
         removeFromCartById,
-        addItemToOnlineCart,
         logOutAndEraseStateAndLS,
-        updateQuantityOnOneItemAndPatch,
+        updateCart,
         getNewPromoPrice,
         getTotal,
         validateCartWithCreditCard,

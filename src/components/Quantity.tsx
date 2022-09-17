@@ -13,7 +13,7 @@ interface quantityProps {
 
 export const Quantity = (props: quantityProps): JSX.Element => {
   const { product } = props;
-  const { updateQuantityOnOneItemAndPatch } = useContext(CartContext) as cartContextInterface;
+  const { updateCart } = useContext(CartContext) as cartContextInterface;
   const [quantityState, setQuantityState] = useState<number>(product.quantity);
   const [updateButtonColorState, setUpdateButtonColorState] = useState<'primary'|'error'|'success'>('primary')
 
@@ -27,7 +27,7 @@ export const Quantity = (props: quantityProps): JSX.Element => {
   };
 
   const updateQuantity = async() => {
-    const res= await updateQuantityOnOneItemAndPatch(product.productId._id,quantityState)
+    const res= await updateCart(product.productId._id,quantityState)
     if(res){
         setUpdateButtonColorState('success')
     }else{

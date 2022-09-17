@@ -71,6 +71,7 @@ const isArrayOfProductInterface = (array: any): boolean => {
 };
 
 export const isCartPopulatedInterface = (obj: any): boolean => {
+  console.log('TEST : isCartPopulated')
   if (
     typeof obj === "object" &&
     "products" in obj &&
