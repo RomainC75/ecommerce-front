@@ -20,7 +20,7 @@ import {
   ProductInterface,
 } from "../@types/product";
 import {
-  isCartPopulatedInterface,
+  isCartPopulatedInterface,isArrayOfProductInterface
 } from "../tools/typeTests";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
@@ -223,23 +223,32 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     };
   //////////////////////////////////////////////////////////////
 
-  const getOnlineCartAndRecordToStateAndLS = (): void => {
-    const storedToken = localStorage.getItem("authToken");
-    axios
-      .get(API_URL + "/cart", {
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      })
-      .then((ans) => {
+  const getOnlineCartAndRecordToStateAndLS = (): Promise<boolean> => {
+    return new Promise ( async(resolve, reject)=>{
+      try {
+        const storedToken = localStorage.getItem("authToken");
+        const ans = await axios
+          .get(API_URL + "/cart", {
+            headers: {
+              Authorization: `Bearer ${storedToken}`,
+            },
+          })
         if (ans.data) {
           localStorage.setItem("cart", JSON.stringify(ans.data));
+          console.log('=================================================================',ans.data.products)
           setCartState(ans.data.products);
+          resolve(true)
+
         } else {
           localStorage.removeItem("cart");
           setCartState([]);
+          resolve(true)
         }
-      });
+      } catch (error) {
+        reject(false)
+      }
+    })
+    
   };
 
   const patchOnlineCartAndUpdateState = (
@@ -285,7 +294,6 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  //=============================
   const patchOfflineCartAndUpdateState = (
     newProductsArray: PopulatedProductToOrderInterface[]
   ):Promise<boolean> => {
@@ -370,9 +378,65 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
+  const getOfflineCartObjFromLocalStorage = ():OfflinePopulatedCartInterface|null =>{
+    const offlineCartSTR:string|null=localStorage.getItem('offlineCart')
+    const offlineCartObj:OfflinePopulatedCartInterface|null=offlineCartSTR ? JSON.parse(offlineCartSTR) : null
+    if(offlineCartObj && isCartPopulatedInterface(offlineCartObj)){
+      console.log('this offline Cart is ok !')
+      return offlineCartObj
+    }else{
+      //if localStorage is corrupted
+      localStorage.removeItem('offlineCart')
+      return null
+    }
+  }
+
+  const getOnlinceCartObjFromLocalStorage = ():PopulatedProductToOrderInterface[]|null =>{
+    const onlineCartSTR:string|null=localStorage.getItem('cart')
+    const onlineCartObj:PopulatedProductToOrderInterface[]|null=onlineCartSTR ? JSON.parse(onlineCartSTR) : null
+    if(onlineCartObj ){
+      console.log('this online Cart is ok !')
+      return onlineCartObj
+    }else{
+      //if localStorage is corrupted
+      localStorage.removeItem('cart')
+      return null
+    }
+  }
+
+  const mixCarts=(cart1:PopulatedProductToOrderInterface[], cart2:PopulatedProductToOrderInterface[]):PopulatedProductToOrderInterface[]=>{
+    console.log('cart1 : ',cart1)
+    console.log('cart2 : ',cart2)
+    const bigPopulated:PopulatedProductToOrderInterface[] = cart1.concat(cart2)
+    const newPopulatedCart:PopulatedProductToOrderInterface[]=[]
+    bigPopulated.forEach((populatedProduct:PopulatedProductToOrderInterface)=>{
+      const foundIndex:number=newPopulatedCart.findIndex((prod:PopulatedProductToOrderInterface)=>populatedProduct.productId._id===prod.productId._id)
+      if(foundIndex>=0){
+        newPopulatedCart[foundIndex].quantity+=populatedProduct.quantity
+        if(newPopulatedCart[foundIndex].quantity>newPopulatedCart[foundIndex].productId.stockQuantity){
+          newPopulatedCart[foundIndex].quantity=newPopulatedCart[foundIndex].productId.stockQuantity
+        }
+      }else{
+        newPopulatedCart.push(populatedProduct)
+      }
+    })
+    localStorage.removeItem('offlineCart')
+    return newPopulatedCart
+  }
+
+  const getOnlineCartAndMixWithOfflineAndUpdateAndRecordToStateAndLS = async () =>{
+    const offlineCartLS:OfflinePopulatedCartInterface|null=getOfflineCartObjFromLocalStorage()
+    await getOnlineCartAndRecordToStateAndLS()
+    const onlineCartLS:any=getOnlinceCartObjFromLocalStorage()
+    if(offlineCartLS && onlineCartLS && 'products' in onlineCartLS && isArrayOfProductInterface(onlineCartLS.products)){
+      const newCart = mixCarts(offlineCartLS.products,onlineCartLS.products)
+      await patchOnlineCartAndUpdateState(newCart)
+    }
+  }
+
   useEffect(() => {
     if (isLoggedIn) {
-      getOnlineCartAndRecordToStateAndLS();
+      getOnlineCartAndMixWithOfflineAndUpdateAndRecordToStateAndLS()
     } else {
       const offlineClean = getOffLineCartOrCleanIfDataIsCorrupted();
       if (offlineClean && "products" in offlineClean) {

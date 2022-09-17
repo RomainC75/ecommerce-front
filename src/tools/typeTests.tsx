@@ -64,7 +64,7 @@ const isProductInterface = (obj: any): boolean => {
   return false;
 };
 
-const isArrayOfProductInterface = (array: any): boolean => {
+export const isArrayOfProductInterface = (array: any): boolean => {
   return (
     Array.isArray(array) && array.every((prod) => isProductInterface(prod))
   );
