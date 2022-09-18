@@ -17,6 +17,13 @@
   color: red;
 }
 
+.LoginPage .forgot {
+  margin-top: 10px;
+  font-weight: 600;
+  font-style: italic;
+  color: #012291;
+}
+
 @media (max-width: 500px) {
   .LoginPage .inputs {
     -webkit-box-orient: vertical;

@@ -69,12 +69,12 @@ export const LoginPage = (): JSX.Element => {
             required
           />
         </div>
-        <div><Link to='/resetpass'>forgot your password ?</Link></div>
         <Button variant="contained" type="submit">
           Login !
         </Button>
         
       </form>
+      <div className="forgot"><Link to='/resetpass'>forgot your password ?</Link></div>
       <p className="error">{errorMessage}</p>
     </div>
   );

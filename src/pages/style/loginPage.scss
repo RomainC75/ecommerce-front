@@ -11,6 +11,12 @@
     & .error{
         color:red
     }
+    & .forgot{
+        margin-top:10px;
+        font-weight:600;
+        font-style: italic;
+        color:rgb(1, 34, 145);
+    }
 }
 
 @media(max-width:500px){

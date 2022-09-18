@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 export const PassResetPage = () => {
     const{resetToken}=useParams()
+    const navigate=useNavigate()
   const [colorState, setColorState] = useState<"error" | "primary" | "success">(
     "primary"
   );
@@ -15,7 +16,6 @@ export const PassResetPage = () => {
   const [pass2State, setPass2State] = useState<string>("");
   const [isPasswordValidatedState, setIsPasswordValidatedState] =
     useState<boolean>(false);
-//===========
     const [isError, setIsError] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isRequestAccepted, setIsRequestAccepted] = useState<boolean>(false)
@@ -54,6 +54,9 @@ export const PassResetPage = () => {
         setIsRequestAccepted(true)
         setResponseMessage(ans.data.message)
         setIsError(false)
+        setTimeout(()=>{
+            navigate('/login')
+        },2000)
     } catch (error:any) {
         console.log(error.response.data.message)
         setErrorMessage(error.response.data.message)
@@ -85,6 +88,7 @@ export const PassResetPage = () => {
       </Button>
       {isError && <p className="error">{errorMessage}</p>}
       {isRequestAccepted && <p className="validated">{responseMessage}</p>}
+      {isRequestAccepted && <p className="validated"> wait, you will be redirected !</p>}
     </div>
   );
 };
