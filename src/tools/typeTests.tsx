@@ -65,6 +65,10 @@ const isProductInterface = (obj: any): boolean => {
 };
 
 export const isArrayOfProductInterface = (array: any): boolean => {
+  console.log('inside : ',array)
+  if(Array.isArray(array) && array.length===0) {
+    return true
+  }
   return (
     Array.isArray(array) && array.every((prod) => isProductInterface(prod))
   );

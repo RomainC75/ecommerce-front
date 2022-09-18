@@ -423,10 +423,20 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     const offlineCartLS:OfflinePopulatedCartInterface|null=getOfflineCartObjFromLocalStorage()
     await getOnlineCartAndRecordToStateAndLS()
     const onlineCartLS:any=getOnlinceCartObjFromLocalStorage()
-    if(offlineCartLS && onlineCartLS && 'products' in onlineCartLS && isArrayOfProductInterface(onlineCartLS.products)){
+    if(!onlineCartLS && offlineCartLS ){
+      //POST new Cart (offline)
+      postNewCart(offlineCartLS.products.map(prod=>{
+        return {
+          productId:prod.productId._id,
+          quantity:prod.quantity
+        }
+      }))
+    }else if(offlineCartLS && onlineCartLS && 'products' in onlineCartLS && isArrayOfProductInterface(onlineCartLS.products)){
       const newCart = mixCarts(offlineCartLS.products,onlineCartLS.products)
       await patchOnlineCartAndUpdateState(newCart)
     }
+    
+
   }
 
   useEffect(() => {
