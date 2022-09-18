@@ -56,7 +56,6 @@ export const LoginPage = (): JSX.Element => {
             onChange={(e) => setEmailState(e.target.value)}
             variant="filled"
           />
-
           <TextField
             id="password"
             className="inputs__input"

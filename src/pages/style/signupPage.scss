@@ -5,8 +5,14 @@
     & .inputs{
         display:flex;
         justify-content: center;
+        flex-direction:column;
         gap:10px;
         margin-bottom:20px;
+        & .passwords{
+            display:flex;
+            gap:10px;
+            justify-content: center;
+        }
     }
     & .error{
         color:red
@@ -20,6 +26,9 @@
             align-items:center;
             &__input{
                 width:300px;
+            }
+            & .passwords{
+                flex-direction: column;
             }
         }
     }
