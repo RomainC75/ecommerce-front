@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContextInterface } from "../@types/authContext.type";
 
 import TextField from "@mui/material/TextField";
@@ -69,9 +69,11 @@ export const LoginPage = (): JSX.Element => {
             required
           />
         </div>
+        <div><Link to='/resetpass'>forgot your password ?</Link></div>
         <Button variant="contained" type="submit">
           Login !
         </Button>
+        
       </form>
       <p className="error">{errorMessage}</p>
     </div>

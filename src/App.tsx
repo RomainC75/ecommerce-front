@@ -13,6 +13,8 @@ import { CheckoutPage } from './pages/Checkout.page';
 import IsCartValidated from './components/IsCartValidated';
 import { Footer } from './components/Footer';
 import { SignupPage } from './pages/Signup.page';
+import { PassResetPage } from './pages/PassReset.page';
+import { PassResetRequestPage } from './pages/PassResetRequest.page';
  
 function App():JSX.Element {
   return (
@@ -27,6 +29,8 @@ function App():JSX.Element {
         <Route path="/product/:productId" element={<ProductDetails/>}/>
         <Route path="/account" element={<IsPrivate><Account/></IsPrivate>}/>
         <Route path="/checkout" element={<IsPrivate><IsCartValidated><CheckoutPage/></IsCartValidated></IsPrivate>}/>
+        <Route path='/reset/:resetToken' element={<PassResetPage/>}/> 
+        <Route path='/resetpass' element={<PassResetRequestPage/>}/> 
       </Routes>
       <Footer/>
     </div>
