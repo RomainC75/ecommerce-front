@@ -15,11 +15,21 @@ import { Footer } from './components/Footer';
 import { SignupPage } from './pages/Signup.page';
 import { PassResetPage } from './pages/PassReset.page';
 import { PassResetRequestPage } from './pages/PassResetRequest.page';
+import { AdminHomePage } from './pages/admin/Home.page';
+import { AdminFooter } from './components/admin/Footer';
+import { AdminNavBar } from './components/admin/NavBar';
+import { AdminLogin } from './pages/admin/Login.page';
+import { NoMatch } from './pages/NoMatch';
  
 function App():JSX.Element {
   return (
     <div className="App">
-      <Navbar/>
+
+      <Routes>
+          <Route path='/admin/*' element={<AdminNavBar/>}/>          
+          <Route path='*' element={<Navbar/>}/>
+      </Routes>
+      
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path="/category/:cat" element={<CategoriesList/>}/>
@@ -30,9 +40,17 @@ function App():JSX.Element {
         <Route path="/account" element={<IsPrivate><Account/></IsPrivate>}/>
         <Route path="/checkout" element={<IsPrivate><IsCartValidated><CheckoutPage/></IsCartValidated></IsPrivate>}/>
         <Route path='/reset/:resetToken' element={<PassResetPage/>}/> 
-        <Route path='/resetpass' element={<PassResetRequestPage/>}/> 
+        <Route path='/resetpass' element={<PassResetRequestPage/>}/>         
+        <Route path='/admin/login' element={<AdminLogin/>}/>
+
+        <Route path='*' element={<NoMatch/>}/>
       </Routes>
-      <Footer/>
+      
+      <Routes>
+        <Route path='/admin/*' element={<AdminFooter/>}/>
+        <Route path='*' element={<Footer/>}/>
+      </Routes>
+
     </div>
   );
 }
