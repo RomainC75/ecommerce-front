@@ -1,4 +1,4 @@
-.Navbar {
+.AdminNavbar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13,38 +13,38 @@
   width: 100%;
   padding-top: 30px;
   color: white;
-  background-color: #287960;
+  background-color: #792828;
 }
 
-.Navbar.isAdmin {
+.AdminNavbar.isAdmin {
   background-color: #792828 !important;
 }
 
-.Navbar > * {
+.AdminNavbar > * {
   margin: 0 10px 10px 10px;
 }
 
-.Navbar h1 {
+.AdminNavbar h1 {
   margin: 0;
 }
 
-.Navbar p {
+.AdminNavbar p {
   margin: 0;
 }
 
-.Navbar__rightSide {
+.AdminNavbar__rightSide {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.Navbar__rightSide__avatarImage {
+.AdminNavbar__rightSide__avatarImage {
   width: 47px;
   height: 47px;
   border-radius: 100%;
 }
 
-.Navbar__logPart {
+.AdminNavbar__logPart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -53,22 +53,22 @@
           align-items: center;
 }
 
-.Navbar__logPart p:nth-child(1) {
+.AdminNavbar__logPart p:nth-child(1) {
   margin-right: 5px;
   font-style: italic;
 }
 
-.Navbar__shopping {
+.AdminNavbar__shopping {
   position: relative;
   cursor: pointer;
 }
 
-.Navbar__shopping .basketIcon {
+.AdminNavbar__shopping .basketIcon {
   width: 35px;
   height: 35px;
 }
 
-.Navbar__shopping__number {
+.AdminNavbar__shopping__number {
   position: absolute;
   opacity: 0.5;
   top: 0;
@@ -81,7 +81,7 @@
   color: red;
 }
 
-.Navbar .signupAndLogin {
+.AdminNavbar .signupAndLogin {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,7 +98,7 @@
   margin-right: 10px;
 }
 
-.Navbar .logOutButton {
+.AdminNavbar .logOutButton {
   font-weight: 800;
   color: #fa6e6e;
   border-color: #fa6e6e;
@@ -127,4 +127,4 @@
     display: none;
   }
 }
-/*# sourceMappingURL=navbar.css.map */
+/*# sourceMappingURL=adminNavbar.css.map */

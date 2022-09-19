@@ -1,4 +1,4 @@
-.Navbar{
+.AdminNavbar{
     display:flex;
     justify-content:space-evenly;
     align-items: center;
@@ -7,7 +7,7 @@
     padding-top:30px;
 
     color:white;
-    background-color: #287960;
+    background-color: #792828;
     &.isAdmin{
         background-color: #792828!important;
     }

@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { AuthContextInterface } from "../@types/authContext.type";
 import { Link, useNavigate } from "react-router-dom";
-
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
 
@@ -65,8 +64,7 @@ const Navbar = (): JSX.Element => {
             <FiShoppingCart className="basketIcon" />
           )}
         </div>
-      </div>
-      
+      </div> 
     </div>
   );
 };
