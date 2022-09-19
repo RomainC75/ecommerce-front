@@ -120,7 +120,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const postNewCart = (
+  const postNewCartAndUpdateStateAndLS = (
     newProduct: ProductToOrderInterface[]
   ): Promise<boolean> => {
     return new Promise(async (resolve, reject) => {
@@ -154,7 +154,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         };
       });
       if(isLoggedIn){
-        return patchOnlineCartAndUpdateState(newCartToSend)
+        return patchOnlineCartAndUpdateStateAndLS(newCartToSend)
       }else{
         return patchOfflineCartAndUpdateState(newCartToSend)
       }
@@ -196,7 +196,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       }
       return new Promise((resolve, reject) => reject(false));
     } else {
-      return await postNewCart([
+      return await postNewCartAndUpdateStateAndLS([
         {
           productId: fullProduct._id,
           quantity,
@@ -205,7 +205,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     }
   };
 
-  const getOffLineCartOrCleanIfDataIsCorrupted =
+  const getCleanOffLineCartOrDeleteIfDataIsCorrupted =
     (): OfflinePopulatedCartInterface | null => {
       const offlineCartStr: string | null = localStorage.getItem("offlineCart");
       if (!offlineCartStr) {
@@ -234,6 +234,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
             },
           })
         if (ans.data) {
+          console.log("getOnlineCartAndRecordToStateAndLS ans : ", ans )
           localStorage.setItem("cart", JSON.stringify(ans.data));
           setCartState(ans.data.products);
           resolve(true)
@@ -250,7 +251,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
     
   };
 
-  const patchOnlineCartAndUpdateState = (
+  const patchOnlineCartAndUpdateStateAndLS = (
     newProdList: PopulatedProductToOrderInterface[]
   ): Promise<boolean> => {
     return new Promise(async (resolve, reject) => {
@@ -270,8 +271,11 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
             },
           })
         if(ans){
-          getOnlineCartAndRecordToStateAndLS();
-
+          console.log("patchOnlineCartAndUpdateStateAndLS ans : ",ans)
+          // await getOnlineCartAndRecordToStateAndLS();
+          localStorage.setItem("cart", JSON.stringify(ans.data));
+          setCartState(ans.data.products);
+          resolve(true)
         }else{
           reject(false)
         }
@@ -286,7 +290,7 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
       (populatedCartList) => populatedCartList.productId._id !== id
     );
     if (isLoggedIn) {
-      return await patchOnlineCartAndUpdateState(newCart);
+      return await patchOnlineCartAndUpdateStateAndLS(newCart);
     } else {
       // update offlineCartState && localStorage
       return patchOfflineCartAndUpdateState(newCart);
@@ -415,38 +419,44 @@ function CartProviderWrapper(props: PropsWithChildren<{}>) {
         newPopulatedCart.push(populatedProduct)
       }
     })
-    localStorage.removeItem('offlineCart')
     return newPopulatedCart
   }
 
-  const getOnlineCartAndMixWithOfflineAndUpdateAndRecordToStateAndLS = async () =>{
+  const getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS = async () =>{
+    console.log("==>getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS")
     const offlineCartLS:OfflinePopulatedCartInterface|null=getOfflineCartObjFromLocalStorage()
     await getOnlineCartAndRecordToStateAndLS()
     const onlineCartLS:any=getOnlinceCartObjFromLocalStorage()
     if(!onlineCartLS && offlineCartLS ){
+      console.log("==>getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS : 1 !!")
       //POST new Cart (offline)
-      postNewCart(offlineCartLS.products.map(prod=>{
+      await postNewCartAndUpdateStateAndLS(offlineCartLS.products.map(prod=>{
         return {
           productId:prod.productId._id,
           quantity:prod.quantity
         }
       }))
     }else if(offlineCartLS && onlineCartLS && 'products' in onlineCartLS && isArrayOfProductInterface(onlineCartLS.products)){
+      console.log("==>getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS : 2 !!")
       const newCart = mixCarts(offlineCartLS.products,onlineCartLS.products)
-      await patchOnlineCartAndUpdateState(newCart)
+      await patchOnlineCartAndUpdateStateAndLS(newCart)
+    }else if(!offlineCartLS && onlineCartLS){
+      console.log("==>getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS : 3 !!")
+      await getOnlineCartAndRecordToStateAndLS()
     }
-    
-
+    console.log('==>remove offlineCart')
+    localStorage.removeItem('offlineCart')
   }
 
   useEffect(() => {
     if (isLoggedIn) {
-      getOnlineCartAndMixWithOfflineAndUpdateAndRecordToStateAndLS()
+      getOnlineCartAndMixWithOfflineAndPatchAndRecordToStateAndLS()
     } else {
-      const offlineClean = getOffLineCartOrCleanIfDataIsCorrupted();
+      const offlineClean = getCleanOffLineCartOrDeleteIfDataIsCorrupted();
       if (offlineClean && "products" in offlineClean) {
         setCartState(offlineClean.products);
       }
+      localStorage.removeItem('cart')
     }
   }, [isLoggedIn]);
 

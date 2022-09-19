@@ -51,7 +51,7 @@ const initialFValues: UserExpandedInterface = {
   street1: "street1",
   street2: "street2",
   city: "city",
-  zip: "zippp",
+  zip: "zip",
   state: "state",
   country: "country",
   birthdate: "",

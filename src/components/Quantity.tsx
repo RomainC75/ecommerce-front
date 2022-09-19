@@ -13,16 +13,17 @@ interface quantityProps {
 
 export const Quantity = (props: quantityProps): JSX.Element => {
   const { product } = props;
+  console.log("inside Quantity : ",product)
   const { updateCart } = useContext(CartContext) as cartContextInterface;
-  const [quantityState, setQuantityState] = useState<number>(product.quantity);
-  const [updateButtonColorState, setUpdateButtonColorState] = useState<'primary'|'error'|'success'>('primary')
+  const [ quantityState, setQuantityState ] = useState<number>(product.quantity);
+  const [ updateButtonColorState, setUpdateButtonColorState ] = useState<'primary'|'error'|'success'>('primary')
 
   const handleQuantity = (
     el: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const newQuantity=parseInt(el.target.value)
     if(newQuantity<=product.productId.stockQuantity){
-        setQuantityState(parseInt(el.target.value));
+      setQuantityState(parseInt(el.target.value));
     }
   };
 

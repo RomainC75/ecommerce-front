@@ -38,6 +38,7 @@ export const BasketPage = (): JSX.Element => {
         {cartState &&
           cartState.map((populatedProdToOrder) => {
             const prod = populatedProdToOrder.productId;
+            console.log("xx==>",populatedProdToOrder)
             console.log("BEFORE in : ", prod);
             const pic =
               "pictures" in prod && Array.isArray(prod.pictures)
