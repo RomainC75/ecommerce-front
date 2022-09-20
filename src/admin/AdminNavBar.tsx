@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { AdminAuthContext } from "../../context/adminAuth.context";
-import { AdminAuthContextInterface } from "../../@types/adminAuthContext.type";
+import { AdminAuthContext } from "../context/adminAuth.context";
+import { AdminAuthContextInterface } from "../@types/adminAuthContext.type";
 import { Link, useNavigate } from "react-router-dom";
 
 import { FaShoppingCart } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import Button from "@mui/material/Button";
 
 import "./style/adminNavbar.css";
-import bioLogo from "../../pictures/bioLogo.png";
+import bioLogo from "../pictures/bioLogo.png";
 
 const AdminNavbar = (): JSX.Element => {
   const { authenticateAdmin, isAdminLoggedIn, admin, logOutAdmin } = useContext(

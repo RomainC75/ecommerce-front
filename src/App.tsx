@@ -1,6 +1,3 @@
-import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar';
 import { CategoriesList } from './pages/CategoriesList.page';
 import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from './pages/Login.page';
@@ -15,8 +12,10 @@ import { SignupPage } from './pages/Signup.page';
 import { PassResetPage } from './pages/PassReset.page';
 import { PassResetRequestPage } from './pages/PassResetRequest.page';
 import { NoMatch } from './pages/NoMatch';
-import { AdminSharedLayout } from './components/admin/AdminSharedLayout';
+import { AdminSharedLayout } from './admin/AdminSharedLayout';
 import { UserSharedLayout } from './components/UserSharedLayout';
+import { AdminLoginPage } from './admin/pages/AdminLogin.page';
+import { AdminSignupPage } from './admin/pages/AdminSignup.page';
 
 function App():JSX.Element {
   return (
@@ -24,6 +23,8 @@ function App():JSX.Element {
       <Routes>
         <Route path="admin" element={<AdminSharedLayout/>}>
           <Route path="home" element={<div>Admin Home </div>}/>
+          <Route path="login" element={<AdminLoginPage/>}/>
+          <Route path="signup" element={<AdminSignupPage/>}/>
         </Route>
   
         <Route path="/" element={<UserSharedLayout/>}>
@@ -68,7 +69,6 @@ function App():JSX.Element {
         <Route path='/admin/*' element={<AdminFooter/>}/>
         <Route path='*' element={<Footer/>}/>
       </Routes> */}
-
     </div>
   );
 }

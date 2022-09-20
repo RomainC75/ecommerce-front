@@ -1,0 +1,67 @@
+.AdminLoginPage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.AdminLoginPage form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.AdminLoginPage img {
+  width: 150px;
+}
+
+.AdminLoginPage .inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.AdminLoginPage .error {
+  color: red;
+}
+
+.AdminLoginPage .forgot {
+  margin-top: 10px;
+  font-weight: 600;
+  font-style: italic;
+  color: #012291;
+}
+
+@media (max-width: 500px) {
+  .AdminLoginPage .inputs {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .AdminLoginPage .inputs__input {
+    width: 300px;
+  }
+}
+/*# sourceMappingURL=adminLoginPage.css.map */

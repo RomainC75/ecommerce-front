@@ -28,3 +28,13 @@ a {
 .red{
   color:red;
 }
+
+.link{
+  color:#012291;
+  font-weight:600;
+  font-style:italic;
+}
+
+.link:hover{
+  transform:scale(1.05)   
+}

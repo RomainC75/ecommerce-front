@@ -1,0 +1,40 @@
+.AdminLoginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  & img {
+    width: 150px;
+  }
+  & .inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  & .error {
+    color: red;
+  }
+  & .forgot {
+    margin-top: 10px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgb(1, 34, 145);
+  }
+}
+
+@media (max-width: 500px) {
+  .AdminLoginPage {
+    & .inputs {
+      flex-direction: column;
+      align-items: center;
+      &__input {
+        width: 300px;
+      }
+    }
+  }
+}

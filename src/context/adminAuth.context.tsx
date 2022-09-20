@@ -41,6 +41,7 @@ function AdminAuthProviderWrapper(props:PropsWithChildren<{}>) {
       setIsAdminLoggedIn(false);
       setIsLoading(false);
       setAdmin(null);
+      navigate('/admin/login')
     }
   };
 
