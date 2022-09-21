@@ -8,9 +8,16 @@
 // }
 .HomePage{
   margin-bottom:66px;
-  &__img{
-    max-width:640px;
-    width:90%;
+  display:flex;
+  flex-direction: column;
+  &__presentation{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    &__img{
+      max-width:640px;
+      width:90%;
+    }
   }
   & h3 span{
     font-weight:800;

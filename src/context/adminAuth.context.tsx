@@ -23,6 +23,7 @@ function AdminAuthProviderWrapper(props:PropsWithChildren<{}>) {
       axios
         .get(`${API_URL}/auth/verify`, {
           headers: {
+            isadmin:"true",
             Authorization: `Bearer ${storedToken}`,
           },
         })

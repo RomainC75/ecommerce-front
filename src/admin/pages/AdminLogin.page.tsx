@@ -29,12 +29,16 @@ export const AdminLoginPage = (): JSX.Element => {
       .post(API_URL + "/auth/signin", {
         email: emailState,
         password: passwordState,
+      },{
+        headers:{
+          isadmin:"true"
+        }
       })
       .then((ans) => {
         console.log("ans : ", ans.data);
         storeToken(ans.data.token);
         authenticateAdmin();
-        navigate("/");
+        navigate("/admin");
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);

@@ -12,17 +12,19 @@ import { SignupPage } from './pages/Signup.page';
 import { PassResetPage } from './pages/PassReset.page';
 import { PassResetRequestPage } from './pages/PassResetRequest.page';
 import { NoMatch } from './pages/NoMatch';
-import { AdminSharedLayout } from './admin/AdminSharedLayout';
+import { AdminSharedLayout } from './admin/components/AdminSharedLayout';
 import { UserSharedLayout } from './components/UserSharedLayout';
 import { AdminLoginPage } from './admin/pages/AdminLogin.page';
 import { AdminSignupPage } from './admin/pages/AdminSignup.page';
+import IsAdminPrivate from './admin/components/IsAdminPrivate';
+import { OrdersPage } from './admin/pages/Orders.page';
 
 function App():JSX.Element {
   return (
     <div className="App">
       <Routes>
         <Route path="admin" element={<AdminSharedLayout/>}>
-          <Route path="home" element={<div>Admin Home </div>}/>
+          <Route path="orders" element={<IsAdminPrivate><OrdersPage/></IsAdminPrivate>}/>
           <Route path="login" element={<AdminLoginPage/>}/>
           <Route path="signup" element={<AdminSignupPage/>}/>
         </Route>

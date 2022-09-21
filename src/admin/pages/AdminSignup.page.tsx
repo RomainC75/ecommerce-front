@@ -25,9 +25,13 @@ export const AdminSignupPage = (): JSX.Element => {
     e.preventDefault();
     console.log(emailState, password1State);
     axios
-      .post(API_URL + "/admin/auth/signup", {
+      .post(API_URL + "/auth/signup", {
         email: emailState,
         password: password1State,
+      },{
+        headers:{
+          isadmin:'true'
+        }
       })
       .then((ans) => {
         console.log("ans : ", ans.data);
