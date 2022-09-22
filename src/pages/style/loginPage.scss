@@ -1,33 +1,42 @@
-.LoginPage{
-    & img{
-        width:150px;
+.LoginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:10px;
+  & img {
+    width: 150px;
+  }
+  & form {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap:10px;
+    & .inputs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    & .inputs{
-        display:flex;
-        justify-content: center;
-        gap:10px;
-        margin-bottom:20px;
-    }
-    & .error{
-        color:red
-    }
-    & .forgot{
-        margin-top:10px;
-        font-weight:600;
-        font-style: italic;
-        color:rgb(1, 34, 145);
-    }
+  }
+  & .error {
+    color: red;
+  }
+  & .forgot {
+    margin-top: 10px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgb(1, 34, 145);
+  }
 }
 
-@media(max-width:500px){
-    .LoginPage{
-        & .inputs{
-            flex-direction: column;
-            align-items:center;
-            &__input{
-                width:300px;
-            }
-        }
+@media (max-width: 500px) {
+  .LoginPage {
+    & .inputs {
+      flex-direction: column;
+      align-items: center;
+      &__input {
+        width: 300px;
+      }
     }
+  }
 }
-

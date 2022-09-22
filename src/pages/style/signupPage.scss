@@ -1,35 +1,51 @@
-.SignupPage{
-    & .img{
-        width:200px;
-    }
-    & .inputs{
-        display:flex;
+.SignupPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & .img {
+    width: 200px;
+  }
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .inputs {
+      margin-bottom: 20px;
+      margin-top: 10px;
+      & > div {
+        display: flex;
         justify-content: center;
-        flex-direction:column;
-        gap:10px;
-        margin-bottom:20px;
-        & .passwords{
-            display:flex;
-            gap:10px;
-            justify-content: center;
-        }
+        align-items: center;
+        gap: 10px;
+      }
+      & > div:nth-child(1) {
+        flex-direction: column;
+      }
+      & .passwords {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
     }
-    & .error{
-        color:red
-    }
+  }
+  & .error {
+    color: red;
+  }
 }
 
-@media(max-width:500px){
-    .SignupPage{
-        & .inputs{
-            flex-direction: column;
-            align-items:center;
-            &__input{
-                width:300px;
-            }
-            & .passwords{
-                flex-direction: column;
-            }
-        }
+@media (max-width: 500px) {
+  .SignupPage {
+    & .inputs {
+      flex-direction: column;
+      align-items: center;
+      &__input {
+        width: 300px;
+      }
+      & .passwords {
+        flex-direction: column;
+      }
     }
+  }
 }

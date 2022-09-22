@@ -4,6 +4,10 @@
     width:100%;
     background-color:#287960;
     color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     & h3{
         font-weight:800;
         font-size:2em;

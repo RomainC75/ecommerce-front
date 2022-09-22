@@ -42,14 +42,14 @@ export const SignupPage = (): JSX.Element => {
     if(password1State.length===0 && password2State.length===0){
       setPasswordsColorState('primary')
       setIsPasswordValidatedState(false)
-    }else if(password1State===password2State){
+    }else if(password1State===password2State && emailState.length>5){
       setPasswordsColorState('success')
       setIsPasswordValidatedState(true)
     }else{
       setPasswordsColorState('error')
       setIsPasswordValidatedState(false)
     }
-  }, [password1State,password2State])
+  }, [password1State,password2State, emailState])
   
 
   return (

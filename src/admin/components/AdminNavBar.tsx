@@ -30,7 +30,7 @@ const AdminNavbar = (): JSX.Element => {
   
   return (
     <div className="AdminNavbar">
-      <Link className="logo" to="/">
+      <Link className="logo" to="/admin">
         <img src={bioLogo} alt="logo" />
       </Link>
       <Link to="/">
@@ -59,8 +59,8 @@ const AdminNavbar = (): JSX.Element => {
           </div>
         ) : (
           <div className="signupAndLogin">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Link to="/admin/login">Login</Link>
+            <Link to="/admin/signup">Signup</Link>
           </div>
         )}
         <div className="Navbar__shopping" onClick={() => goToTheBasket()}>

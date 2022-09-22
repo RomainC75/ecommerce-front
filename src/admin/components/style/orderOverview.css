@@ -1,22 +1,25 @@
 .OrderOverview {
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+}
+
+.OrderOverview .overview {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: 600px;
-  margin: 10px auto 0 auto;
   padding: 10px;
   border: 1px solid black;
   border-radius: 1rem;
 }
 
-.OrderOverview p {
+.OrderOverview .overview p {
   margin-bottom: 5px;
 }
 
-.OrderOverview .column {
+.OrderOverview .overview .column {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,7 +29,11 @@
           flex-direction: column;
 }
 
-.OrderOverview .column p:nth-child(1):not(.day) {
+.OrderOverview .overview .column p:nth-child(1):not(.day) {
   font-weight: 800;
+}
+
+.OrderOverview .details > ul {
+  padding-left: 5px;
 }
 /*# sourceMappingURL=orderOverview.css.map */

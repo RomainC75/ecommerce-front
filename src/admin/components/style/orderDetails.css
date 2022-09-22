@@ -1,0 +1,29 @@
+.OrderDetails {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.OrderDetails__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.OrderDetails__left img {
+  width: 40px;
+  height: 40px;
+}
+
+.OrderDetails__left__data p:nth-child(1) {
+  font-weight: 700;
+}
+
+.OrderDetails__left__data__subCat {
+  list-style: none;
+}
+/*# sourceMappingURL=orderDetails.css.map */

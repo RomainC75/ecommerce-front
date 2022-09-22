@@ -1,0 +1,20 @@
+.OrderDetails{
+    list-style-type: none;
+    display:flex;
+    justify-content: space-between;
+    &__left{
+        display: flex;
+        & img{
+            width:40px;
+            height:40px;
+        }
+        &__data{
+            p:nth-child(1){
+                font-weight: 700;
+            }
+            &__subCat{
+                list-style: none;
+            }
+        }
+    }
+}

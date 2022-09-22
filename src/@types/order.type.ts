@@ -1,4 +1,4 @@
-import {ProductToOrderInterface} from '../@types/product'
+import {PopulatedProductToOrderInterface} from '../@types/product'
 import { AddressInterface } from '../@types/user';
 
 export interface OrderInterface{
@@ -6,7 +6,7 @@ export interface OrderInterface{
     userId:string;
     payementStatus:"paid"|"shipped"|"received";
     totalCost: number;
-    products: [ProductToOrderInterface]
+    products: [PopulatedProductToOrderInterface]
     shipping: {
         address: AddressInterface
     }

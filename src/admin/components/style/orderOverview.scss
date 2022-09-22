@@ -1,21 +1,25 @@
 .OrderOverview{
-    display:flex;
-    justify-content: space-between;
     max-width:600px;
     margin:10px auto 0 auto;
-    padding:10px;
-    border:1px solid black;
-    border-radius: 1rem;
-
-    & p{
-        margin-bottom:5px;
-    }
-    & .column{
+    & .overview{
         display:flex;
-        flex-direction: column;
-        & p:nth-child(1):not(.day){
-            font-weight: 800;;
+        justify-content: space-between;
+        padding:10px;
+        border:1px solid black;
+        border-radius: 1rem;
+        & p{
+            margin-bottom:5px;
         }
-        
+        & .column{
+            display:flex;
+            flex-direction: column;
+            & p:nth-child(1):not(.day){
+                font-weight: 800;;
+            }        
+        }
+    }
+    & .details > ul{
+        padding-left:5px;
     }
 }
+

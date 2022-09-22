@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAA;EACN,SAAS,EAAC,KAAK;EACf,MAAM,EAAC,MAAM;CAChB",
+    "sources": [
+        "userSharedLayout.scss"
+    ],
+    "names": [],
+    "file": "userSharedLayout.css"
+}
