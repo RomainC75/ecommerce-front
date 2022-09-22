@@ -4,6 +4,7 @@ import { AuthContextInterface } from "../@types/authContext.type";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cart.context";
 import { cartContextInterface } from "../@types/cartContext.type";
+import { Chat } from "./Chat";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
@@ -65,6 +66,8 @@ const Navbar = (): JSX.Element => {
           )}
         </div>
       </div> 
+      {/* {isLoggedIn && user && '_id' in user && <Chat isAdmin={false} userId={user?._id}/>} */}
+      {isLoggedIn && user && '_id' in user && <Chat isAdmin={false} userId={'adminRoom'}/>}
     </div>
   );
 };

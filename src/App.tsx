@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import { CategoriesList } from './pages/CategoriesList.page';
 import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from './pages/Login.page';
@@ -19,9 +18,6 @@ import { AdminLoginPage } from './admin/pages/AdminLogin.page';
 import { AdminSignupPage } from './admin/pages/AdminSignup.page';
 import IsAdminPrivate from './admin/components/IsAdminPrivate';
 import { OrdersPage } from './admin/pages/Orders.page';
-import {io} from 'socket.io-client'
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
 
 function App():JSX.Element {
 
@@ -33,7 +29,7 @@ function App():JSX.Element {
           <Route path="login" element={<AdminLoginPage/>}/>
           <Route path="signup" element={<AdminSignupPage/>}/>
         </Route>
-  
+
         <Route path="/" element={<UserSharedLayout/>}>
           <Route path='/' element={<HomePage/>}/>
           <Route path="/category/:cat" element={<CategoriesList/>}/>

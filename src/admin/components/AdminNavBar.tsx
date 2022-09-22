@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 
 import "./style/adminNavbar.css";
 import bioLogo from "../../pictures/bioLogo.png";
+import { Chat } from "../../components/Chat";
 
 const AdminNavbar = (): JSX.Element => {
   const { authenticateAdmin, isAdminLoggedIn, admin, logOutAdmin } = useContext(
@@ -76,6 +77,7 @@ const AdminNavbar = (): JSX.Element => {
           )}
         </div>
       </div>
+      <Chat isAdmin={true} userId={admin && '_id' in admin ? admin?._id : ""}/>
     </div>
   );
 };
