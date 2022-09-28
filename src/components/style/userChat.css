@@ -1,13 +1,70 @@
-.UserChat {
+.ChatContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: fixed;
   right: 0;
-  width: 300px;
   top: 50%;
-  border: 1px solid black;
-  background: white;
   z-index: 10;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  margin: 0 !important;
+}
+
+.ChatContainer.closed {
+  -webkit-transform: translate(302px, -50%);
+          transform: translate(302px, -50%);
+}
+
+.ChatContainer.open {
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.ChatContainer .arrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #787928;
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  -webkit-box-shadow: -5px 5px 10px rgba(71, 70, 70, 0.5);
+          box-shadow: -5px 5px 10px rgba(71, 70, 70, 0.5);
+  cursor: pointer;
+}
+
+.ChatContainer .arrow__svg {
+  width: 40px;
+  height: 40px;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.ChatContainer .arrow__svg.open {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.UserChat {
+  width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: -5px 5px 10px rgba(87, 85, 85, 0.5);
+          box-shadow: -5px 5px 10px rgba(87, 85, 85, 0.5);
+  background: white;
   color: black;
-  border-radius: 2em;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
   padding-bottom: 20px;
 }
 
@@ -15,14 +72,14 @@
   background: #287960;
   color: white;
   margin: 0;
+  padding: 10px 0;
   text-align: center;
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
+  border-top-left-radius: 1.65em;
 }
 
 .UserChat ul.messages {
   height: 300px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 5px;
   list-style: none;
   color: black;
@@ -31,15 +88,21 @@
 .UserChat ul.messages li {
   border-radius: 0.5em;
   margin: 5px;
-  height: auto;
+  width: auto;
   display: block;
   padding: 5px;
   color: white;
 }
 
+.UserChat ul.messages li p {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 1em;
+}
+
 .UserChat ul.messages li .time {
   font-size: 0.9em;
-  color: #d4d4d4;
+  color: black;
 }
 
 .UserChat ul.messages li .messageContent {
@@ -48,11 +111,24 @@
 
 .UserChat ul.messages .user {
   text-align: right;
+}
+
+.UserChat ul.messages .user p:not(.time) {
   background: #353333;
 }
 
 .UserChat ul.messages .admin {
   background: color;
+}
+
+.UserChat ul.messages .admin p:not(.time) {
   background: #663b3b;
+}
+
+.UserChat .newMessage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
 }
 /*# sourceMappingURL=userChat.css.map */

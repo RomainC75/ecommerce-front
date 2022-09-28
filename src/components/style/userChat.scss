@@ -1,52 +1,97 @@
-.UserChat{
-
+.ChatContainer{
+    display:flex;
+    align-items: center;
     position:fixed;
     right:0;
-    width:300px;
     top:50%;
-    border:1px solid black;
-    background:white;
     z-index:10;
+    transition: all 1s ;
+    margin: 0 !important;
+    &.closed{
+        transform: translate(302px,-50%);
+    }
+    &.open{
+        transform: translate(0,-50%);
+    }
+    & .arrow{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        background:#787928;
+        border-top-left-radius: 0.5em;
+        border-bottom-left-radius: 0.5em;
+        box-shadow: -5px 5px 10px rgba(71, 70, 70, 0.5);
+        cursor: pointer;
+        &__svg{
+            width:40px;
+            height:40px;
+            transform: rotate(180deg);
+            transition: all 1s;
+            &.open{
+                transform: rotate(0deg);
+            }
+        }
+    }
+}
+.UserChat{
+    width:300px;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: -5px 5px 10px rgba(87, 85, 85, 0.5);
+    background:white;
     color:black;
-    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
     padding-bottom:20px;
     & h3{
         background:#287960;
         color:white;
         margin:0;
+        padding:10px 0;
         text-align: center;
-        border-top-left-radius: 2em;
-        border-top-right-radius: 2em;
+        border-top-left-radius: 1.65em;
+        
     }
     & ul.messages {
         height:300px;
-        overflow: scroll;
+        overflow-y: scroll;
         padding:5px;
         list-style: none;
         color:black;
         & li{
             border-radius:0.5em;
             margin:5px;
-            height:auto;
+            width:auto;
             display:block;
             padding:5px;
             color:white;
+            & p{
+                display:inline-block;
+                padding:10px;
+                border-radius:1em;
+            }
             & .time{
                 font-size:0.9em;
-                color:rgb(212, 212, 212);
+                color:black;
             }
             & .messageContent{
                 font-weight:600;
             }
         }
         & .user{
+            & p:not(.time){
+                background:#353333;
+            }
             text-align: right;
-            
-            background:#353333;
         }
         & .admin{
             background:color;
-            background:#663b3b;
+            & p:not(.time){
+                background:#663b3b;
+            }
         }
+    }
+    & .newMessage{
+        display:flex;
+        padding:5px;
     }
 }
