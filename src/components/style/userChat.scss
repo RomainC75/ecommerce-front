@@ -1,0 +1,52 @@
+.UserChat{
+
+    position:fixed;
+    right:0;
+    width:300px;
+    top:50%;
+    border:1px solid black;
+    background:white;
+    z-index:10;
+    color:black;
+    border-radius: 2em;
+    padding-bottom:20px;
+    & h3{
+        background:#287960;
+        color:white;
+        margin:0;
+        text-align: center;
+        border-top-left-radius: 2em;
+        border-top-right-radius: 2em;
+    }
+    & ul.messages {
+        height:300px;
+        overflow: scroll;
+        padding:5px;
+        list-style: none;
+        color:black;
+        & li{
+            border-radius:0.5em;
+            margin:5px;
+            height:auto;
+            display:block;
+            padding:5px;
+            color:white;
+            & .time{
+                font-size:0.9em;
+                color:rgb(212, 212, 212);
+            }
+            & .messageContent{
+                font-weight:600;
+            }
+        }
+        & .user{
+            text-align: right;
+            
+            background:#353333;
+        }
+        & .admin{
+            background:color;
+            background:#663b3b;
+        }
+    }
+}

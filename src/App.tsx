@@ -18,6 +18,7 @@ import { AdminLoginPage } from './admin/pages/AdminLogin.page';
 import { AdminSignupPage } from './admin/pages/AdminSignup.page';
 import IsAdminPrivate from './admin/components/IsAdminPrivate';
 import { OrdersPage } from './admin/pages/Orders.page';
+import { AdminChatPage } from './admin/pages/AdminChat.page';
 
 function App():JSX.Element {
 
@@ -28,6 +29,7 @@ function App():JSX.Element {
           <Route path="orders" element={<IsAdminPrivate><OrdersPage/></IsAdminPrivate>}/>
           <Route path="login" element={<AdminLoginPage/>}/>
           <Route path="signup" element={<AdminSignupPage/>}/>
+          <Route path="chat" element={<IsAdminPrivate><AdminChatPage/></IsAdminPrivate>}/>
         </Route>
 
         <Route path="/" element={<UserSharedLayout/>}>
