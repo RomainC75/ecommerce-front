@@ -6,48 +6,33 @@ import { AdminAuthContext } from "../../context/adminAuth.context";
 import { AdminAuthContextInterface } from "../../@types/adminAuthContext.type";
 import { ChatDiscussion } from "../components/ChatDiscussion";
 import { MessageInterface, ChatRoomInterface } from "../../@types/chat.type";
+import { MdToday } from "react-icons/md";
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || "ws://localhost:5006";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5005";
-
 const socket = io(SOCKET_URL);
 
 const updateChatRooms = (
-  roomId: string,
-  chatRooms: ChatRoomInterface[],
-  token: string
-): Promise<ChatRoomInterface[]> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const newChatRaw = await axios.get(`${API_URL}/message/${roomId}`, {
-        headers: {
-          isAdmin: "true",
-          Authorization: `BEARER ${token}`,
-        },
-      });
-      const newChat: MessageInterface[] = newChatRaw.data;
-      console.log("newChat : ", newChat);
-
-      let chatBuff: ChatRoomInterface[] = chatRooms.filter(chatRoom=>chatRoom.room!==roomId);
-      chatBuff.unshift({room:roomId,chat:newChat})
-      resolve(chatBuff);
-    } catch (error) {
-      reject(error);
-    }
-  });
+  allChatRooms: ChatRoomInterface[],
+  newChatRoom: ChatRoomInterface,
+): ChatRoomInterface[] => {
+  console.log('===> inside : ',allChatRooms, newChatRoom)
+  const chatBuff: ChatRoomInterface[] = allChatRooms.filter(chatRoom=>chatRoom.room!==newChatRoom.room)
+      chatBuff.unshift(newChatRoom)
+      console.log('charBuff to export !', chatBuff)
+  return chatBuff
 };
 
 export const AdminChatPage = () => {
-  const { authenticateAdmin, isAdminLoggedIn, admin, logOutAdmin } = useContext(
+  const { admin } = useContext(
     AdminAuthContext
   ) as AdminAuthContextInterface;
 
   const [messageState, setMessageState] = useState<string>("");
-  const [messageReceived, setMessageReceived] = useState<string>("");
   const [adminId, setAdminId] = useState<string | null>(null);
   const [allChatRooms, setAllChatRooms] = useState<ChatRoomInterface[]>([]);
   const token = localStorage.getItem("adminAuthToken");
-  const [userRoom, setUserRoom] = useState<string | null>(null)
+  const [userRoom, setUserRoom] = useState<string | null>(null);
 
   const sendMessage = () => {
     socket.emit("admin_to_user", {
@@ -77,8 +62,15 @@ export const AdminChatPage = () => {
   }, []);
 
   useEffect(() => {
+    console.log('allChatRoom : CHANGE ! ', allChatRooms)
+  }, [allChatRooms])
+  
+
+  useEffect(() => {
+    //get the room of the new message
     socket.on("receive_message", (data) => {
       console.log("received message : ", data);
+      //get the messages of the room
       axios
         .get(`${API_URL}/message/${data.room}`, {
           headers: {
@@ -88,9 +80,14 @@ export const AdminChatPage = () => {
         })
         .then(async (ans) => {
           console.log("message received  ! room : ", ans.data);
-          setAllChatRooms(
-            await updateChatRooms(data.room, ans.data, token ? token : "")
-          );
+          console.log('old chatRooms : ',allChatRooms)
+          const newChatRoom:ChatRoomInterface={
+            room:data.room,
+            chat:ans.data
+          }
+          const newChatRooms:ChatRoomInterface[] = await updateChatRooms(allChatRooms, newChatRoom)
+          console.log('newChatRooms : ',newChatRooms)
+          setAllChatRooms(newChatRooms);
         });
     });
   }, [socket]);

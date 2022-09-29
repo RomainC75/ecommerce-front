@@ -33,11 +33,6 @@ const updateMessages = (
     .then((ans) => {
       console.log("message received  ! room : ", ans.data);
       setMessagesReceived(ans.data);
-      const box = document.querySelector("ul.messages");
-      if (box) {
-        box.scrollTop = box.scrollHeight;
-        console.log("BOX HEIGHT : ", box.scrollHeight);
-      }
     });
 };
 
@@ -63,6 +58,7 @@ export const UserChat = (props: ChatInterface) => {
       message: messageState,
       room,
     });
+
     setMessageState("");
   };
 
@@ -96,10 +92,18 @@ export const UserChat = (props: ChatInterface) => {
     });
   }, [socket]);
 
+  useEffect(()=>{
+    const box = document.querySelector("ul.messages");
+      if (box) {
+        box.scrollTop = box.scrollHeight;
+        console.log("BOX HEIGHT : ", box.scrollHeight);
+      }
+  },[messagesReceived])
+
   const toggleChatWindow = () => {
     setOpenChat(!openChat);
   };
-
+  
   return (
     <div className={`ChatContainer ${openChat ? "open" : "closed"}`}>
       <div className="arrow">

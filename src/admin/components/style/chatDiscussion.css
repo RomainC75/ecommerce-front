@@ -1,0 +1,10 @@
+.ChatDiscussion .inputSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.ChatDiscussion .inputSection .textField {
+  width: 90%;
+}
+/*# sourceMappingURL=chatDiscussion.css.map */
