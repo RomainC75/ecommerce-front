@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './style/footer.css'
 
 interface FooterInterface {
@@ -14,7 +15,7 @@ export const Footer = (props:FooterInterface) => {
   return (
     <div className="Footer" style={{backgroundColor:colorsObj[backgroundColor]}}>
       <h3>BioCoop'</h3>
-      <p>Made with ❤️ by Romain Chenard</p>
+      <p>Made with <Link to="/admin">❤️</Link> by Romain Chenard</p>
     </div>
   )
 }

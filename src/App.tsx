@@ -30,6 +30,7 @@ function App():JSX.Element {
           <Route path="login" element={<AdminLoginPage/>}/>
           <Route path="signup" element={<AdminSignupPage/>}/>
           <Route path="chat" element={<IsAdminPrivate><AdminChatPage/></IsAdminPrivate>}/>
+          <Route path='*' element={<NoMatch/>}/>
         </Route>
 
         <Route path="/" element={<UserSharedLayout/>}>
