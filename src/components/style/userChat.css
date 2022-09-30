@@ -80,6 +80,7 @@
 .UserChat ul.messages {
   height: 300px;
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: 5px;
   list-style: none;
   color: black;
@@ -107,6 +108,7 @@
 
 .UserChat ul.messages li .messageContent {
   font-weight: 600;
+  max-width: 200px;
 }
 
 .UserChat ul.messages .user {

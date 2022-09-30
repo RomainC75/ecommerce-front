@@ -183,7 +183,7 @@ export const Account = (): JSX.Element => {
       {!isLoading && userInfosState ? (
         <div className="User box">
           <h2>User Informations</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="center">
             <div className="User__line">
               <TextField
                 id="outlined-error"
@@ -307,15 +307,17 @@ export const Account = (): JSX.Element => {
       )}
       <br />
 
-      <div className="avatarSection box">
+      <div className="avatarSection box center">
         <h2>Avatar</h2>
-        <Button className="avatarSection__selectFileButton" variant="outlined" component="label">
-          Select file
-          <input type="file" hidden onChange={handleFile} />
-        </Button>
-        <Button variant="contained" color="primary" onClick={() => sendFile()}>
-          Send File
-        </Button>
+        <div >
+          <Button className="avatarSection__selectFileButton" variant="outlined" component="label">
+            Select file
+            <input type="file" hidden onChange={handleFile} />
+          </Button>
+          <Button variant="contained" color="primary" onClick={() => sendFile()}>
+            Send File
+          </Button>
+        </div>
         {fileNameState && (
           <div className="avatarSection__fileName">
             <p>Nom du fichier : </p>

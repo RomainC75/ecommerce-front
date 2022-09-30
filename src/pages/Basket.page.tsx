@@ -31,9 +31,11 @@ export const BasketPage = (): JSX.Element => {
 
   return (
     <div className="Basket">
-      <h2>This is you basket</h2>
-      <h3>Total : {getTotal()} €</h3>
-      <Button variant="contained" onClick={goToCheckout}>Checkout !</Button>
+      <div className="infos">
+        <h2>This is you basket</h2>
+        <h3>Total : {getTotal()} €</h3>
+        <Button variant="contained" onClick={goToCheckout}>Checkout !</Button>
+      </div>
       <ul className="basketUl">
         {cartState &&
           cartState.map((populatedProdToOrder) => {

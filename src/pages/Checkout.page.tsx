@@ -80,7 +80,7 @@ export const CheckoutPage = () => {
           <p className="total">
             Total : <span>{getTotal()}€</span>
           </p>
-          <div >
+          <div className="inputs">
             <h3>Credit card informations :</h3>
             <h4>Enter a valid cart number !!</h4>
             <p>ex : 5131 6282 1234 5671</p>
