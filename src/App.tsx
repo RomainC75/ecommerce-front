@@ -20,6 +20,8 @@ import IsAdminPrivate from './admin/components/IsAdminPrivate';
 import { OrdersPage } from './admin/pages/Orders.page';
 import { AdminChatPage } from './admin/pages/AdminChat.page';
 
+console.log('=========> REACT_APP_SOCKET_URL : ', process.env.REACT_APP_SOCKET_URL)
+
 function App():JSX.Element {
 
   return (
